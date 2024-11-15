@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Panel de Administración";
+}
+
+<br />
+<br />
+<h2 class="text-center mt-4 text-secondary font-weight-bold">@ViewBag.Title</h2>
+
+<div class="container mt-5">
+    <!-- Información General -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-8">
+            <div class="card shadow border-0 rounded-lg">
+                <div class="card-body text-center bg-light">
+                    <h5 class="text-dark font-weight-bold mb-3">Bienvenido, Usuario Administrador</h5>
+                    <p class="text-muted mb-1">Correo: <strong>admin@turismo.com</strong></p>
+                    <p class="text-muted">Tipo de usuario: <strong>Administrador</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Estadísticas -->
+    <div class="row justify-content-around">
+        <!-- Estadísticas de Ofertas -->
+        <div class="col-md-5 mb-4">
+            <div class="card shadow-sm border-0 h-100 rounded-lg d-flex flex-column">
+                <div class="card-body p-4 d-flex flex-column">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-wrapper bg-primary rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
+                            <i class="fas fa-suitcase-rolling text-white fa-lg"></i>
+                        </div>
+                        <h5 class="ml-3 text-primary font-weight-bold">Ofertas Turísticas</h5>
+                    </div>
+                    <p class="text-muted">Total de Ofertas: <strong>15</strong></p>
+                    <ul class="list-unstyled text-muted small flex-grow-1">
+                        <li>Hospedajes: 7</li>
+                        <li>Restaurantes: 4</li>
+                        <li>Eventos: 3</li>
+                        <li>Atractivos Turísticos: 8</li>
+                    </ul>
+                    <div class="mt-auto text-right">
+                        <button class="btn btn-primary btn-sm">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estadísticas de Destinos -->
+        <div class="col-md-5 mb-4">
+            <div class="card shadow-sm border-0 h-100 rounded-lg d-flex flex-column">
+                <div class="card-body p-4 d-flex flex-column">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="icon-wrapper bg-success rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px;">
+                            <i class="fas fa-map-marked-alt text-white fa-lg"></i>
+                        </div>
+                        <h5 class="ml-3 text-success font-weight-bold">Destinos Turísticos</h5>
+                    </div>
+                    <p class="text-muted">Total de Destinos: <strong>12</strong></p>
+                    <div class="mt-auto text-right">
+                        <button class="btn btn-success btn-sm">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones Rápidas -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-lg">
+                <div class="card-header bg-secondary text-white text-center font-weight-bold">
+                    Acciones Rápidas
+                </div>
+                <div class="card-body text-center">
+                    <button class="btn btn-outline-secondary btn-sm m-2"><i class="fas fa-plus-circle mr-2"></i>Nuevo Evento</button>
+                    <button class="btn btn-outline-secondary btn-sm m-2"><i class="fas fa-plus-circle mr-2"></i>Nuevo Destino</button>
+                    <button class="btn btn-outline-secondary btn-sm m-2"><i class="fas fa-chart-line mr-2"></i>Ver Reportes</button>
+                </div>
+                <div class="card-footer bg-light text-center">
+                    <small class="text-muted">Acceso rápido a las funciones principales</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CDNs -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<style>
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+    }
+
+    .bg-primary {
+        background-color: #007bff !important;
+    }
+
+    .bg-success {
+        background-color: #28a745 !important;
+    }
+
+    .bg-secondary {
+        background-color: #6c757d !important;
+    }
+</style>

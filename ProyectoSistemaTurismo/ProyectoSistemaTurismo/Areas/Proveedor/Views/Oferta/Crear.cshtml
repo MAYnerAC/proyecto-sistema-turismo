@@ -1,0 +1,24 @@
+﻿@model ProyectoSistemaTurismo.Models.Oferta
+
+<h2>Crear Nueva Oferta</h2>
+
+@using (Html.BeginForm("Crear", "Oferta", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="nombre">Nombre de la oferta</label>
+        @Html.TextBoxFor(m => m.nombre, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        @Html.TextAreaFor(m => m.descripcion, new { @class = "form-control" })
+    </div>
+
+    <!-- Campo para seleccionar el Tipo de Oferta -->
+    <div class="form-group">
+        <label for="id_tipo_oferta">Tipo de Oferta</label>
+        @Html.DropDownListFor(m => m.id_tipo_oferta, (SelectList)ViewBag.TipoOfertas, "Seleccione un tipo", new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear Oferta</button>
+}

@@ -1,0 +1,58 @@
+﻿@model ProyectoSistemaTurismo.Models.Destino
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Destino</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre_destino)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_destino)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_destino)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_destino)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pais)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pais)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_destino }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,19 @@
+﻿@model ProyectoSistemaTurismo.Models.Galeria
+
+<h2>Eliminar Imagen</h2>
+
+<p>¿Está seguro de que desea eliminar esta imagen?</p>
+
+<div class="card" style="width: 18rem;">
+    <img src="@Url.Content(Model.url_imagen)" class="card-img-top" alt="Imagen de la oferta">
+    <div class="card-body">
+        <p class="card-text">@Model.descripcion</p>
+    </div>
+</div>
+
+@using (Html.BeginForm("Eliminar", "Galeria", FormMethod.Post, new { area = "Proveedor" }))
+{
+    @Html.HiddenFor(model => model.id_imagen)
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    @Html.ActionLink("Cancelar", "Index", "Galeria", new { area = "Proveedor" }, new { @class = "btn btn-secondary" })
+}

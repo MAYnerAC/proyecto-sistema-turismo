@@ -1,0 +1,66 @@
+﻿@model ProyectoSistemaTurismo.Models.Galeria
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Galeria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Oferta.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Oferta.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.url_imagen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.url_imagen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_imagen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_imagen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_subida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_subida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_imagen }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

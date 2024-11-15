@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ProyectoSistemaTurismo.Models.Oferta>
+
+<h2>Mis Ofertas</h2>
+
+<div class="text-right mb-3">
+    @Html.ActionLink("Crear Nueva Oferta", "Crear", "Oferta", new { area = "Proveedor" }, new { @class = "btn btn-primary" })
+</div>
+
+@if (!Model.Any())
+{
+    <p>No tienes ofertas creadas. ¡Empieza creando una nueva oferta!</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Email Contacto</th>
+                <th>Sitio Web</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var oferta in Model)
+            {
+                <tr>
+                    <td>@oferta.nombre</td>
+                    <td>@oferta.descripcion</td>
+                    <td>@oferta.direccion</td>
+                    <td>@oferta.telefono</td>
+                    <td>@oferta.email_contacto</td>
+                    <td>@oferta.sitio_web</td>
+                    <td>
+                        @Html.ActionLink("Editar", "Editar", new { id = oferta.id_oferta, area = "Proveedor" }, new { @class = "btn btn-warning btn-sm" })
+                        @Html.ActionLink("Eliminar", "Eliminar", new { id = oferta.id_oferta, area = "Proveedor" }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('¿Está seguro de que desea eliminar esta oferta?');" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,297 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sistema de Gestión de Turismo</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f7f6;
+        }
+
+        /* Barra lateral */
+        #sidebar {
+            min-height: 100vh;
+            background-color: #00695c; /* Verde turismo */
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px;
+            z-index: 1040;
+            padding-top: 20px;
+        }
+
+            #sidebar .nav-link {
+                color: #e3f2fd;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+                #sidebar .nav-link.active,
+                #sidebar .nav-link:hover {
+                    background-color: #004d40;
+                    color: white;
+                }
+
+        /* Contenido principal */
+        #content {
+            margin-left: 300px;
+            padding: 20px;
+        }
+
+        /* Barra de navegación superior */
+        .navbar-custom {
+            background-color: #008C7B;
+            color: #ffffff;
+            position: fixed;
+            top: 0;
+            left: 300px;
+            width: calc(100% - 300px);
+            z-index: 1020;
+            padding: 0.75rem 1.5rem;
+        }
+
+            .navbar-custom .navbar-brand {
+                color: #ffffff;
+                font-weight: bold;
+            }
+
+            .navbar-custom .navbar-text {
+                color: #e3f2fd;
+            }
+
+        /* Estilos del botón de cerrar sesión */
+        .btn-logout {
+            color: #fff;
+            background-color: #004d40;
+            border: none;
+        }
+
+            .btn-logout:hover {
+                background-color: #00332e;
+            }
+
+        /* Título de la página */
+        .page-title {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #008C7B;
+        }
+
+        /* Estilo del enlace para volver al inicio */
+        .back-to-home {
+            color: #008C7B;
+            text-decoration: underline;
+        }
+
+            .back-to-home:hover {
+                color: #004d40;
+            }
+    </style>
+</head>
+
+<body>
+    <!-- Barra de navegación superior -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <a class="navbar-brand" href="#">Gestión de Turismo</a>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <!-- Información de la oferta seleccionada en estilo turístico -->
+            @if (Session["OfertaId"] != null)
+            {
+                <div class="navbar-text text-white px-3 py-2 rounded d-flex align-items-center"
+                     style="background-color: rgba(0, 140, 123, 0.2); border: 1px solid #008C7B; border-radius: 5px;">
+                    <!-- Nombre de la Oferta -->
+                    <span class="badge badge-light mr-2">Oferta:</span>
+                    <span class="mr-3 font-weight-bold">@Session["OfertaNombre"]</span>
+                    <!-- Ubicación (país o ciudad) -->
+                    <span class="badge badge-light mr-2">Tipo:</span>
+                    <span class="mr-3">@Session["OfertaTipo"]</span>
+                    <!-- Estado de la oferta (verificada o no) -->
+                    <span class="badge badge-light mr-2">Destino:</span>
+                    <span class="mr-3">@Session["OfertaDestino"]</span>
+                    <!-- Sitio Web de la Oferta -->
+                    <span class="badge badge-light mr-2">Sitio Web:</span>
+                    <a href="@Session["OfertaSitioWeb"]" class="text-light font-weight-bold" target="_blank">@Session["OfertaSitioWeb"]</a>
+                </div>
+            }
+        </div>
+
+        <div class="navbar-nav ml-auto">
+            <span class="navbar-text mr-3">
+                Bienvenido, @Session["nombre_usuario"]
+            </span>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @Session["correo_usuario"]
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="@Url.Action("EditarPerfil", "Usuario", new { area = "Proveedor" })">Editar Perfil</a>
+                    @Html.ActionLink("Cerrar Sesión", "LogOut", "Login", new { area = "" }, new { @class = "dropdown-item" })
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Barra lateral -->
+    <div id="sidebar">
+        <div class="text-center mb-4">
+            <h5 class="text-white">Panel de Proveedores</h5>
+            <hr class="bg-light">
+
+        </div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index", "Panel", new { area = "Proveedor" })">Dashboard</a>
+            </li>
+
+            <!-- Gestión de Ofertas -->
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#gestionOfertas" role="button" aria-expanded="false" aria-controls="gestionOfertas">
+                    Gestión de Ofertas
+                </a>
+                <div class="collapse" id="gestionOfertas">
+                    <ul class="nav flex-column pl-3">
+                        <li class="nav-item">
+                            @Html.ActionLink("Crear Oferta", "Crear", "Oferta", new { area = "Proveedor" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Mis Ofertas", "MisOfertas", "Oferta", new { area = "Proveedor" }, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            @*
+                <!-- Perfil de Usuario -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#perfil" role="button" aria-expanded="false" aria-controls="perfil">
+                        Perfil de Usuario
+                    </a>
+                    <div class="collapse" id="perfil">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Editar Perfil", "EditarPerfil", "Usuario", new { area = "Proveedor" }, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+            *@
+
+
+
+            <!-- Gestión de Galería -->
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#gestionGaleria" role="button" aria-expanded="false" aria-controls="gestionGaleria">
+                    Galería de Imágenes
+                </a>
+                <div class="collapse" id="gestionGaleria">
+                    <ul class="nav flex-column pl-3">
+                        <li class="nav-item">
+                            @Html.ActionLink("Administrar Galería", "Index", "Galeria", new { area = "Proveedor" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Agregar Imágenes", "AgregarImagen", "Galeria", new { area = "Proveedor" }, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
+            <!-- Sistema de Comentarios y Reseñas -->
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#sistemaComentarios" role="button" aria-expanded="false" aria-controls="sistemaComentarios">
+                    Comentarios y Reseñas
+                </a>
+                <div class="collapse" id="sistemaComentarios">
+                    <ul class="nav flex-column pl-3">
+                        <li class="nav-item">
+                            @Html.ActionLink("Ver Comentarios", "ComentariosRecibidos", "Comentarios", new { area = "Proveedor" }, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("Gestionar Reseñas", "ResponderComentario", "Comentarios", new { area = "Proveedor" }, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Estadísticas de Visitas -->
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#estadisticas" role="button" aria-expanded="false" aria-controls="estadisticas">
+                    Estadísticas de Visitas
+                </a>
+                <div class="collapse" id="estadisticas">
+                    <ul class="nav flex-column pl-3">
+                        <li class="nav-item">
+                            @Html.ActionLink("Visitas a Ofertas", "Visitas", "Estadisticas", new { area = "Proveedor" }, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Reportes y Reclamos -->
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#reportes" role="button" aria-expanded="false" aria-controls="reportes">
+                    Reportes y Reclamos
+                </a>
+                <div class="collapse" id="reportes">
+                    <ul class="nav flex-column pl-3">
+                        <li class="nav-item">
+                            @Html.ActionLink("Reportes de Ofertas", "ReportesOfertas", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
+
+
+
+            <!-- Seleccionar Oferta -->
+            <li class="nav-item">
+                <br />
+                @*<a class="nav-link" data-toggle="collapse" href="#seleccionarOferta" role="button" aria-expanded="false" aria-controls="seleccionarOferta">
+                        Seleccionar Oferta
+                    </a>*@
+                <div class="" id="seleccionarOferta">
+                    <ul class="nav flex-column pl-3">
+                        @Html.Action("ListaOfertasUsuario", "Oferta", new { area = "Proveedor" })
+                    </ul>
+                </div>
+            </li>
+
+
+
+
+
+        </ul>
+    </div>
+
+
+    <!-- Contenido Principal -->
+    <div id="content">
+        <div class="container">
+            <div class="page-title">
+                <h1>@ViewBag.PageTitle</h1>
+            </div>
+            @RenderBody()
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

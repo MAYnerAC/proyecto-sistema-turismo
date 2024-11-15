@@ -1,0 +1,58 @@
+﻿@model ProyectoSistemaTurismo.Models.Suscripcion_Negocio
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Suscripcion_Negocio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Oferta.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Oferta.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_plan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_plan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_inicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_inicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_expiracion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_expiracion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_suscripcion }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

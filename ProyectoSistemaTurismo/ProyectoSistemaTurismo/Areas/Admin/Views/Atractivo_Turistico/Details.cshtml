@@ -1,0 +1,66 @@
+﻿@model ProyectoSistemaTurismo.Models.Atractivo_Turistico
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Atractivo_Turistico</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Oferta.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Oferta.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_vegetacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_vegetacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ubicacion_referencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ubicacion_referencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horario_apertura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horario_apertura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horario_cierre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horario_cierre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.capacidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capacidad)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_atractivo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ProyectoSistemaTurismo.Models.Galeria>
+
+<h2>Galería de Imágenes</h2>
+
+<div class="text-right mb-3">
+    @Html.ActionLink("Agregar Nueva Imagen", "AgregarImagen", "Galeria", new { area = "Proveedor" }, new { @class = "btn btn-primary" })
+</div>
+
+@if (!Model.Any())
+{
+    <p>No hay imágenes en la galería de esta oferta.</p>
+}
+else
+{
+    <div class="row">
+        @foreach (var imagen in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="@Url.Content(imagen.url_imagen)" class="card-img-top" alt="Imagen de la oferta" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <p class="card-text">@imagen.descripcion</p>
+                        <p class="card-text"><small class="text-muted">Tipo: @imagen.tipo_imagen</small></p>
+                        @Html.ActionLink("Eliminar", "Eliminar", new { id = imagen.id_imagen, area = "Proveedor" }, new { @class = "btn btn-danger btn-sm" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

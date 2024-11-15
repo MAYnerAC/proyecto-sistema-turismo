@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Turismo</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <!-- Navbar Principal -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("TurismoApp", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Destinos", "Destinos", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Experiencias", "Experiencias", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Contacto", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+                <!-- Enlace de Login en la esquina superior derecha -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">@Html.ActionLink("Inicio de sesion", "Index", "Login", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección de Bienvenida -->
+    <header class="container-fluid bg-light text-center p-5">
+        <h1>Bienvenidos a TurismoApp</h1>
+        <p>Explora los destinos más fascinantes y vive experiencias inolvidables.</p>
+    </header>
+
+    <!-- Contenido Dinámico -->
+    <div class="container my-5">
+        @RenderBody()
+    </div>
+
+    <!-- Sección de Imágenes Representativas -->
+    <section class="container my-5">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="#" alt="Montaña" class="card-img-top" style="height: 200px; background-color: #ddd;">
+                    <div class="card-body">
+                        <h5 class="card-title">Montañas</h5>
+                        <p class="card-text">Descubre hermosas vistas y paisajes montañosos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="#" alt="Playa" class="card-img-top" style="height: 200px; background-color: #ddd;">
+                    <div class="card-body">
+                        <h5 class="card-title">Playas</h5>
+                        <p class="card-text">Relájate en las playas paradisíacas de nuestra costa.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="#" alt="Ciudad" class="card-img-top" style="height: 200px; background-color: #ddd;">
+                    <div class="card-body">
+                        <h5 class="card-title">Ciudades</h5>
+                        <p class="card-text">Explora el encanto de nuestras ciudades más emblemáticas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de Página -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; @DateTime.Now.Year - TurismoApp | Todos los derechos reservados</p>
+    </footer>
+
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sistema de Gestión de Destinos</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        #sidebar {
+            min-height: 100vh;
+            background-color: #343a40;
+            color: white;
+            width: 250px;
+            position: fixed;
+        }
+
+            #sidebar .nav-link {
+                color: #c5cae9;
+            }
+
+                #sidebar .nav-link.active, #sidebar .nav-link:hover {
+                    background-color: #495057;
+                    color: white;
+                }
+
+        #content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .navbar-custom {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación superior -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
+                            @Session["correo_usuario"]
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Ver Perfil</a>
+                            @Html.ActionLink("Cerrar Sesión", "LogOut", "Login", new { area = "" }, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Barra lateral -->
+    <div id="sidebar">
+        <div class="sidebar-sticky pt-3">
+            <h5 class="text-center text-white">Gestión de Destinos</h5>
+            <hr />
+            <ul class="nav flex-column">
+
+
+
+
+                <!-- Sección: Dashboard -->
+                <li class="nav-item">
+                    @Html.ActionLink("Dashboard", "Index", "Panel", new { area = "Admin" }, new { @class = "nav-link" })
+                </li>
+
+
+                <!-- Gestión de Usuarios -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#gestionUsuarios" role="button">Gestión de Usuarios</a>
+                    <div class="collapse" id="gestionUsuarios">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">@Html.ActionLink("Usuario", "Index", "Usuario", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Tipo Usuario", "Index", "Tipo_Usuario", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Preferencias Usuario", "Index", "Preferencias_Usuario", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Log Visitas", "Index", "Log_Visitas", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Gestión de Ofertas y Servicios -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#gestionOfertas" role="button">Gestión de Ofertas y Servicios</a>
+                    <div class="collapse" id="gestionOfertas">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">@Html.ActionLink("Oferta", "Index", "Oferta", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Tipo Oferta", "Index", "Tipo_Oferta", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Hospedaje", "Index", "Hospedaje", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Restaurante", "Index", "Restaurante", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Evento", "Index", "Evento", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Atractivo Turístico", "Index", "Atractivo_Turistico", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Institución", "Index", "Institucion", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Suscripción Negocio", "Index", "Suscripcion_Negocio", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Categorías y Etiquetas -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#categoriasEtiquetas" role="button">Categorías y Etiquetas</a>
+                    <div class="collapse" id="categoriasEtiquetas">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">@Html.ActionLink("Etiqueta", "Index", "Etiqueta", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Etiqueta Oferta", "Index", "Etiqueta_Oferta", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Comentarios y Valoraciones -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#comentariosValoraciones" role="button">Comentarios y Valoraciones</a>
+                    <div class="collapse" id="comentariosValoraciones">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">@Html.ActionLink("Comentario", "Index", "Comentario", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Foto Comentario", "Index", "Foto_Comentario", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Gestión de Destinos -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">@Html.ActionLink("Destino", "Index", "Destino", new { area = "Admin" }, new { @class = "nav-link" })</a>
+                </li>
+
+                <!-- Administración de Reportes -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#administracionReportes" role="button">Administración de Reportes</a>
+                    <div class="collapse" id="administracionReportes">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">@Html.ActionLink("Reporte", "Index", "Reporte", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Tipo Reporte", "Index", "Tipo_Reporte", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Estado Reporte", "Index", "Estado_Reporte", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Publicidad y Promociones -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">@Html.ActionLink("Publicidad", "Index", "Publicidad", new { area = "Admin" }, new { @class = "nav-link" })</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div id="content">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+
+
+
+<script>
+
+    $("#DatatableP").DataTable({
+        aLengthMenu: [
+            [5, 10, 25, 50, 100, 200, -1],
+            [5, 10, 25, 50, 100, 200, "Todos"],
+        ],
+        bDestroy: true,
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningun dato disponible en esta tabla",
+            sInfo:
+                "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sInfoPostFix: "",
+            sSearch: "Buscar:",
+            sUrl: "",
+            sInfoThousands: ",",
+            sLoadingRecords: "Cargando...",
+            oPaginate: {
+                sFirst: "Primero",
+                sLast: "Ultimo",
+                sNext: "Siguiente",
+                sPrevious: "Anterior",
+            },
+            oAria: {
+                sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sSortDescending:
+                    ": Activar para ordenar la columna de manera descendente",
+            },
+        },
+    });
+
+</script>

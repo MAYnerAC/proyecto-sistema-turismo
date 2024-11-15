@@ -1,0 +1,135 @@
+﻿@model IEnumerable<ProyectoSistemaTurismo.Models.Oferta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Destino.nombre_destino)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo_Oferta.nombre_tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ubicacion_lat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ubicacion_lon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.telefono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email_contacto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sitio_web)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vinculo_con_oferta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_creacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.verificado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.visible)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_baja)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.motivo_baja)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Destino.nombre_destino)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tipo_Oferta.nombre_tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.direccion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ubicacion_lat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ubicacion_lon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telefono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email_contacto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sitio_web)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vinculo_con_oferta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_creacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.verificado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.visible)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_baja)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.motivo_baja)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id_oferta }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id_oferta }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id_oferta })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ProyectoSistemaTurismo.Models.Oferta>
+
+<style>
+    /* Contenedor principal para el selector de ofertas */
+    .offer-selector-container {
+        background-color: #008C7B; /* Verde turístico */
+        padding: 1rem;
+        border-radius: 0.5rem;
+        color: #e9ecef; /* Texto claro */
+        margin-bottom: 1rem;
+    }
+
+        /* Estilos específicos para el selector de ofertas */
+        .offer-selector-container .custom-select {
+            background-color: #004d40; /* Fondo oscuro */
+            color: #e9ecef; /* Texto claro */
+            border: none;
+        }
+
+            .offer-selector-container .custom-select:focus {
+                border-color: #17a2b8; /* Borde de enfoque azul claro */
+                box-shadow: none;
+            }
+
+        .offer-selector-container .btn-select-offer {
+            background-color: #17a2b8; /* Azul claro para el botón */
+            border: none;
+            color: #ffffff; /* Texto blanco */
+        }
+
+            .offer-selector-container .btn-select-offer:hover {
+                background-color: #138496; /* Hover en azul más oscuro */
+            }
+
+        /* Ajustes específicos del contenedor de texto */
+        .offer-selector-container .navbar-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #e9ecef; /* Texto claro */
+        }
+
+        .offer-selector-container .badge-light {
+            background-color: #495057; /* Fondo oscuro */
+            color: #e9ecef;
+            padding: 0.3em 0.5em;
+            border-radius: 0.2rem;
+        }
+
+        /* Estilo de enlace para navegación */
+        .offer-selector-container .navbar-text a {
+            color: #17a2b8;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+</style>
+
+<div class="offer-selector-container">
+    <form method="post" action="@Url.Action("Seleccionar", "Oferta", new { area = "Proveedor" })">
+        <div class="input-group mb-3">
+            <select class="custom-select" id="ofertaSelect" name="idOferta" required>
+                <option value="" disabled selected>Seleccione una Oferta</option>
+                @foreach (var oferta in Model)
+                {
+                    <option value="@oferta.id_oferta">@oferta.nombre</option>
+                }
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-select-offer" type="submit">Seleccionar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const offerInfo = document.querySelector(".offer-selector-container .navbar-text");
+
+        if (offerInfo) {
+            offerInfo.addEventListener("mouseenter", function () {
+                offerInfo.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+            });
+
+            offerInfo.addEventListener("mouseleave", function () {
+                offerInfo.style.backgroundColor = "";
+            });
+        }
+    });
+</script>

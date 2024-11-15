@@ -1,0 +1,66 @@
+﻿@model ProyectoSistemaTurismo.Models.Evento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Evento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Oferta.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Oferta.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_evento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_evento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.epoca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.epoca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.capacidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capacidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.precio_entrada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.precio_entrada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_evento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_evento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_evento }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

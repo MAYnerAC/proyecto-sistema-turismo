@@ -1,0 +1,62 @@
+﻿@model ProyectoSistemaTurismo.Models.Oferta
+
+<h2>Editar Oferta</h2>
+
+@using (Html.BeginForm("Editar", "Oferta", FormMethod.Post, new { area = "Proveedor" }))
+{
+    @Html.HiddenFor(m => m.id_oferta)
+    <div class="form-group">
+        <label for="nombre">Nombre de la Oferta</label>
+        @Html.TextBoxFor(m => m.nombre, new { @class = "form-control", placeholder = "Ingrese el nombre de la oferta" })
+    </div>
+
+    <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        @Html.TextAreaFor(m => m.descripcion, new { @class = "form-control", placeholder = "Descripción detallada de la oferta" })
+    </div>
+
+    <div class="form-group">
+        <label for="direccion">Dirección</label>
+        @Html.TextBoxFor(m => m.direccion, new { @class = "form-control", placeholder = "Ingrese la dirección" })
+    </div>
+
+    <div class="form-group">
+        <label for="ubicacion_lat">Latitud</label>
+        @Html.TextBoxFor(m => m.ubicacion_lat, new { @class = "form-control", placeholder = "Latitud de la ubicación" })
+    </div>
+
+    <div class="form-group">
+        <label for="ubicacion_lon">Longitud</label>
+        @Html.TextBoxFor(m => m.ubicacion_lon, new { @class = "form-control", placeholder = "Longitud de la ubicación" })
+    </div>
+
+    <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        @Html.TextBoxFor(m => m.telefono, new { @class = "form-control", placeholder = "Teléfono de contacto" })
+    </div>
+
+    <div class="form-group">
+        <label for="email_contacto">Email de Contacto</label>
+        @Html.TextBoxFor(m => m.email_contacto, new { @class = "form-control", placeholder = "Email de contacto" })
+    </div>
+
+    <div class="form-group">
+        <label for="sitio_web">Sitio Web</label>
+        @Html.TextBoxFor(m => m.sitio_web, new { @class = "form-control", placeholder = "URL del sitio web" })
+    </div>
+
+    <div class="form-group">
+        <label for="vinculo_con_oferta">Vínculo con Oferta</label>
+        @Html.TextBoxFor(m => m.vinculo_con_oferta, new { @class = "form-control", placeholder = "Vínculo o relación con la oferta" })
+    </div>
+
+    @*<div class="form-group">
+            <label for="motivo_baja">Motivo de Baja (opcional)</label>
+            @Html.TextAreaFor(m => m.motivo_baja, new { @class = "form-control", placeholder = "Motivo para dar de baja esta oferta" })
+        </div>*@
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        @Html.ActionLink("Cancelar", "MisOfertas", "Oferta", new { area = "Proveedor" }, new { @class = "btn btn-secondary" })
+    </div>
+}

@@ -1,0 +1,74 @@
+﻿@model ProyectoSistemaTurismo.Models.Institucion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Institucion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Oferta.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Oferta.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo_institucion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo_institucion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.servicios_disponibles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.servicios_disponibles)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horario_apertura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horario_apertura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horario_cierre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horario_cierre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contacto_telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contacto_telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contacto_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contacto_email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_institucion }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

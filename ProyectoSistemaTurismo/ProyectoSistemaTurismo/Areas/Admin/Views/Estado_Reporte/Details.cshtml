@@ -1,0 +1,26 @@
+﻿@model ProyectoSistemaTurismo.Models.Estado_Reporte
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Estado_Reporte</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre_estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre_estado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_estado_reporte }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

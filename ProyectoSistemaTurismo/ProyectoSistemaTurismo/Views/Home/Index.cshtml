@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+
+<main>
+    <!-- Sección Principal -->
+    <section class="text-center my-5" aria-labelledby="tituloTurismo">
+        <h1 id="tituloTurismo">Bienvenidos a TurismoApp</h1>
+        <p class="lead">Descubre los destinos más fascinantes y experiencias inolvidables en todo el país.</p>
+        <p><a href="#" class="btn btn-primary btn-md">Explorar Destinos &raquo;</a></p>
+    </section>
+
+    <!-- Sección de Información -->
+    <div class="row text-center">
+        <section class="col-md-4" aria-labelledby="destinosTitle">
+            <h2 id="destinosTitle">Destinos Populares</h2>
+            <p>Explora nuestras recomendaciones de los mejores destinos turísticos para tus próximas vacaciones.</p>
+            <p><a class="btn btn-outline-dark" href="#">Ver Destinos &raquo;</a></p>
+        </section>
+        <section class="col-md-4" aria-labelledby="experienciasTitle">
+            <h2 id="experienciasTitle">Experiencias Únicas</h2>
+            <p>Disfruta de actividades y experiencias diseñadas para hacer de tu viaje algo inolvidable.</p>
+            <p><a class="btn btn-outline-dark" href="#">Explorar Experiencias &raquo;</a></p>
+        </section>
+        <section class="col-md-4" aria-labelledby="contactoTitle">
+            <h2 id="contactoTitle">Contáctanos</h2>
+            <p>¿Tienes alguna duda o quieres recibir más información? ¡Escríbenos!</p>
+            <p><a class="btn btn-outline-dark" href="#">Contáctanos &raquo;</a></p>
+        </section>
+    </div>
+
+    <!-- Sección Administrativa -->
+    <div class="row text-center mt-5">
+        <section class="col-md-12" aria-labelledby="adminTitle">
+            <h2 id="adminTitle">Acceso Administrativo</h2>
+            <p>Si eres administrador, puedes gestionar usuarios y servicios turísticos.</p>
+            <p>
+                @Html.ActionLink("Ir a Usuarios", "Index", "Usuario", new { area = "Admin" }, new { @class = "btn btn-outline-primary" }) |
+                @Html.ActionLink("Ir a Servicios", "Index", "ServicioTuristico", new { area = "Admin" }, new { @class = "btn btn-outline-primary" })
+            </p>
+        </section>
+    </div>
+
+    <section class="text-center">
+        <h2>Integrantes del Equipo</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <ul class="list-group mt-3">
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Justin Zinedine Zevallos Purca</strong>
+                        <span class="badge badge-primary badge-pill">2020066924</span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>Mayner Gonzalo Anahua Coaquira</strong>
+                        <span class="badge badge-primary badge-pill">2020067145</span>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</main>

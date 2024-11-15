@@ -1,0 +1,118 @@
+﻿@model ProyectoSistemaTurismo.Models.Usuario
+
+@{
+    ViewBag.Title = "Registro de Usuario";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .login-container {
+            height: 100vh;
+        }
+
+        .login-card {
+            max-width: 500px;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .btn-primary {
+            background-color: #343a40;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-color: #495057;
+            }
+
+        .text-danger {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <main class="d-flex w-100">
+        <div class="container login-container d-flex align-items-center justify-content-center">
+            <div class="card login-card">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h2 class="h4">Regístrate para comenzar</h2>
+                        <p class="text-muted">Crea tu cuenta para acceder a nuestros servicios.</p>
+                    </div>
+                    <div class="text-center mb-4">
+                        <img src="~/Content/img/login-image.png" alt="Imagen de registro" class="img-fluid rounded-circle" style="max-width: 120px;">
+                    </div>
+                    @using (Html.BeginForm("Registro", "Login", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken() <!-- Para proteger contra ataques CSRF -->
+
+                        <div class="form-group">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            @Html.TextBoxFor(m => m.nombre, new { @class = "form-control form-control-lg", placeholder = "Ingresa tu nombre" })
+                            @Html.ValidationMessageFor(m => m.nombre, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            @Html.TextBoxFor(m => m.apellido, new { @class = "form-control form-control-lg", placeholder = "Ingresa tu apellido" })
+                            @Html.ValidationMessageFor(m => m.apellido, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            @Html.TextBoxFor(m => m.email, new { @class = "form-control form-control-lg", placeholder = "Ingresa tu correo electrónico" })
+                            @Html.ValidationMessageFor(m => m.email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="contrasena" class="form-label">Contraseña</label>
+                            @Html.PasswordFor(m => m.contrasena, new { @class = "form-control form-control-lg", placeholder = "Ingresa tu contraseña" })
+                            @Html.ValidationMessageFor(m => m.contrasena, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            @Html.TextBoxFor(m => m.telefono, new { @class = "form-control form-control-lg", placeholder = "Ingresa tu número de teléfono" })
+                            @Html.ValidationMessageFor(m => m.telefono, "", new { @class = "text-danger" })
+                        </div>
+
+                        <!-- Mostrar mensaje de error si existe -->
+                        <div class="form-group text-danger">
+                            @TempData["mensaje"]
+                        </div>
+
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Registrarse</button>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <p>¿Ya tienes cuenta? @Html.ActionLink("Iniciar sesión", "Index", "Login")</p>
+                        </div>
+                    }
+
+                    <br />
+                    <div class="text-left" style="position: absolute; bottom: 20px; left: 20px;">
+                        <a href="@Url.Action("Index", "Home")" class="text-secondary">Volver al Inicio</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
