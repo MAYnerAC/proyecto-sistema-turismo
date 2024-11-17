@@ -37,6 +37,7 @@
                     @Html.ActionLink("Detalle", "Detalles", new { id = item.id_oferta }, new { @class = "btn btn-sm btn-info" })
                     @using (Html.BeginForm("Eliminar", "Oferta", FormMethod.Post, new { @onsubmit = "return confirm('¿Está seguro de eliminar esta oferta?');" }))
                     {
+                        @Html.AntiForgeryToken()
                         @Html.Hidden("id", item.id_oferta)
                         <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                     }

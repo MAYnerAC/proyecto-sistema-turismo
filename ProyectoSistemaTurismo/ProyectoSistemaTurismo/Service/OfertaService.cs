@@ -12,13 +12,20 @@ namespace ProyectoSistemaTurismo.Service
     {
         public List<Oferta> ObtenerTodos()
         {
-            using (var db = new ModeloSistema())
+            try
             {
-                return db.Oferta
-                         .Include(o => o.Destino)
-                         .Include(o => o.Usuario)
-                         .Include(o => o.Tipo_Oferta)
-                         .ToList();
+                using (var db = new ModeloSistema())
+                {
+                    return db.Oferta
+                             .Include(o => o.Destino)
+                             .Include(o => o.Usuario)
+                             .Include(o => o.Tipo_Oferta)
+                             .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
@@ -41,63 +48,98 @@ namespace ProyectoSistemaTurismo.Service
 
         public List<Oferta> ObtenerTodosActivos()
         {
-            using (var db = new ModeloSistema())
+            try
             {
-                return db.Oferta
-                         .Include(o => o.Destino)
-                         .Include(o => o.Usuario)
-                         .Include(o => o.Tipo_Oferta)
-                         .Where(o => o.estado == "A")
-                         .ToList();
+                using (var db = new ModeloSistema())
+                {
+                    return db.Oferta
+                             .Include(o => o.Destino)
+                             .Include(o => o.Usuario)
+                             .Include(o => o.Tipo_Oferta)
+                             .Where(o => o.estado == "A")
+                             .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
         public Oferta ObtenerPorId(int id)
         {
-            using (var db = new ModeloSistema())
+            try
             {
-                return db.Oferta
-                         .Include(o => o.Destino)
-                         .Include(o => o.Usuario)
-                         .Include(o => o.Tipo_Oferta)
-                         .SingleOrDefault(o => o.id_oferta == id);
+                using (var db = new ModeloSistema())
+                {
+                    return db.Oferta
+                             .Include(o => o.Destino)
+                             .Include(o => o.Usuario)
+                             .Include(o => o.Tipo_Oferta)
+                             .SingleOrDefault(o => o.id_oferta == id);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
         public void Agregar(Oferta oferta)
         {
-            using (var db = new ModeloSistema())
+            try
             {
-                oferta.estado = "A"; // Siempre activo por defecto
-                oferta.verificado = "N"; // No verificado por defecto
-                oferta.visible = "N"; // No visible por defecto
-                oferta.fecha_creacion = DateTime.Now; // Fecha actual
+                using (var db = new ModeloSistema())
+                {
+                    oferta.estado = "A"; // Siempre activo por defecto
+                    oferta.verificado = "N"; // No verificado por defecto
+                    oferta.visible = "N"; // No visible por defecto
+                    oferta.fecha_creacion = DateTime.Now; // Fecha actual
 
-                db.Oferta.Add(oferta);
-                db.SaveChanges();
+                    db.Oferta.Add(oferta);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
         public void Actualizar(Oferta oferta)
         {
-            using (var db = new ModeloSistema())
+            try
             {
-                db.Entry(oferta).State = EntityState.Modified;
-                db.SaveChanges();
+                using (var db = new ModeloSistema())
+                {
+                    db.Entry(oferta).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
         public void Eliminar(int id)
         {
-            using (var db = new ModeloSistema())
+            try
             {
-                var oferta = db.Oferta.Find(id);
-                if (oferta != null)
+                using (var db = new ModeloSistema())
                 {
-                    oferta.estado = "I"; // Marcar como inactivo
-                    oferta.fecha_baja = DateTime.Now; // Registrar la fecha de baja
-                    db.SaveChanges();
+                    var oferta = db.Oferta.Find(id);
+                    if (oferta != null)
+                    {
+                        oferta.estado = "I"; // Marcar como inactivo
+                        oferta.fecha_baja = DateTime.Now; // Registrar la fecha de baja
+                        db.SaveChanges();
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 

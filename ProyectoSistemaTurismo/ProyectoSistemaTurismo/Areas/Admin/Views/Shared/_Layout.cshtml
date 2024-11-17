@@ -251,6 +251,29 @@
 </script>
 
 
+
+
+
+
+<script>
+    function obtenerUbicacion() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                document.getElementById("ubicacion_lat").value = position.coords.latitude;
+                document.getElementById("ubicacion_lon").value = position.coords.longitude;
+            }, function (error) {
+                alert("Error al obtener la ubicación: " + error.message);
+            });
+        } else {
+            alert("La geolocalización no es soportada por este navegador.");
+        }
+    }
+</script>
+
+
+
+
+
 <script>
     // Ocultar automáticamente las alertas después de 5 segundos
     setTimeout(function () {

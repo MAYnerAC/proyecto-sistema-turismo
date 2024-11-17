@@ -191,7 +191,9 @@
     <Compile Include="Models\Tipo_Usuario.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\DestinoService.cs" />
     <Compile Include="Service\OfertaService.cs" />
+    <Compile Include="Service\Tipo_OfertaService.cs" />
     <Compile Include="Service\UsuarioService.cs" />
   </ItemGroup>
   <ItemGroup>

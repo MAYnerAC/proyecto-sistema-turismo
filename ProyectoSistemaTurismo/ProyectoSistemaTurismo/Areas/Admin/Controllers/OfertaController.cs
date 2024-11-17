@@ -20,17 +20,21 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     public class OfertaController : Controller
     {
         private readonly OfertaService _ofertaService = new OfertaService();
-        //private readonly DestinoService destinoService = new DestinoService();
-        //private readonly TipoOfertaService tipoOfertaService = new TipoOfertaService();
+        private readonly DestinoService destinoService = new DestinoService();
+        private readonly Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
+        private readonly UsuarioService usuarioService = new UsuarioService();
 
         private void CargarRelaciones()
         {
-            //var destinos = destinoService.ObtenerTodosActivos();
-            //var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+            var destinos = destinoService.ObtenerTodosActivos();
+            var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+            var usuarios = usuarioService.ObtenerTodosActivos();
 
-            //ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino");
-            //ViewBag.TiposOferta = new SelectList(tiposOferta, "id_tipo_oferta", "nombre_tipo");
+            ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino");
+            ViewBag.TiposOferta = new SelectList(tiposOferta, "id_tipo_oferta", "nombre_tipo");
+            ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre");
         }
+
         public ActionResult Index()
         {
             var ofertas = _ofertaService.ObtenerTodos();
