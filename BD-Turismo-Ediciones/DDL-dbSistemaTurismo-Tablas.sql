@@ -100,7 +100,7 @@ CREATE TABLE Hospedaje (
     horario_checkout TIME NOT NULL,
     servicios_adicionales TEXT NULL,
     capacidad INT NULL,
-    id_oferta INT NOT NULL,
+    id_oferta INT NOT NULL UNIQUE,
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
 );
 
@@ -114,9 +114,10 @@ CREATE TABLE Restaurante (
     precio_promedio DECIMAL(10, 2) NULL,
     precio_minimo DECIMAL(10, 2) NULL,
     precio_maximo DECIMAL(10, 2) NULL,
-    id_oferta INT NOT NULL,
+    id_oferta INT NOT NULL UNIQUE,
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
 );
+
 
 -- Tabla Evento
 CREATE TABLE Evento (
@@ -126,7 +127,7 @@ CREATE TABLE Evento (
     capacidad INT NULL,
     precio_entrada DECIMAL(10, 2) NULL,
     fecha_evento DATE NOT NULL,
-    id_oferta INT NOT NULL,
+    id_oferta INT NOT NULL UNIQUE,
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
 );
 
@@ -138,7 +139,7 @@ CREATE TABLE Atractivo_Turistico (
     horario_apertura TIME NOT NULL,
     horario_cierre TIME NOT NULL,
     capacidad INT NULL,
-    id_oferta INT NOT NULL,
+    id_oferta INT NOT NULL UNIQUE,
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
 );
 
@@ -151,7 +152,7 @@ CREATE TABLE Institucion (
     horario_cierre TIME NOT NULL,
     contacto_telefono VARCHAR(15) NULL,
     contacto_email VARCHAR(100) NULL,
-    id_oferta INT NOT NULL,
+    id_oferta INT NOT NULL UNIQUE,
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
 );
 
@@ -193,7 +194,6 @@ CREATE TABLE Galeria (
 CREATE TABLE Log_Visitas (
     id_log INT PRIMARY KEY IDENTITY(1,1),
     fecha_visita DATE DEFAULT GETDATE(),
-    estado CHAR(1) DEFAULT 'A',
     id_oferta INT NOT NULL,
     id_usuario INT,
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta),
@@ -203,7 +203,6 @@ CREATE TABLE Log_Visitas (
 -- Tabla Preferencias de Usuario
 CREATE TABLE Preferencias_Usuario (
     id_preferencia INT PRIMARY KEY IDENTITY(1,1),
-    estado CHAR(1) DEFAULT 'A',
     id_usuario INT NOT NULL,
     id_etiqueta INT NULL,
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),

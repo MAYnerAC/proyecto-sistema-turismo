@@ -6,12 +6,119 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoSistemaTurismo.Filters;
+
+//
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
+    [Autenticado]
+    [TipoUsuarioAutorizado(1)]
+    [ManejoErroresFiltro]
     public class OfertaController : Controller
     {
+        private readonly OfertaService _ofertaService = new OfertaService();
+        //private readonly DestinoService destinoService = new DestinoService();
+        //private readonly TipoOfertaService tipoOfertaService = new TipoOfertaService();
+
+        private void CargarRelaciones()
+        {
+            //var destinos = destinoService.ObtenerTodosActivos();
+            //var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+
+            //ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino");
+            //ViewBag.TiposOferta = new SelectList(tiposOferta, "id_tipo_oferta", "nombre_tipo");
+        }
+        public ActionResult Index()
+        {
+            var ofertas = _ofertaService.ObtenerTodos();
+            return View(ofertas);
+        }
+
+        public ActionResult Detalles(int id)
+        {
+            var oferta = _ofertaService.ObtenerPorId(id);
+            if (oferta == null)
+            {
+                TempData["Error"] = "La oferta no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+            return View(oferta);
+        }
+
+        public ActionResult Crear()
+        {
+            CargarRelaciones();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Crear(Oferta oferta)
+        {
+            if (ModelState.IsValid)
+            {
+                _ofertaService.Agregar(oferta);
+                TempData["Mensaje"] = "Oferta creada con éxito.";
+                return RedirectToAction("Index");
+            }
+
+            TempData["Error"] = "Por favor corrige los errores del formulario.";
+            CargarRelaciones();
+            return View(oferta);
+        }
+
+        public ActionResult Editar(int id)
+        {
+            var oferta = _ofertaService.ObtenerPorId(id);
+            if (oferta == null)
+            {
+                TempData["Error"] = "La oferta no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            CargarRelaciones();
+            return View(oferta);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Oferta oferta)
+        {
+            if (ModelState.IsValid)
+            {
+                _ofertaService.Actualizar(oferta);
+                TempData["Mensaje"] = "Oferta actualizada con éxito.";
+                return RedirectToAction("Index");
+            }
+
+            TempData["Error"] = "Por favor corrige los errores del formulario.";
+            CargarRelaciones();
+            return View(oferta);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var oferta = _ofertaService.ObtenerPorId(id);
+            if (oferta == null)
+            {
+                TempData["Error"] = "La oferta no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            _ofertaService.Eliminar(id);
+            TempData["Mensaje"] = "Oferta eliminada con éxito.";
+            return RedirectToAction("Index");
+        }
+
+
+        /*-------------------------------------------------------------------------------------------------------*/
+
+        /*
         private ModeloSistema db = new ModeloSistema();
 
         // GET: Admin/Oferta
@@ -136,5 +243,9 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+        */
+
+
+        //
     }
 }

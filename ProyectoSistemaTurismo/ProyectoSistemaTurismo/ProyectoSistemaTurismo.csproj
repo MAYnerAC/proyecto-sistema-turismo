@@ -157,9 +157,11 @@
     <Compile Include="Areas\Proveedor\Controllers\OfertaController.cs" />
     <Compile Include="Areas\Proveedor\Controllers\PanelController.cs" />
     <Compile Include="Areas\Proveedor\ProveedorAreaRegistration.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Filters\AutenticadoAttribute.cs" />
+    <Compile Include="Filters\ManejoErroresFiltroAttribute.cs" />
     <Compile Include="Filters\OfertaSeleccionadaAttribute.cs" />
     <Compile Include="Filters\TipoUsuarioAutorizadoAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -189,6 +191,7 @@
     <Compile Include="Models\Tipo_Usuario.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\OfertaService.cs" />
     <Compile Include="Service\UsuarioService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -342,6 +345,8 @@
     <Content Include="Areas\Proveedor\Views\Galeria\Index.cshtml" />
     <Content Include="Areas\Proveedor\Views\Galeria\AgregarImagen.cshtml" />
     <Content Include="Areas\Proveedor\Views\Galeria\Eliminar.cshtml" />
+    <Content Include="Areas\Admin\Views\Oferta\Detalles.cshtml" />
+    <Content Include="Areas\Admin\Views\Oferta\Crear.cshtml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -370,6 +375,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\AccessDenied.cshtml" />
     <Content Include="Views\Login\Registro.cshtml" />
+    <Content Include="Views\Error\General.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

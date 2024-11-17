@@ -4,9 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Sistema de Gestión de Destinos</title>
+
+    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- DataTables -->
     <link href="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.css" rel="stylesheet">
+
+    <!-- Chart JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Añadir una transición suave al desaparecer */
+        .alert {
+            transition: opacity 0.5s ease-out;
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+    </style>
 
     <style>
         /* Estilos personalizados */
@@ -155,6 +172,25 @@
         </div>
     </div>
 
+    <!-- Zona de mensajes -->
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Mensaje"]
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    <br />
+    <br />
+    <br />
+
     <!-- Contenido Principal -->
     <div id="content">
         <div class="container">
@@ -162,10 +198,15 @@
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.js"></script>
+
     @RenderSection("Scripts", required: false)
+
+
 </body>
 </html>
 
@@ -207,4 +248,23 @@
         },
     });
 
+</script>
+
+
+<script>
+    // Ocultar automáticamente las alertas después de 5 segundos
+    setTimeout(function () {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            alert.classList.add('fade-out'); // Añade una clase para animación
+        });
+    }, 5000); // 5000ms = 5 segundos
+
+    // Opcional: puedes agregar un evento para eliminar del DOM los elementos completamente
+    setTimeout(function () {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            alert.remove();
+        });
+    }, 6000); // 6000ms = 6 segundos
 </script>

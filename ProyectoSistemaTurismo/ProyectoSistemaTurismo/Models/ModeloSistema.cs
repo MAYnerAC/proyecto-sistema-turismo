@@ -177,11 +177,6 @@ namespace ProyectoSistemaTurismo.Models
                 .Property(e => e.contacto_email)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Log_Visitas>()
-                .Property(e => e.estado)
-                .IsFixedLength()
-                .IsUnicode(false);
-
             modelBuilder.Entity<Oferta>()
                 .Property(e => e.nombre)
                 .IsUnicode(false);
@@ -296,11 +291,6 @@ namespace ProyectoSistemaTurismo.Models
                 .HasMany(e => e.Suscripcion_Negocio)
                 .WithRequired(e => e.Oferta)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Preferencias_Usuario>()
-                .Property(e => e.estado)
-                .IsFixedLength()
-                .IsUnicode(false);
 
             modelBuilder.Entity<Publicidad>()
                 .Property(e => e.tipo_publicidad)

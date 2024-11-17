@@ -98,7 +98,7 @@ CREATE TABLE Hospedaje (
     horario_checkout TIME NOT NULL,                      -- Hora de salida
     servicios_adicionales TEXT NULL,                     -- Servicios adicionales del hospedaje
     capacidad INT NULL,                                  -- Capacidad del hospedaje
-    id_oferta INT NOT NULL,                              -- Relación con la oferta
+    id_oferta INT NOT NULL UNIQUE,                              -- Relación con la oferta
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
 );
 
@@ -112,7 +112,7 @@ CREATE TABLE Restaurante (
     precio_promedio DECIMAL(10, 2) NULL,                 -- Precio promedio por persona
     precio_minimo DECIMAL(10, 2) NULL,                   -- Precio mínimo por persona
     precio_maximo DECIMAL(10, 2) NULL,                   -- Precio máximo por persona
-    id_oferta INT NOT NULL,                              -- Relación con la oferta
+    id_oferta INT NOT NULL UNIQUE,                              -- Relación con la oferta
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
 );
 
@@ -124,7 +124,7 @@ CREATE TABLE Evento (
     capacidad INT NULL,                                  -- Capacidad de asistentes
     precio_entrada DECIMAL(10, 2) NULL,                  -- Precio de entrada
     fecha_evento DATE NOT NULL,                          -- Fecha específica del evento
-    id_oferta INT NOT NULL,                              -- Relación con la oferta
+    id_oferta INT NOT NULL UNIQUE,                              -- Relación con la oferta
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
 );
 
@@ -136,7 +136,7 @@ CREATE TABLE Atractivo_Turistico (
     horario_apertura TIME NOT NULL,                      -- Hora de apertura
     horario_cierre TIME NOT NULL,                        -- Hora de cierre
     capacidad INT NULL,                                  -- Capacidad de visitantes
-    id_oferta INT NOT NULL,                              -- Relación con la oferta
+    id_oferta INT NOT NULL UNIQUE,                              -- Relación con la oferta
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
 );
 
@@ -149,7 +149,7 @@ CREATE TABLE Institucion (
     horario_cierre TIME NOT NULL,                        -- Hora de cierre
     contacto_telefono VARCHAR(15) NULL,                  -- Teléfono de contacto
     contacto_email VARCHAR(100) NULL,                    -- Email de contacto
-    id_oferta INT NOT NULL,                              -- Relación con la oferta
+    id_oferta INT NOT NULL UNIQUE,                              -- Relación con la oferta
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
 );
 
@@ -191,7 +191,7 @@ CREATE TABLE Galeria (
 CREATE TABLE Log_Visitas (
     id_log INT PRIMARY KEY IDENTITY(1,1),                -- Identificador único del log de visitas
     fecha_visita DATE DEFAULT GETDATE(),                 -- Fecha de la visita
-    estado CHAR(1) DEFAULT 'A',                          -- Estado del log ('A' = Activo, 'I' = Inactivo)
+--    estado CHAR(1) DEFAULT 'A',                          -- Estado del log ('A' = Activo, 'I' = Inactivo)
     id_oferta INT NOT NULL,                              -- Relación con la oferta
     id_usuario INT,                                      -- Relación con el usuario que visitó
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta),
@@ -201,7 +201,7 @@ CREATE TABLE Log_Visitas (
 -- Tabla Preferencias de Usuario
 CREATE TABLE Preferencias_Usuario (
     id_preferencia INT PRIMARY KEY IDENTITY(1,1),        -- Identificador único de la preferencia
-    estado CHAR(1) DEFAULT 'A',                          -- Estado de la preferencia ('A' = Activo, 'I' = Inactivo)
+--    estado CHAR(1) DEFAULT 'A',                          -- Estado de la preferencia ('A' = Activo, 'I' = Inactivo)
     id_usuario INT NOT NULL,                             -- Relación con el usuario
     id_etiqueta INT NULL,                                -- Relación con la etiqueta
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),

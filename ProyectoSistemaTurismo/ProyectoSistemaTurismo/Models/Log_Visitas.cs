@@ -14,9 +14,6 @@ namespace ProyectoSistemaTurismo.Models
         [Column(TypeName = "date")]
         public DateTime? fecha_visita { get; set; }
 
-        [StringLength(1)]
-        public string estado { get; set; }
-
         public int id_oferta { get; set; }
 
         public int? id_usuario { get; set; }

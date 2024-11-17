@@ -1,0 +1,79 @@
+﻿@model ProyectoSistemaTurismo.Models.Oferta
+
+@{
+    ViewBag.Title = "Detalles de la Oferta";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2>Detalles de la Oferta</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <!-- Información General -->
+            <div class="col-md-6">
+                <h4>Información General</h4>
+                <p><strong>Nombre:</strong> @Model.nombre</p>
+                <p><strong>Descripción:</strong> @Model.descripcion</p>
+                <p><strong>Dirección:</strong> @Model.direccion</p>
+                <p><strong>Estado:</strong> @(Model.estado == "A" ? "Activo" : "Inactivo")</p>
+                <p><strong>Fecha de Creación:</strong> @DateTime.Parse(Model.fecha_creacion.ToString()).ToString("dd/MM/yyyy")</p>
+                @if (Model.fecha_baja.HasValue)
+                {
+                    <p><strong>Fecha de Baja:</strong> @DateTime.Parse(Model.fecha_baja.ToString()).ToString("dd/MM/yyyy")</p>
+                }
+            </div>
+
+            <!-- Información de Contacto -->
+            <div class="col-md-6">
+                <h4>Información de Contacto</h4>
+                <p><strong>Teléfono:</strong> @Model.telefono</p>
+                <p><strong>Correo Electrónico:</strong> @Model.email_contacto</p>
+                <p>
+                    <strong>Sitio Web:</strong>
+                    @if (!string.IsNullOrEmpty(Model.sitio_web))
+                    {
+                        <a href="https://@Model.sitio_web" target="_blank">@Model.sitio_web</a>
+                    }
+                    else
+                    {
+                        <span>No disponible</span>
+                    }
+                </p>
+            </div>
+        </div>
+
+        <hr />
+
+        <!-- Información Relacionada -->
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Información Relacionada</h4>
+                <p><strong>Destino:</strong> @Model.Destino.nombre_destino</p>
+                <p><strong>Tipo de Oferta:</strong> @Model.Tipo_Oferta.nombre_tipo</p>
+            </div>
+
+            <!-- Mapa y Coordenadas -->
+            <div class="col-md-6">
+                <h4>Mapa</h4>
+                <p><strong>Latitud:</strong> @Model.ubicacion_lat</p>
+                <p><strong>Longitud:</strong> @Model.ubicacion_lon</p>
+                <a href="https://www.google.com/maps?q=@Model.ubicacion_lat,@Model.ubicacion_lon" target="_blank" class="btn btn-info btn-sm">
+                    Ver en Google Maps
+                </a>
+                <div style="margin-top: 20px;">
+                    <iframe width="500"
+                            height="300"
+                            frameborder="0"
+                            style="border: 0"
+                            src="https://www.google.com/maps/embed/v1/place?key=TU_API_KEY&q=@Model.ubicacion_lat,@Model.ubicacion_lon"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-center">
+        @Html.ActionLink("Volver al Listado", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>

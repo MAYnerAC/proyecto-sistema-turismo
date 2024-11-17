@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Error";
+    var idTipoUsuario = Session["id_tipo_usuario"] as int?;
+}
+
+<div class="alert alert-danger">
+    <h1>Ocurrió un error inesperado</h1>
+    <p>Por favor intenta nuevamente. Si el problema persiste, contacta al soporte técnico.</p>
+</div>
+
+@if (idTipoUsuario.HasValue)
+{
+    <p>Por favor selecciona una opción:</p>
+    <ul>
+        @if (idTipoUsuario == 1) // Admin
+        {
+            <li>@Html.ActionLink("Volver al Panel de Administración", "Index", "Panel", new { area = "Admin" }, null)</li>
+        }
+        else if (idTipoUsuario == 2) // Proveedor
+        {
+            <li>@Html.ActionLink("Volver al Panel de Proveedor", "Index", "Panel", new { area = "Proveedor" }, null)</li>
+        }
+        else if (idTipoUsuario == 3) // Turista/Cliente
+        {
+            <li>@Html.ActionLink("Volver al Inicio del Usuario", "Index", "Home", new { area = "Turistas" }, null)</li>
+        }
+    </ul>
+}
+else
+{
+    <p>
+        No tienes una sesión activa. Por favor
+        @Html.ActionLink("haz clic aquí para volver al inicio", "Index", "Home", new { area = "" }, null).
+    </p>
+}
