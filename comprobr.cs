@@ -32,12 +32,12 @@ public class ManejoErroresFiltroAttribute : ActionFilterAttribute
             // Marcar la excepción como manejada
             filterContext.ExceptionHandled = true;
 
-            // Redirigir a la vista actual o a una vista genérica
+            // Redirigir a la vista principal o cualquier otra vista
             filterContext.Result = new RedirectToRouteResult(
                 new System.Web.Routing.RouteValueDictionary
                 {
                     { "controller", filterContext.RouteData.Values["controller"] },
-                    { "action", "Index" } // O redirige a la vista que prefieras
+                    { "action", "Index" }
                 }
             );
         }

@@ -14,6 +14,25 @@
     <!-- Chart JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
+    <style>
+        .alert-floating {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            min-width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .alert.fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+    </style>
+
+
+
     <style>
         /* Añadir una transición suave al desaparecer */
         .alert {
@@ -78,6 +97,30 @@
             </div>
         </div>
     </nav>
+
+
+
+    <!-- Zona de mensajes -->
+    <div id="alert-container">
+        @if (TempData["Mensaje"] != null)
+        {
+            <div class="alert alert-success alert-floating">
+                @TempData["Mensaje"]
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-floating">
+                @TempData["Error"]
+            </div>
+        }
+    </div>
+
+
+
+
+
 
     <!-- Barra lateral -->
     <div id="sidebar">
@@ -172,20 +215,7 @@
         </div>
     </div>
 
-    <!-- Zona de mensajes -->
-    @if (TempData["Mensaje"] != null)
-    {
-        <div class="alert alert-success">
-            @TempData["Mensaje"]
-        </div>
-    }
 
-    @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger">
-            @TempData["Error"]
-        </div>
-    }
 
     <br />
     <br />
@@ -275,19 +305,12 @@
 
 
 <script>
-    // Ocultar automáticamente las alertas después de 5 segundos
+    // Alertas Mensaje o Error
     setTimeout(function () {
-        const alerts = document.querySelectorAll('.alert');
+        const alerts = document.querySelectorAll('.alert-floating');
         alerts.forEach(alert => {
-            alert.classList.add('fade-out'); // Añade una clase para animación
+            alert.classList.add('fade-out');
+            setTimeout(() => alert.remove(), 500);
         });
-    }, 5000); // 5000ms = 5 segundos
-
-    // Opcional: puedes agregar un evento para eliminar del DOM los elementos completamente
-    setTimeout(function () {
-        const alerts = document.querySelectorAll('.alert');
-        alerts.forEach(alert => {
-            alert.remove();
-        });
-    }, 6000); // 6000ms = 6 segundos
+    }, 5000); // Tiempo de 5 segundos
 </script>

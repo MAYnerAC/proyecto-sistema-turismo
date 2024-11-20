@@ -350,7 +350,9 @@
     <Content Include="Areas\Admin\Views\Oferta\Detalles.cshtml" />
     <Content Include="Areas\Admin\Views\Oferta\Crear.cshtml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\sistematurismo - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\sistematurismo - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
