@@ -27,7 +27,7 @@
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.nombre)</td>
-                <td>@(item.descripcion.Length > 70 ? item.descripcion.Substring(0, 70) + "..." : item.descripcion)</td>
+                <td>@((item.descripcion?.Length > 70) ? item.descripcion.Substring(0, 70) + "..." : item.descripcion ?? "")</td>
                 <td>@Html.DisplayFor(modelItem => item.Destino.nombre_destino)</td>
                 <td>@Html.DisplayFor(modelItem => item.Tipo_Oferta.nombre_tipo)</td>
                 <td>@(item.estado == "A" ? "Activo" : "Inactivo")</td>

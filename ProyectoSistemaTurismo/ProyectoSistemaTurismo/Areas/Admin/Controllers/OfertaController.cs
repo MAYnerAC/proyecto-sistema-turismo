@@ -19,21 +19,10 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     [ManejoErroresFiltro]
     public class OfertaController : Controller
     {
-        private readonly OfertaService _ofertaService = new OfertaService();
-        private readonly DestinoService destinoService = new DestinoService();
-        private readonly Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
-        private readonly UsuarioService usuarioService = new UsuarioService();
-
-        private void CargarRelaciones()
-        {
-            var destinos = destinoService.ObtenerTodosActivos();
-            var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
-            var usuarios = usuarioService.ObtenerTodosActivos();
-
-            ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino");
-            ViewBag.TiposOferta = new SelectList(tiposOferta, "id_tipo_oferta", "nombre_tipo");
-            ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre");
-        }
+        private OfertaService _ofertaService = new OfertaService();
+        private DestinoService destinoService = new DestinoService();
+        private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
+        private UsuarioService usuarioService = new UsuarioService();
 
         public ActionResult Index()
         {
@@ -54,9 +43,17 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 
         public ActionResult Crear()
         {
-            CargarRelaciones();
+            var destinos = destinoService.ObtenerTodosActivos();
+            var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+            var usuarios = usuarioService.ObtenerTodosActivos();
+
+            ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino");
+            ViewBag.TiposOferta = new SelectList(tiposOferta, "id_tipo_oferta", "nombre_tipo");
+            ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre");
+
             return View();
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -66,13 +63,15 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             {
                 _ofertaService.Agregar(oferta);
                 TempData["Mensaje"] = "Oferta creada con éxito.";
-                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear la oferta.";
             }
 
-            TempData["Error"] = "Por favor corrige los errores del formulario.";
-            CargarRelaciones();
-            return View(oferta);
+            return RedirectToAction("Index");
         }
+
 
         public ActionResult Editar(int id)
         {
@@ -83,9 +82,17 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            CargarRelaciones();
+            var destinos = destinoService.ObtenerTodosActivos();
+            var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+            var usuarios = usuarioService.ObtenerTodosActivos();
+
+            ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino", oferta.id_destino);
+            ViewBag.TiposOferta = new SelectList(tiposOferta, "id_tipo_oferta", "nombre_tipo", oferta.id_tipo_oferta);
+            ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre", oferta.id_usuario);
+
             return View(oferta);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -95,13 +102,18 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             {
                 _ofertaService.Actualizar(oferta);
                 TempData["Mensaje"] = "Oferta actualizada con éxito.";
-                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo actualizar la oferta.";
             }
 
-            TempData["Error"] = "Por favor corrige los errores del formulario.";
-            CargarRelaciones();
-            return View(oferta);
+            return RedirectToAction("Index");
         }
+
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,6 +130,35 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             TempData["Mensaje"] = "Oferta eliminada con éxito.";
             return RedirectToAction("Index");
         }
+
+
+        //private void CargarRelaciones(Oferta oferta = null)
+        //{
+        //    var destinos = destinoService.ObtenerTodosActivos();
+        //    var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+        //    var usuarios = usuarioService.ObtenerTodosActivos();
+
+        //    // Para "Editar" pasamos el objeto del modelo encontrado por "ObtenerPorId(id)"
+        //    ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino", oferta?.id_destino);
+        //    ViewBag.TiposOferta = new SelectList(tiposOferta, "id_tipo_oferta", "nombre_tipo", oferta?.id_tipo_oferta);
+        //    ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre", oferta?.id_usuario);
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /*-------------------------------------------------------------------------------------------------------*/

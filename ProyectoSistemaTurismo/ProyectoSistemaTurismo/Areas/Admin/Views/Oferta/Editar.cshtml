@@ -1,0 +1,182 @@
+﻿@model ProyectoSistemaTurismo.Models.Oferta
+
+@{
+    ViewBag.Title = "Editar Oferta";
+}
+
+<h2>Editar Oferta</h2>
+
+@using (Html.BeginForm("Editar", "Oferta", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Campo oculto para ID de la oferta -->
+    @Html.HiddenFor(model => model.id_oferta)
+
+    <!-- Nombre -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombre, "Nombre", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", required = "required", maxlength = 100 })
+            @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Descripción -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.descripcion, "Descripción", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", rows = 4 })
+            @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Dirección -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.direccion, "Dirección", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.direccion, new { @class = "form-control", maxlength = 200 })
+            @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Latitud -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.ubicacion_lat, "Latitud", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.ubicacion_lat, new { @class = "form-control", type = "number", step = "0.000001", min = "-90", max = "90" })
+            @Html.ValidationMessageFor(model => model.ubicacion_lat, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Longitud -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.ubicacion_lon, "Longitud", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.ubicacion_lon, new { @class = "form-control", type = "number", step = "0.000001", min = "-180", max = "180" })
+            @Html.ValidationMessageFor(model => model.ubicacion_lon, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Teléfono -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.telefono, "Teléfono", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.telefono, new { @class = "form-control", maxlength = 15, pattern = "[0-9]{7,15}", title = "El teléfono debe contener entre 7 y 15 números." })
+            @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Email de Contacto -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.email_contacto, "Email de Contacto", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.email_contacto, new { @class = "form-control", type = "email", maxlength = 100 })
+            @Html.ValidationMessageFor(model => model.email_contacto, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Sitio Web -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.sitio_web, "Sitio Web", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.sitio_web, new { @class = "form-control", type = "url", maxlength = 200 })
+            @Html.ValidationMessageFor(model => model.sitio_web, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Usuario -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.id_usuario, "Usuario", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.id_usuario, (SelectList)ViewBag.Usuarios, "Seleccione un usuario", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.id_usuario, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Tipo de Oferta -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.id_tipo_oferta, "Tipo de Oferta", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.id_tipo_oferta, (SelectList)ViewBag.TiposOferta, "Seleccione un tipo de oferta", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.id_tipo_oferta, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <!-- Destino -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.id_destino, "Destino", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.id_destino, (SelectList)ViewBag.Destinos, "Seleccione un destino", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.id_destino, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Fecha de Creación -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.fecha_creacion, "Fecha de Creación", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.fecha_creacion, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    </div>
+
+    <!-- Estado -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.estado, "Estado", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.estado, new SelectList(new[] {
+                new { Value = "A", Text = "Activo" },
+                new { Value = "I", Text = "Inactivo" }
+            }, "Value", "Text", Model.estado), "Seleccione un estado", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Verificado -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.verificado, "Verificado", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.verificado, new SelectList(new[] {
+                new { Value = "S", Text = "Sí" },
+                new { Value = "N", Text = "No" }
+            }, "Value", "Text", Model.verificado), "Seleccione una opción", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <!-- Visible -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.visible, "Visible", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.visible, new SelectList(new[] {
+                new { Value = "S", Text = "Sí" },
+                new { Value = "N", Text = "No" }
+            }, "Value", "Text", Model.visible), "Seleccione una opción", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.visible, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Fecha de Baja -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.fecha_baja, "Fecha de Baja", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.fecha_baja, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    </div>
+
+    <!-- Motivo de Baja -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.motivo_baja, "Motivo de Baja", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.motivo_baja, new { @class = "form-control", rows = 3 })
+        </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}

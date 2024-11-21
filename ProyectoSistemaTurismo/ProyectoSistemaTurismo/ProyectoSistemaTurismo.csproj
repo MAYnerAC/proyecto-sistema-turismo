@@ -349,6 +349,7 @@
     <Content Include="Areas\Proveedor\Views\Galeria\Eliminar.cshtml" />
     <Content Include="Areas\Admin\Views\Oferta\Detalles.cshtml" />
     <Content Include="Areas\Admin\Views\Oferta\Crear.cshtml" />
+    <Content Include="Areas\Admin\Views\Oferta\Editar.cshtml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - Web Deploy.pubxml" />
