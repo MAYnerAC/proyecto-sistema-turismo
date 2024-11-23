@@ -44,7 +44,7 @@ CREATE TABLE Destino (
     id_destino INT PRIMARY KEY IDENTITY(1,1),            -- Identificador único del destino
     nombre_destino VARCHAR(100) NOT NULL UNIQUE,         -- Nombre del destino (ej. 'Cusco')
     tipo_destino VARCHAR(50),                            -- Tipo de destino (ej. 'Ciudad', 'Parque Nacional')
-    descripcion TEXT,                                    -- Descripción del destino
+    descripcion VARCHAR(MAX),                                    -- Descripción del destino
     pais VARCHAR(100) NOT NULL,                          -- País donde se ubica el destino
     estado CHAR(1) DEFAULT 'A'                           -- Estado del destino ('A' = Activo, 'I' = Inactivo)
 );
@@ -66,7 +66,7 @@ CREATE TABLE Usuario (
 CREATE TABLE Oferta (
     id_oferta INT PRIMARY KEY IDENTITY(1,1),             -- Identificador único de la oferta
     nombre VARCHAR(100) NOT NULL,                        -- Nombre de la oferta
-    descripcion TEXT,                                    -- Descripción de la oferta
+    descripcion VARCHAR(MAX),                                    -- Descripción de la oferta
     direccion VARCHAR(200),                              -- Dirección física de la oferta
     ubicacion_lat DECIMAL(9,6),                          -- Latitud para la ubicación geográfica
     ubicacion_lon DECIMAL(9,6),                          -- Longitud para la ubicación geográfica
@@ -82,7 +82,7 @@ CREATE TABLE Oferta (
     verificado CHAR(1) DEFAULT 'N',                      -- Verificación de la oferta ('S' = Sí, 'N' = No)
     visible CHAR(1) DEFAULT 'N',                         -- Visibilidad de la oferta ('S' = Sí, 'N' = No)
     fecha_baja DATE NULL,                                -- Fecha de baja de la oferta
-    motivo_baja TEXT NULL,                               -- Motivo de baja de la oferta
+    motivo_baja VARCHAR(MAX) NULL,                               -- Motivo de baja de la oferta
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
     FOREIGN KEY (id_tipo_oferta) REFERENCES Tipo_Oferta(id_tipo_oferta),
     FOREIGN KEY (id_destino) REFERENCES Destino(id_destino)
@@ -96,7 +96,7 @@ CREATE TABLE Hospedaje (
     precio_maximo DECIMAL(10, 2) NOT NULL,               -- Precio máximo del hospedaje
     horario_checkin TIME NOT NULL,                       -- Hora de entrada
     horario_checkout TIME NOT NULL,                      -- Hora de salida
-    servicios_adicionales TEXT NULL,                     -- Servicios adicionales del hospedaje
+    servicios_adicionales VARCHAR(MAX) NULL,                     -- Servicios adicionales del hospedaje
     capacidad INT NULL,                                  -- Capacidad del hospedaje
     id_oferta INT NOT NULL UNIQUE,                              -- Relación con la oferta
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
@@ -106,7 +106,7 @@ CREATE TABLE Hospedaje (
 CREATE TABLE Restaurante (
     id_restaurante INT PRIMARY KEY IDENTITY(1,1),        -- Identificador único del restaurante
     tipo_cocina VARCHAR(50) NOT NULL,                    -- Tipo de cocina del restaurante
-    especialidades TEXT NULL,                            -- Especialidades del restaurante
+    especialidades VARCHAR(MAX) NULL,                            -- Especialidades del restaurante
     horario_apertura TIME NOT NULL,                      -- Hora de apertura
     horario_cierre TIME NOT NULL,                        -- Hora de cierre
     precio_promedio DECIMAL(10, 2) NULL,                 -- Precio promedio por persona
@@ -144,7 +144,7 @@ CREATE TABLE Atractivo_Turistico (
 CREATE TABLE Institucion (
     id_institucion INT PRIMARY KEY IDENTITY(1,1),        -- Identificador único de la institución
     tipo_institucion VARCHAR(50) NOT NULL,               -- Tipo de institución (ej. 'Centro Cultural')
-    servicios_disponibles TEXT NULL,                     -- Servicios disponibles en la institución
+    servicios_disponibles VARCHAR(MAX) NULL,                     -- Servicios disponibles en la institución
     horario_apertura TIME NOT NULL,                      -- Hora de apertura
     horario_cierre TIME NOT NULL,                        -- Hora de cierre
     contacto_telefono VARCHAR(15) NULL,                  -- Teléfono de contacto
@@ -165,7 +165,7 @@ CREATE TABLE Etiqueta_Oferta (
 -- Tabla Comentario/Contribución
 CREATE TABLE Comentario (
     id_comentario INT PRIMARY KEY IDENTITY(1,1),         -- Identificador único del comentario
-    comentario TEXT NOT NULL,                            -- Contenido del comentario
+    comentario VARCHAR(MAX) NOT NULL,                            -- Contenido del comentario
     puntuacion INT,                                      -- Puntuación del comentario
     fecha_comentario DATE DEFAULT GETDATE(),             -- Fecha del comentario
     estado CHAR(1) DEFAULT 'A',                          -- Estado del comentario ('A' = Activo, 'I' = Inactivo)
@@ -234,7 +234,7 @@ CREATE TABLE Suscripcion_Negocio (
 -- Tabla Reporte
 CREATE TABLE Reporte (
     id_reporte INT PRIMARY KEY IDENTITY(1,1),            -- Identificador único del reporte
-    descripcion TEXT,                                    -- Descripción del reporte
+    descripcion VARCHAR(MAX),                                    -- Descripción del reporte
     fecha_reporte DATE DEFAULT GETDATE(),                -- Fecha del reporte
     estado CHAR(1) DEFAULT 'A',                          -- Estado del reporte ('A' = Activo, 'I' = Inactivo)
     id_usuario INT NOT NULL,                             -- Relación con el usuario que reporta
@@ -277,7 +277,7 @@ CREATE TABLE Solicitud_Verificacion_Proveedor (
     id_usuario INT NOT NULL,                        -- Usuario que solicita la verificación
     fecha_solicitud DATE DEFAULT GETDATE(),         -- Fecha de creación de la solicitud
     estado CHAR(1) DEFAULT 'P',                     -- Estado de la solicitud ('P' = Pendiente, 'A' = Aprobado, 'R' = Rechazado)
-    comentarios_admin TEXT,                         -- Comentarios del administrador
+    comentarios_admin VARCHAR(MAX),                         -- Comentarios del administrador
     fecha_resolucion DATE NULL,                     -- Fecha en la que se resolvió la solicitud
     id_admin INT NULL,                              -- Administrador que revisó la solicitud
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),

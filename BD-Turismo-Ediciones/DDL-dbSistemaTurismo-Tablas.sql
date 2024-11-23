@@ -44,7 +44,7 @@ CREATE TABLE Destino (
     id_destino INT PRIMARY KEY IDENTITY(1,1),
     nombre_destino VARCHAR(100) NOT NULL UNIQUE,
     tipo_destino VARCHAR(50),
-    descripcion TEXT,
+    descripcion VARCHAR(MAX),
     pais VARCHAR(100) NOT NULL,
     estado CHAR(1) DEFAULT 'A'
 );
@@ -68,7 +68,7 @@ CREATE TABLE Usuario (
 CREATE TABLE Oferta (
     id_oferta INT PRIMARY KEY IDENTITY(1,1),
     nombre VARCHAR(100) NOT NULL,
-    descripcion TEXT,
+    descripcion VARCHAR(MAX),
     direccion VARCHAR(200),
     ubicacion_lat DECIMAL(9,6),
     ubicacion_lon DECIMAL(9,6),
@@ -84,7 +84,7 @@ CREATE TABLE Oferta (
     verificado CHAR(1) DEFAULT 'N',
     visible CHAR(1) DEFAULT 'N',
     fecha_baja DATE NULL,
-    motivo_baja TEXT NULL,
+    motivo_baja VARCHAR(MAX) NULL,
     FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
     FOREIGN KEY (id_tipo_oferta) REFERENCES Tipo_Oferta(id_tipo_oferta),
     FOREIGN KEY (id_destino) REFERENCES Destino(id_destino)
@@ -98,7 +98,7 @@ CREATE TABLE Hospedaje (
     precio_maximo DECIMAL(10, 2) NOT NULL,
     horario_checkin TIME NOT NULL,
     horario_checkout TIME NOT NULL,
-    servicios_adicionales TEXT NULL,
+    servicios_adicionales VARCHAR(MAX) NULL,
     capacidad INT NULL,
     id_oferta INT NOT NULL UNIQUE,
     FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
@@ -108,7 +108,7 @@ CREATE TABLE Hospedaje (
 CREATE TABLE Restaurante (
     id_restaurante INT PRIMARY KEY IDENTITY(1,1),
     tipo_cocina VARCHAR(50) NOT NULL,
-    especialidades TEXT NULL,
+    especialidades VARCHAR(MAX) NULL,
     horario_apertura TIME NOT NULL,
     horario_cierre TIME NOT NULL,
     precio_promedio DECIMAL(10, 2) NULL,
@@ -147,7 +147,7 @@ CREATE TABLE Atractivo_Turistico (
 CREATE TABLE Institucion (
     id_institucion INT PRIMARY KEY IDENTITY(1,1),
     tipo_institucion VARCHAR(50) NOT NULL,
-    servicios_disponibles TEXT NULL,
+    servicios_disponibles VARCHAR(MAX) NULL,
     horario_apertura TIME NOT NULL,
     horario_cierre TIME NOT NULL,
     contacto_telefono VARCHAR(15) NULL,
@@ -168,7 +168,7 @@ CREATE TABLE Etiqueta_Oferta (
 -- Tabla Comentario/Contribucion
 CREATE TABLE Comentario (
     id_comentario INT PRIMARY KEY IDENTITY(1,1),
-    comentario TEXT NOT NULL,
+    comentario VARCHAR(MAX) NOT NULL,
     puntuacion INT,
     fecha_comentario DATE DEFAULT GETDATE(),
     estado CHAR(1) DEFAULT 'A',
@@ -235,7 +235,7 @@ CREATE TABLE Suscripcion_Negocio (
 -- Tabla Reporte
 CREATE TABLE Reporte (
     id_reporte INT PRIMARY KEY IDENTITY(1,1),
-    descripcion TEXT,
+    descripcion VARCHAR(MAX),
     fecha_reporte DATE DEFAULT GETDATE(),
     estado CHAR(1) DEFAULT 'A',
     id_usuario INT NOT NULL,
