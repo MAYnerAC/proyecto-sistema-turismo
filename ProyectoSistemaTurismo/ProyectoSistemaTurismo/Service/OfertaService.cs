@@ -29,22 +29,7 @@ namespace ProyectoSistemaTurismo.Service
             }
         }
 
-        //public List<Oferta> ObtenerTodos()
-        //{
-        //    var query = new List<Oferta>();
-        //    try
-        //    {
-        //        using (var db = new ModeloSistema())
-        //        {
-        //            query = db.Oferta.Include("Destino").Include("Usuario").Include("Tipo_Oferta").ToList();
-        //        }
-        //        return query;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+
 
         public List<Oferta> ObtenerTodosActivos()
         {
@@ -145,7 +130,48 @@ namespace ProyectoSistemaTurismo.Service
 
 
 
+        /*--------------------------------------------*/
 
+        public List<Oferta> ObtenerPorUsuario(int usuarioId)
+        {
+            try
+            {
+                using (var db = new ModeloSistema())
+                {
+                    return db.Oferta
+                             .Include(o => o.Destino)
+                             .Include(o => o.Usuario)
+                             .Include(o => o.Tipo_Oferta)
+                             .Where(o => o.id_usuario == usuarioId && o.estado == "A")
+                             .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
+
+
+        //public List<Oferta> ObtenerTodos()
+        //{
+        //    var query = new List<Oferta>();
+        //    try
+        //    {
+        //        using (var db = new ModeloSistema())
+        //        {
+        //            query = db.Oferta.Include("Destino").Include("Usuario").Include("Tipo_Oferta").ToList();
+        //        }
+        //        return query;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
 
 
 

@@ -12,7 +12,6 @@ namespace ProyectoSistemaTurismo.Models
         [Key]
         public int id_reporte { get; set; }
 
-        [Column(TypeName = "text")]
         public string descripcion { get; set; }
 
         [Column(TypeName = "date")]

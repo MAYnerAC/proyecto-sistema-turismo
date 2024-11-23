@@ -214,34 +214,34 @@ INSERT INTO Etiqueta_Oferta (id_oferta, id_etiqueta) VALUES (15, 2);
 
 -- Tabla Comentario/Contribucion
 
-INSERT INTO Comentario (comentario, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
+INSERT INTO Comentario (contenido, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
 VALUES ('Excelente servicio y ubicaci�n c�ntrica.', 5, '2024-03-10', 'A', 1, 6);
 
-INSERT INTO Comentario (comentario, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
+INSERT INTO Comentario (contenido, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
 VALUES ('Muy acogedor y buena atenci�n.', 4, '2024-03-11', 'A', 2, 7);
 
-INSERT INTO Comentario (comentario, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
+INSERT INTO Comentario (contenido, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
 VALUES ('Perfecto para un descanso frente al mar.', 5, '2024-03-12', 'A', 3, 8);
 
-INSERT INTO Comentario (comentario, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
+INSERT INTO Comentario (contenido, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
 VALUES ('Comida deliciosa, especialmente los asados.', 5, '2024-03-13', 'A', 4, 9);
 
-INSERT INTO Comentario (comentario, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
+INSERT INTO Comentario (contenido, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
 VALUES ('Ambiente familiar y agradable.', 4, '2024-03-14', 'A', 5, 10);
 
-INSERT INTO Comentario (comentario, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
+INSERT INTO Comentario (contenido, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
 VALUES ('Los mariscos estaban frescos y deliciosos.', 5, '2024-03-15', 'A', 6, 6);
 
-INSERT INTO Comentario (comentario, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
+INSERT INTO Comentario (contenido, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
 VALUES ('Un evento lleno de cultura y tradici�n.', 5, '2024-03-16', 'A', 7, 7);
 
-INSERT INTO Comentario (comentario, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
+INSERT INTO Comentario (contenido, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
 VALUES ('Muy divertido y colorido.', 4, '2024-03-17', 'A', 8, 8);
 
-INSERT INTO Comentario (comentario, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
+INSERT INTO Comentario (contenido, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
 VALUES ('Excelente ambiente para disfrutar de las uvas y el vino.', 5, '2024-03-18', 'A', 9, 9);
 
-INSERT INTO Comentario (comentario, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
+INSERT INTO Comentario (contenido, puntuacion, fecha_comentario, estado, id_oferta, id_usuario) 
 VALUES ('Un lugar hist�rico impresionante.', 5, '2024-03-19', 'A', 10, 10);
 
 

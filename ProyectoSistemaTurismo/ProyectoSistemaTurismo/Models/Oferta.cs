@@ -33,7 +33,6 @@ namespace ProyectoSistemaTurismo.Models
         [StringLength(100)]
         public string nombre { get; set; }
 
-        [Column(TypeName = "text")]
         public string descripcion { get; set; }
 
         [StringLength(200)]
@@ -76,7 +75,6 @@ namespace ProyectoSistemaTurismo.Models
         [Column(TypeName = "date")]
         public DateTime? fecha_baja { get; set; }
 
-        [Column(TypeName = "text")]
         public string motivo_baja { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

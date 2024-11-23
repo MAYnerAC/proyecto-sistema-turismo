@@ -25,7 +25,6 @@ namespace ProyectoSistemaTurismo.Models
         [StringLength(50)]
         public string tipo_destino { get; set; }
 
-        [Column(TypeName = "text")]
         public string descripcion { get; set; }
 
         [Required]

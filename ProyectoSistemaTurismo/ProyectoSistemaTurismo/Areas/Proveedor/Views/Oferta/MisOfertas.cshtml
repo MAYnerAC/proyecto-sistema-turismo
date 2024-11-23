@@ -1,45 +1,50 @@
-﻿@model IEnumerable<ProyectoSistemaTurismo.Models.Oferta>
+﻿@model List<ProyectoSistemaTurismo.Models.Oferta>
+
+@{
+    ViewBag.Title = "Mis Ofertas";
+}
 
 <h2>Mis Ofertas</h2>
 
-<div class="text-right mb-3">
-    @Html.ActionLink("Crear Nueva Oferta", "Crear", "Oferta", new { area = "Proveedor" }, new { @class = "btn btn-primary" })
-</div>
+<p>
+    @Html.ActionLink("Crear Nueva Oferta", "Crear", null, new { @class = "btn btn-primary" })
+</p>
 
-@if (!Model.Any())
-{
-    <p>No tienes ofertas creadas. ¡Empieza creando una nueva oferta!</p>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
+<table id="DatatableP" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Destino</th>
+            <th>Tipo de Oferta</th>
+            <th>Verificado</th>
+            <th>Visible</th>
+            <th>Fecha de Creación</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Dirección</th>
-                <th>Teléfono</th>
-                <th>Email Contacto</th>
-                <th>Sitio Web</th>
-                <th>Acciones</th>
+                <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+                <td>@((item.descripcion?.Length > 70) ? item.descripcion.Substring(0, 70) + "..." : item.descripcion ?? "")</td>
+                <td>@Html.DisplayFor(modelItem => item.Destino.nombre_destino)</td>
+                <td>@Html.DisplayFor(modelItem => item.Tipo_Oferta.nombre_tipo)</td>
+                <td>@(item.verificado == "S" ? "Sí" : "No")</td>
+                <td>@(item.visible == "S" ? "Sí" : "No")</td>
+                <td>@DateTime.Parse(item.fecha_creacion.ToString()).ToString("dd/MM/yyyy")</td>
+                <td class="text-center">
+                    @Html.ActionLink("Detalles", "Detalles", new { id = item.id_oferta }, new { @class = "btn btn-sm btn-info" })
+                    @Html.ActionLink("Editar", "Editar", new { id = item.id_oferta }, new { @class = "btn btn-sm btn-warning" })
+                    @using (Html.BeginForm("Eliminar", "Oferta", FormMethod.Post, new { @onsubmit = "return confirm('¿Está seguro de eliminar esta oferta?');" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.id_oferta)
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    }
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var oferta in Model)
-            {
-                <tr>
-                    <td>@oferta.nombre</td>
-                    <td>@oferta.descripcion</td>
-                    <td>@oferta.direccion</td>
-                    <td>@oferta.telefono</td>
-                    <td>@oferta.email_contacto</td>
-                    <td>@oferta.sitio_web</td>
-                    <td>
-                        @Html.ActionLink("Editar", "Editar", new { id = oferta.id_oferta, area = "Proveedor" }, new { @class = "btn btn-warning btn-sm" })
-                        @Html.ActionLink("Eliminar", "Eliminar", new { id = oferta.id_oferta, area = "Proveedor" }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('¿Está seguro de que desea eliminar esta oferta?');" })
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+        }
+    </tbody>
+</table>

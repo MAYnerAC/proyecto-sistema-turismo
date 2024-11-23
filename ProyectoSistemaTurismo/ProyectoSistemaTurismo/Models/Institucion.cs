@@ -16,7 +16,6 @@ namespace ProyectoSistemaTurismo.Models
         [StringLength(50)]
         public string tipo_institucion { get; set; }
 
-        [Column(TypeName = "text")]
         public string servicios_disponibles { get; set; }
 
         public TimeSpan horario_apertura { get; set; }

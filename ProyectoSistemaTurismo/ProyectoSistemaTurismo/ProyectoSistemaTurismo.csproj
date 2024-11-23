@@ -192,6 +192,7 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\DestinoService.cs" />
+    <Compile Include="Service\GaleriaService.cs" />
     <Compile Include="Service\OfertaService.cs" />
     <Compile Include="Service\Tipo_OfertaService.cs" />
     <Compile Include="Service\UsuarioService.cs" />
@@ -285,11 +286,6 @@
     <Content Include="Areas\Admin\Views\Tipo_Oferta\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Tipo_Oferta\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Tipo_Oferta\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Galeria\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Galeria\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Galeria\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Galeria\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Galeria\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Preferencias_Usuario\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Preferencias_Usuario\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Preferencias_Usuario\Details.cshtml" />
@@ -350,6 +346,11 @@
     <Content Include="Areas\Admin\Views\Oferta\Detalles.cshtml" />
     <Content Include="Areas\Admin\Views\Oferta\Crear.cshtml" />
     <Content Include="Areas\Admin\Views\Oferta\Editar.cshtml" />
+    <Content Include="Areas\Proveedor\Views\Oferta\Detalles.cshtml" />
+    <Content Include="Areas\Admin\Views\Galeria\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Galeria\Crear.cshtml" />
+    <Content Include="Areas\Admin\Views\Galeria\Editar.cshtml" />
+    <Content Include="Areas\Admin\Views\Galeria\Detalles.cshtml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - Web Deploy.pubxml" />

@@ -165,7 +165,7 @@ CREATE TABLE Etiqueta_Oferta (
 -- Tabla Comentario/Contribución
 CREATE TABLE Comentario (
     id_comentario INT PRIMARY KEY IDENTITY(1,1),         -- Identificador único del comentario
-    comentario VARCHAR(MAX) NOT NULL,                            -- Contenido del comentario
+    contenido VARCHAR(MAX) NOT NULL,                            -- Contenido del comentario
     puntuacion INT,                                      -- Puntuación del comentario
     fecha_comentario DATE DEFAULT GETDATE(),             -- Fecha del comentario
     estado CHAR(1) DEFAULT 'A',                          -- Estado del comentario ('A' = Activo, 'I' = Inactivo)

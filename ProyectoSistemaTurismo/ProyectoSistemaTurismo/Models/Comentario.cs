@@ -18,9 +18,8 @@ namespace ProyectoSistemaTurismo.Models
         [Key]
         public int id_comentario { get; set; }
 
-        [Column("comentario", TypeName = "text")]
         [Required]
-        public string comentario1 { get; set; }
+        public string contenido { get; set; }
 
         public int? puntuacion { get; set; }
 

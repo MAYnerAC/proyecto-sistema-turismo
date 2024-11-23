@@ -1,0 +1,59 @@
+﻿@model ProyectoSistemaTurismo.Models.Galeria
+
+@{
+    ViewBag.Title = "Detalles de la Imagen";
+}
+
+<h2 class="text-center">Detalles de la Imagen</h2>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Imagen -->
+        <div class="col-md-12 text-center">
+            <h3>Imagen</h3>
+            @if (!string.IsNullOrEmpty(Model.url_imagen))
+            {
+                <img src="@Model.url_imagen" alt="La imagen no se encuentra disponible." class="img-fluid border" style="max-width: 100%; height: auto;" onerror="this.onerror=null;this.alt='La imagen no se encuentra disponible.';" />
+            }
+            else
+            {
+                <p class="text-danger">La imagen no está disponible.</p>
+            }
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Detalles -->
+        <div class="col-md-12">
+            <h3>Detalles de la Información</h3>
+            <table class="table table-striped">
+                <tr>
+                    <th>Descripción</th>
+                    <td>@Model.descripcion</td>
+                </tr>
+                <tr>
+                    <th>Tipo de Imagen</th>
+                    <td>@Model.tipo_imagen</td>
+                </tr>
+                <tr>
+                    <th>Fecha de Subida</th>
+                    <td>@DateTime.Parse(Model.fecha_subida.ToString()).ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <th>Estado</th>
+                    <td>@(Model.estado == "A" ? "Activo" : "Inactivo")</td>
+                </tr>
+                <tr>
+                    <th>Oferta Relacionada</th>
+                    <td>@Model.Oferta.nombre</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12 text-center">
+            @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+</div>

@@ -16,7 +16,6 @@ namespace ProyectoSistemaTurismo.Models
         [StringLength(50)]
         public string tipo_cocina { get; set; }
 
-        [Column(TypeName = "text")]
         public string especialidades { get; set; }
 
         public TimeSpan horario_apertura { get; set; }

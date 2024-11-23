@@ -46,7 +46,7 @@ namespace ProyectoSistemaTurismo.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Comentario>()
-                .Property(e => e.comentario1)
+                .Property(e => e.contenido)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Comentario>()

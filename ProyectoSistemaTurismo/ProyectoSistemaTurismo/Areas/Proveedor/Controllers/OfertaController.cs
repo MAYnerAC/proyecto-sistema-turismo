@@ -1,5 +1,6 @@
 ﻿using ProyectoSistemaTurismo.Filters;
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,16 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
     [Autenticado]
     public class OfertaController : Controller
     {
-        private ModeloSistema db = new ModeloSistema();
+
+        private OfertaService _ofertaService = new OfertaService();
+        private DestinoService destinoService = new DestinoService();
+        private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
 
         // Seleccionar una oferta
+        //post
         public ActionResult Seleccionar(int idOferta)
         {
-            var ofertaSeleccionada = db.Oferta
-                                         .FirstOrDefault(o => o.id_oferta == idOferta);
+            var ofertaSeleccionada = _ofertaService.ObtenerPorId(idOferta);
 
             if (ofertaSeleccionada != null)
             {
@@ -26,9 +30,8 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
                 Session["id_tipo_oferta"] = ofertaSeleccionada.id_tipo_oferta;
                 Session["OfertaTipo"] = ofertaSeleccionada.Tipo_Oferta.nombre_tipo;
                 Session["id_destino"] = ofertaSeleccionada.id_destino;
-                Session["OfertaDestino"] = ofertaSeleccionada.Destino.nombre_destino;
+                Session["OfertaDestino"] = ofertaSeleccionada.Destino?.nombre_destino;
                 Session["OfertaSitioWeb"] = ofertaSeleccionada.sitio_web;
-
 
                 if (Request.UrlReferrer != null)
                 {
@@ -51,124 +54,124 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
         {
             int idUsuario = (int)Session["id_usuario"];
 
-            var ofertas = db.Oferta
-                            .Where(o => o.id_usuario == idUsuario)
-                            .ToList();
+            var ofertas = _ofertaService.ObtenerPorUsuario(idUsuario);
 
             return PartialView(ofertas);
         }
 
 
+        public ActionResult MisOfertas()
+        {
+            int usuarioId = (int)Session["id_usuario"];
+
+            var ofertas = _ofertaService.ObtenerPorUsuario(usuarioId);
+
+            return View(ofertas);
+        }
+
+
+
+        public ActionResult Detalles(int id)
+        {
+            var oferta = _ofertaService.ObtenerPorId(id);
+            if (oferta == null)
+            {
+                TempData["Error"] = "La oferta no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+            return View(oferta);
+        }
 
 
 
 
 
-
-
-        // GET: Proveedor/Oferta/Crear - Formulario para crear una nueva oferta
         public ActionResult Crear()
         {
-            ViewBag.TipoOfertas = new SelectList(db.Tipo_Oferta.Where(t => t.estado == "A"), "id_tipo_oferta", "nombre_tipo");
+            var destinos = destinoService.ObtenerTodosActivos();
+            var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+
+            ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino");
+            ViewBag.TiposOferta = new SelectList(tiposOferta, "id_tipo_oferta", "nombre_tipo");
+
             return View();
         }
 
-        // POST: Proveedor/Oferta/Crear - Guardar una nueva oferta
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Crear(Oferta oferta)
         {
             if (ModelState.IsValid)
             {
                 int usuarioId = (int)Session["id_usuario"];
                 oferta.id_usuario = usuarioId;
-                oferta.fecha_creacion = DateTime.Now; // Fecha de creación
 
-                using (var db = new ModeloSistema())
-                {
-                    db.Oferta.Add(oferta);
-                    db.SaveChanges();
-                }
-
-                TempData["mensaje"] = "Oferta creada con éxito";
-                return RedirectToAction("MisOfertas");
+                _ofertaService.Agregar(oferta);
+                TempData["Mensaje"] = "Oferta creada con éxito.";
             }
-
-            ViewBag.TipoOfertas = new SelectList(db.Tipo_Oferta.Where(t => t.estado == "A"), "id_tipo_oferta", "nombre_tipo");
-            TempData["mensaje"] = "Hubo un error al crear la oferta";
-            return View(oferta);
-        }
-
-
-
-        // GET: Proveedor/Oferta/MisOfertas - Ver todas las ofertas del proveedor
-        public ActionResult MisOfertas()
-        {
-            int usuarioId = (int)Session["id_usuario"];
-            List<Oferta> ofertas;
-
-            using (var db = new ModeloSistema())
+            else
             {
-                ofertas = db.Oferta.Where(o => o.id_usuario == usuarioId).ToList();
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear la oferta.";
             }
 
-            return View(ofertas);
+            return RedirectToAction("MisOfertas");
         }
 
-        // GET: Proveedor/Oferta/Editar/5 - Editar una oferta
+
+
+
         public ActionResult Editar(int id)
         {
-            Oferta oferta;
-
-            using (var db = new ModeloSistema())
-            {
-                oferta = db.Oferta.Where(o => o.id_oferta == id).SingleOrDefault();
-            }
-
+            var oferta = _ofertaService.ObtenerPorId(id);
             if (oferta == null)
             {
-                TempData["mensaje"] = "Oferta no encontrada";
+                TempData["Error"] = "La oferta no fue encontrada.";
                 return RedirectToAction("MisOfertas");
             }
+
+            var destinos = destinoService.ObtenerTodosActivos();
+            var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+
+            ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino", oferta.id_destino);
+            ViewBag.TiposOferta = new SelectList(tiposOferta, "id_tipo_oferta", "nombre_tipo", oferta.id_tipo_oferta);
 
             return View(oferta);
         }
 
-        // POST: Proveedor/Oferta/Editar/5 - Actualizar la oferta editada
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Editar(Oferta oferta)
         {
             if (ModelState.IsValid)
             {
-                using (var db = new ModeloSistema())
-                {
-                    db.Entry(oferta).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                }
+                _ofertaService.Actualizar(oferta);
+                TempData["Mensaje"] = "Oferta actualizada con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo actualizar la oferta.";
+            }
 
-                TempData["mensaje"] = "Oferta actualizada con éxito";
+            return RedirectToAction("MisOfertas");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var oferta = _ofertaService.ObtenerPorId(id);
+            if (oferta == null)
+            {
+                TempData["Error"] = "La oferta no fue encontrada.";
                 return RedirectToAction("MisOfertas");
             }
 
-            TempData["mensaje"] = "Hubo un error al actualizar la oferta";
-            return View(oferta);
-        }
-
-        // GET: Proveedor/Oferta/Eliminar/5 - Eliminar una oferta
-        public ActionResult Eliminar(int id)
-        {
-            using (var db = new ModeloSistema())
-            {
-                Oferta oferta = db.Oferta.Where(o => o.id_oferta == id).SingleOrDefault();
-                if (oferta != null)
-                {
-                    db.Oferta.Remove(oferta);
-                    db.SaveChanges();
-                }
-            }
-
-            TempData["mensaje"] = "Oferta eliminada con éxito";
+            _ofertaService.Eliminar(id);
+            TempData["Mensaje"] = "Oferta eliminada con éxito.";
             return RedirectToAction("MisOfertas");
         }
+
+
 
 
         //

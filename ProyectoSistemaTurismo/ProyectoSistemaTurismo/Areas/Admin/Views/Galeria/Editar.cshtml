@@ -1,0 +1,79 @@
+﻿@model ProyectoSistemaTurismo.Models.Galeria
+
+@{
+    ViewBag.Title = "Editar Imagen";
+}
+
+<h2>Editar Imagen</h2>
+
+@using (Html.BeginForm("Editar", "Galeria", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.id_imagen)
+
+    <!-- URL de la Imagen (Simulada en el controlador) -->
+    <div class="form-group">
+        @Html.Label("Imagen", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="archivoImagen" class="form-control" />
+            <span class="text-muted">Deje vacío para mantener la imagen actual.</span>
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.url_imagen)
+
+    <!-- Descripción -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.descripcion, "Descripción", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "Ingrese una descripción", rows = 3, maxlength = 200 })
+        </div>
+    </div>
+
+    <!-- Tipo de Imagen -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.tipo_imagen, "Tipo de Imagen", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.tipo_imagen, new { @class = "form-control", placeholder = "Ingrese el tipo de imagen", maxlength = 50 })
+        </div>
+    </div>
+
+    <!-- Fecha de Subida (Readonly) -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.fecha_subida, "Fecha de Subida", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.fecha_subida, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    </div>
+
+    <!-- Estado -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.estado, "Estado", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.estado, new SelectList(new[] {
+                new { Value = "", Text = "Seleccione un estado" },
+                new { Value = "A", Text = "Activo" },
+                new { Value = "I", Text = "Inactivo" }
+            }, "Value", "Text", Model.estado), new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <!-- Oferta Relacionada -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.id_oferta, "Oferta Relacionada", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.id_oferta, (SelectList)ViewBag.Ofertas, "Seleccione una oferta", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.id_oferta, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}

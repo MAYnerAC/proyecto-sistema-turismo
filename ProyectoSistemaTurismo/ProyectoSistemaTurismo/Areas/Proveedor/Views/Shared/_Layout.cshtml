@@ -11,6 +11,39 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- DataTables -->
+    <link href="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.css" rel="stylesheet">
+
+    <style>
+        .alert-floating {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            min-width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .alert.fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+    </style>
+
+
+
+    <style>
+        /* Añadir una transición suave al desaparecer */
+        .alert {
+            transition: opacity 0.5s ease-out;
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+    </style>
+
+
     <style>
         body {
             background-color: #f4f7f6;
@@ -141,6 +174,35 @@
             </div>
         </div>
     </nav>
+
+
+
+
+
+
+    <!-- Zona de mensajes -->
+    <div id="alert-container">
+        @if (TempData["Mensaje"] != null)
+        {
+            <div class="alert alert-success alert-floating">
+                @TempData["Mensaje"]
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-floating">
+                @TempData["Error"]
+            </div>
+        }
+    </div>
+
+
+
+
+
+
+
 
 
     <!-- Barra lateral -->
@@ -293,5 +355,82 @@
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.js"></script>
+
 </body>
 </html>
+
+
+
+<script>
+
+    $("#DatatableP").DataTable({
+        aLengthMenu: [
+            [5, 10, 25, 50, 100, 200, -1],
+            [5, 10, 25, 50, 100, 200, "Todos"],
+        ],
+        bDestroy: true,
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningun dato disponible en esta tabla",
+            sInfo:
+                "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sInfoPostFix: "",
+            sSearch: "Buscar:",
+            sUrl: "",
+            sInfoThousands: ",",
+            sLoadingRecords: "Cargando...",
+            oPaginate: {
+                sFirst: "Primero",
+                sLast: "Ultimo",
+                sNext: "Siguiente",
+                sPrevious: "Anterior",
+            },
+            oAria: {
+                sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sSortDescending:
+                    ": Activar para ordenar la columna de manera descendente",
+            },
+        },
+    });
+
+</script>
+
+
+
+
+<script>
+    function obtenerUbicacion() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                document.getElementById("ubicacion_lat").value = position.coords.latitude;
+                document.getElementById("ubicacion_lon").value = position.coords.longitude;
+            }, function (error) {
+                alert("Error al obtener la ubicación: " + error.message);
+            });
+        } else {
+            alert("La geolocalización no es soportada por este navegador.");
+        }
+    }
+</script>
+
+
+
+
+
+<script>
+    // Alertas Mensaje o Error
+    setTimeout(function () {
+        const alerts = document.querySelectorAll('.alert-floating');
+        alerts.forEach(alert => {
+            alert.classList.add('fade-out');
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 5000); // Tiempo de 5 segundos
+</script>

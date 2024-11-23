@@ -24,7 +24,6 @@ namespace ProyectoSistemaTurismo.Models
 
         public TimeSpan horario_checkout { get; set; }
 
-        [Column(TypeName = "text")]
         public string servicios_adicionales { get; set; }
 
         public int? capacidad { get; set; }
