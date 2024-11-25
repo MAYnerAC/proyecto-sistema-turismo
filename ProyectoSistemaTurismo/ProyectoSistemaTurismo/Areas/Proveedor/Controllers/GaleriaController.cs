@@ -7,13 +7,139 @@ using System.Web.Mvc;
 //
 using ProyectoSistemaTurismo.Filters;
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
 {
     [Autenticado]
+    [OfertaSeleccionada]
     public class GaleriaController : Controller
     {
+        private GaleriaService _galeriaService = new GaleriaService();
+        private OfertaService _ofertaService = new OfertaService();
 
+        public ActionResult Index()
+        {
+            int idOferta = (int)Session["OfertaId"];
+            var imagenes = _galeriaService.ObtenerPorOferta(idOferta);
+            return View(imagenes);
+        }
+
+        public ActionResult Detalles(int id)
+        {
+            var imagen = _galeriaService.ObtenerPorId(id);
+            if (imagen == null)
+            {
+                TempData["Error"] = "La imagen no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+            return View(imagen);
+        }
+
+
+        public ActionResult Crear()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Crear(Galeria galeria, HttpPostedFileBase archivoImagen)
+        {
+            if (ModelState.IsValid)
+            {
+                if (archivoImagen != null)
+                {
+                    // Simular URL de Firebase
+                    string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
+                    galeria.url_imagen = "https://firebasestorage.googleapis.com/v0/b/tu-proyecto.appspot.com/o/" + Uri.EscapeDataString(nombreArchivo);
+                }
+                else
+                {
+                    TempData["Error"] = "Debe seleccionar un archivo para la imagen.";
+                    return RedirectToAction("Index");
+                }
+
+                _galeriaService.Agregar(galeria);
+                TempData["Mensaje"] = "Imagen creada con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        public ActionResult Editar(int id)
+        {
+            var galeria = _galeriaService.ObtenerPorId(id);
+            if (galeria == null)
+            {
+                TempData["Error"] = "La imagen no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            return View(galeria);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Galeria galeria, HttpPostedFileBase archivoImagen)
+        {
+            if (ModelState.IsValid)
+            {
+                if (archivoImagen != null)
+                {
+                    // Simular URL de Firebase
+                    string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
+                    galeria.url_imagen = "https://firebasestorage.googleapis.com/v0/b/tu-proyecto.appspot.com/o/" + Uri.EscapeDataString(nombreArchivo);
+                }
+
+                _galeriaService.Actualizar(galeria);
+                TempData["Mensaje"] = "Imagen actualizada con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var galeria = _galeriaService.ObtenerPorId(id);
+            if (galeria == null)
+            {
+                TempData["Error"] = "La imagen no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            _galeriaService.Eliminar(id);
+            TempData["Mensaje"] = "Imagen eliminada con éxito.";
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
 
 
         private ModeloSistema db = new ModeloSistema();
@@ -136,7 +262,7 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
 
             return RedirectToAction("Index");
         }
-
+        */
 
 
 

@@ -341,8 +341,6 @@
     <Content Include="Areas\Proveedor\Views\Oferta\MisOfertas.cshtml" />
     <Content Include="Areas\Proveedor\Views\Oferta\Editar.cshtml" />
     <Content Include="Areas\Proveedor\Views\Galeria\Index.cshtml" />
-    <Content Include="Areas\Proveedor\Views\Galeria\AgregarImagen.cshtml" />
-    <Content Include="Areas\Proveedor\Views\Galeria\Eliminar.cshtml" />
     <Content Include="Areas\Admin\Views\Oferta\Detalles.cshtml" />
     <Content Include="Areas\Admin\Views\Oferta\Crear.cshtml" />
     <Content Include="Areas\Admin\Views\Oferta\Editar.cshtml" />
@@ -351,6 +349,8 @@
     <Content Include="Areas\Admin\Views\Galeria\Crear.cshtml" />
     <Content Include="Areas\Admin\Views\Galeria\Editar.cshtml" />
     <Content Include="Areas\Admin\Views\Galeria\Detalles.cshtml" />
+    <Content Include="Areas\Proveedor\Views\Galeria\Detalles.cshtml" />
+    <Content Include="Areas\Proveedor\Views\Galeria\Crear.cshtml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - Web Deploy.pubxml" />

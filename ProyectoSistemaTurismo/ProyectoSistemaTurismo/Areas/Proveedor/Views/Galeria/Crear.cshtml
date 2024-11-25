@@ -1,0 +1,51 @@
+﻿@model ProyectoSistemaTurismo.Models.Galeria
+
+@{
+    ViewBag.Title = "Crear Imagen";
+}
+
+<h2>Crear Imagen</h2>
+
+@using (Html.BeginForm("Crear", "Galeria", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- id_oferta -->
+    @Html.HiddenFor(model => model.id_oferta, new { Value = Session["OfertaId"] })
+
+    <!-- Archivo de Imagen -->
+    <div class="form-group">
+        @Html.Label("Imagen", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="archivoImagen" class="form-control" required="required" />
+            <span class="text-muted">Seleccione una imagen para la galería.</span>
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.url_imagen, new { Value = "https://firebasestorage.googleapis.com/v0/b/tu-proyecto.appspot.com/o/default-image.png" })
+
+
+    <!-- Descripción -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.descripcion, "Descripción", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.descripcion, new { @class = "form-control", placeholder = "Ingrese una descripción (opcional)", maxlength = 255 })
+        </div>
+    </div>
+
+    <!-- Tipo de Imagen -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.tipo_imagen, "Tipo de Imagen", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.tipo_imagen, new { @class = "form-control", placeholder = "Ingrese el tipo de imagen (opcional)", maxlength = 50 })
+        </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}

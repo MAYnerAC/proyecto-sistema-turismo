@@ -117,8 +117,43 @@ namespace ProyectoSistemaTurismo.Service
         }
 
 
+        /*--------------------------------------------*/
 
+        public List<Galeria> ObtenerPorUsuario(int idUsuario)
+        {
+            try
+            {
+                using (var db = new ModeloSistema())
+                {
+                    return db.Galeria
+                             .Include(g => g.Oferta)
+                             .Where(g => g.Oferta.id_usuario == idUsuario && g.estado == "A")
+                             .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
+        public List<Galeria> ObtenerPorOferta(int idOferta)
+        {
+            try
+            {
+                using (var db = new ModeloSistema())
+                {
+                    return db.Galeria
+                             .Include(g => g.Oferta)
+                             .Where(g => g.id_oferta == idOferta && g.estado == "A")
+                             .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
 
 

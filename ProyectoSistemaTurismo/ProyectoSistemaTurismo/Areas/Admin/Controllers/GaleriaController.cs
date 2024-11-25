@@ -66,12 +66,12 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             else
             {
 
-                // Diagnóstico de errores en caso de fallo
-                var errores = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
-                foreach (var error in errores)
-                {
-                    System.Diagnostics.Debug.WriteLine(error); // Ver en salida de depuración
-                }
+                //// Diagnóstico de errores en caso de fallo
+                //var errores = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                //foreach (var error in errores)
+                //{
+                //    System.Diagnostics.Debug.WriteLine(error); // Ver en salida de depuración
+                //}
 
                 TempData["Error"] = "Los datos ingresados no son válidos.";
             }
