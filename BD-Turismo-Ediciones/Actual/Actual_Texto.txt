@@ -1,0 +1,226 @@
+Claro, a continuación te proporcionaré las funciones necesarias para cada tipo de usuario (Admin, Turista, y Proveedor) basadas en las tablas de tu base de datos. Las funciones están organizadas por tabla y especifican las operaciones que cada tipo de usuario puede realizar, usando una sintaxis de código para mayor claridad.
+
+Funciones por Tipo de Usuario y Tabla
+Tabla Tipo_Usuario
+Admin
+Tipo_Usuario.agregar(Tipo_Usuario tipoUsuario)
+Agrega un nuevo tipo de usuario al sistema.
+Tipo_Usuario.editar(Tipo_Usuario tipoUsuario)
+Edita los detalles de un tipo de usuario existente.
+Tipo_Usuario.eliminar(int id_tipo_usuario)
+Elimina un tipo de usuario del sistema.
+Tipo_Usuario.listar()
+Lista todos los tipos de usuario disponibles.
+Turista y Proveedor
+Sin acceso a esta tabla.
+Tabla Tipo_Oferta
+Admin
+Tipo_Oferta.agregar(Tipo_Oferta tipoOferta)
+Agrega un nuevo tipo de oferta al sistema.
+Tipo_Oferta.editar(Tipo_Oferta tipoOferta)
+Edita los detalles de un tipo de oferta existente.
+Tipo_Oferta.eliminar(int id_tipo_oferta)
+Elimina un tipo de oferta del sistema.
+Tipo_Oferta.listar()
+Lista todos los tipos de oferta disponibles.
+Turista y Proveedor
+Sin acceso a esta tabla.
+Tabla Etiqueta
+Admin
+Etiqueta.agregar(Etiqueta etiqueta)
+Agrega una nueva etiqueta al sistema.
+Etiqueta.editar(Etiqueta etiqueta)
+Edita los detalles de una etiqueta existente.
+Etiqueta.eliminar(int id_etiqueta)
+Elimina una etiqueta del sistema.
+Etiqueta.listar()
+Lista todas las etiquetas disponibles.
+Proveedor
+Etiqueta.listar()
+Consulta las etiquetas disponibles para asociar a sus ofertas.
+Turista
+Sin acceso a esta tabla.
+Tabla Destino
+Admin
+Destino.agregar(Destino destino)
+Agrega un nuevo destino al sistema.
+Destino.editar(Destino destino)
+Edita los detalles de un destino existente.
+Destino.eliminar(int id_destino)
+Elimina un destino del sistema.
+Destino.listar()
+Lista todos los destinos disponibles.
+Turista y Proveedor
+Destino.listar()
+Consultan la lista de destinos disponibles.
+Tabla Usuario
+Admin
+Usuario.listar()
+Lista todos los usuarios registrados.
+Usuario.editar(Usuario usuario)
+Edita la información de un usuario existente.
+Usuario.eliminar(int id_usuario)
+Elimina un usuario del sistema.
+Usuario.cambiarTipo(int id_usuario, int id_tipo_usuario)
+Cambia el tipo de usuario (por ejemplo, de turista a proveedor).
+Usuario.desactivar(int id_usuario)
+Desactiva la cuenta de un usuario.
+Usuario.activar(int id_usuario)
+Reactiva la cuenta de un usuario.
+Turista
+Usuario.registrar(Usuario usuario)
+Registra un nuevo usuario como turista.
+Usuario.iniciarSesion(string email, string contrasena)
+Inicia sesión en el sistema.
+Usuario.actualizarPerfil(Usuario usuario)
+Actualiza su información personal.
+Usuario.cambiarContrasena(int id_usuario, string contrasenaNueva)
+Cambia su contraseña.
+Usuario.solicitarCambioTipo(int id_usuario, int nuevo_id_tipo_usuario)
+Solicita convertirse en proveedor.
+Proveedor
+Mismas funciones que el Turista (excepto solicitarCambioTipo si ya es proveedor).
+Tabla Oferta
+Admin
+Oferta.listarTodas()
+Lista todas las ofertas en el sistema.
+Oferta.listarPendientes()
+Lista ofertas pendientes de aprobación.
+Oferta.aprobar(int id_oferta)
+Aprueba una oferta para hacerla visible.
+Oferta.rechazar(int id_oferta, string motivo)
+Rechaza una oferta y proporciona un motivo.
+Oferta.eliminar(int id_oferta)
+Elimina una oferta del sistema.
+Turista
+Oferta.listar()
+Lista ofertas aprobadas y visibles.
+Oferta.buscar(string criterio)
+Busca ofertas según un criterio específico.
+Oferta.verDetalle(int id_oferta)
+Visualiza los detalles de una oferta específica.
+Proveedor
+Oferta.agregar(Oferta oferta)
+Agrega una nueva oferta (queda pendiente de aprobación).
+Oferta.editar(Oferta oferta)
+Edita una oferta propia.
+Oferta.eliminar(int id_oferta)
+Elimina una de sus propias ofertas.
+Oferta.listarPorProveedor(int id_usuario)
+Lista todas sus ofertas, incluyendo el estado de aprobación.
+Oferta.verEstado(int id_oferta)
+Consulta el estado (aprobada, pendiente, rechazada) de una oferta propia.
+Tabla Etiqueta_Oferta
+Proveedor
+Etiqueta_Oferta.agregar(Etiqueta_Oferta etiquetaOferta)
+Asocia una etiqueta a una oferta propia.
+Etiqueta_Oferta.eliminar(int id_etiqueta_oferta)
+Elimina una etiqueta de una oferta propia.
+Etiqueta_Oferta.listarPorOferta(int id_oferta)
+Lista las etiquetas asociadas a una oferta propia.
+Admin y Turista
+Sin acceso directo a esta tabla.
+Tabla Comentario
+Admin
+Comentario.listarTodos()
+Lista todos los comentarios en el sistema.
+Comentario.listarPorOferta(int id_oferta)
+Lista los comentarios asociados a una oferta específica.
+Comentario.eliminar(int id_comentario)
+Elimina un comentario que incumple las normas.
+Turista y Proveedor
+Comentario.agregar(Comentario comentario)
+Agrega un nuevo comentario a una oferta.
+Comentario.editar(Comentario comentario)
+Edita uno de sus propios comentarios.
+Comentario.eliminar(int id_comentario)
+Elimina uno de sus propios comentarios.
+Comentario.listarPorUsuario(int id_usuario)
+Lista todos sus comentarios realizados.
+Tabla Galeria
+Admin
+Galeria.eliminarImagen(int id_imagen)
+Elimina una imagen que no cumple las normas.
+Turista
+Galeria.verImagen(int id_imagen)
+Visualiza una imagen asociada a una oferta.
+Galeria.listarPorOferta(int id_oferta)
+Lista todas las imágenes de una oferta.
+Proveedor
+Galeria.agregarImagen(Galeria imagen)
+Agrega una imagen a una oferta propia.
+Galeria.editarImagen(Galeria imagen)
+Edita los detalles de una imagen propia.
+Galeria.eliminarImagen(int id_imagen)
+Elimina una imagen de una oferta propia.
+Galeria.listarPorOferta(int id_oferta)
+Lista todas las imágenes de sus ofertas.
+Tabla Preferencias_Usuario
+Admin
+Preferencias_Usuario.listarPorUsuario(int id_usuario)
+Visualiza las preferencias de un usuario específico.
+Turista y Proveedor
+Preferencias_Usuario.agregar(Preferencias_Usuario preferencia)
+Agrega una nueva preferencia a su perfil.
+Preferencias_Usuario.eliminar(int id_preferencia)
+Elimina una preferencia de su perfil.
+Preferencias_Usuario.listarPorUsuario(int id_usuario)
+Lista todas sus preferencias actuales.
+Tabla Foto_Comentario
+Admin
+Foto_Comentario.eliminar(int id_foto)
+Elimina una foto que no cumple las normas.
+Turista y Proveedor
+Foto_Comentario.agregar(Foto_Comentario fotoComentario)
+Agrega una foto a uno de sus comentarios.
+Foto_Comentario.eliminar(int id_foto)
+Elimina una foto de uno de sus comentarios.
+Foto_Comentario.listarPorComentario(int id_comentario)
+Lista todas las fotos asociadas a uno de sus comentarios.
+Resumen de Funciones por Tipo de Usuario
+Admin
+Gestión Completa del Sistema:
+
+Puede agregar, editar y eliminar registros en las tablas Tipo_Usuario, Tipo_Oferta, Etiqueta, Destino, y Usuario.
+Moderación de Contenido:
+
+Aprueba o rechaza ofertas de Proveedor.
+Elimina comentarios e imágenes que incumplen las normas.
+Consultas y Reportes:
+
+Puede listar y consultar información en todas las tablas.
+Turista
+Interacción con Ofertas:
+
+Puede buscar y visualizar ofertas aprobadas.
+Agrega comentarios y fotos a las ofertas.
+Gestión de Perfil:
+
+Registra y actualiza su información personal.
+Gestiona sus preferencias mediante etiquetas.
+Solicitud de Cambio de Rol:
+
+Puede solicitar convertirse en Proveedor.
+Proveedor
+Funciones de Turista:
+
+Tiene todas las funcionalidades del Turista.
+Gestión de Ofertas Propias:
+
+Agrega, edita y elimina sus propias ofertas.
+Gestiona las imágenes y etiquetas asociadas a sus ofertas.
+Consulta el estado de aprobación de sus ofertas.
+Notas Adicionales
+Seguridad y Validación:
+
+Todas las operaciones deben incluir validaciones de seguridad para asegurar que los usuarios solo puedan modificar su propia información y contenido.
+Estados y Visibilidad:
+
+Las ofertas y comentarios tienen estados que determinan su visibilidad en el sistema. Los Admin controlan estos estados.
+Flujo de Aprobación:
+
+Las ofertas creadas por Proveedor deben ser aprobadas por un Admin antes de ser visibles para todos los usuarios.
+Flexibilidad en Roles:
+
+Los Turistas pueden solicitar convertirse en Proveedores sin perder sus funcionalidades anteriores.
+Este listado de funciones debería ayudarte a entender claramente qué operaciones puede realizar cada tipo de usuario en tu sistema web de promoción turística, basándote en tu esquema de base de datos. Cada función está diseñada para corresponder a las necesidades y permisos de cada rol, asegurando un funcionamiento coherente y seguro del sistema.
