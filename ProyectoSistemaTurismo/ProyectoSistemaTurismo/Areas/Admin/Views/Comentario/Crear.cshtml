@@ -1,0 +1,64 @@
+﻿@model ProyectoSistemaTurismo.Models.Comentario
+
+@{
+    ViewBag.Title = "Crear Nuevo Comentario";
+}
+
+<h2>Crear Nuevo Comentario</h2>
+
+@using (Html.BeginForm("Crear", "Comentario", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Contenido del Comentario -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.contenido, "Contenido", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.contenido, new { @class = "form-control", placeholder = "Escribe tu comentario aquí", rows = 4, maxlength = 1000, required = "required" })
+            @Html.ValidationMessageFor(model => model.contenido, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Puntuación -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.puntuacion, "Puntuación", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.puntuacion, new SelectList(new[]
+            {
+                new { Value = 1, Text = "1 - Muy Malo" },
+                new { Value = 2, Text = "2 - Malo" },
+                new { Value = 3, Text = "3 - Regular" },
+                new { Value = 4, Text = "4 - Bueno" },
+                new { Value = 5, Text = "5 - Excelente" }
+            }, "Value", "Text"), "Seleccione una puntuación", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.puntuacion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Oferta Asociada -->
+    <div class="form-group">
+        @Html.Label("Oferta", "Oferta", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.id_oferta, (SelectList)ViewBag.Ofertas, "Seleccione una oferta", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.id_oferta, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Usuario (se asigna automáticamente si es necesario) -->
+    <div class="form-group">
+        @Html.Label("Usuario", "Usuario", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.id_usuario, (SelectList)ViewBag.Usuarios, "Seleccione un usuario", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.id_usuario, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <!-- Botones -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-success">Crear Comentario</button>
+            @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

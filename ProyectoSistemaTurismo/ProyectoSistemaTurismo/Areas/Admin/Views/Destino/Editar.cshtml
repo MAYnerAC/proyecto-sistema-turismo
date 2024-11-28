@@ -1,0 +1,70 @@
+﻿@model ProyectoSistemaTurismo.Models.Destino
+
+@{
+    ViewBag.Title = "Editar Destino";
+}
+
+<h2 class="text-center mb-4">Editar Destino</h2>
+
+@using (Html.BeginForm("Editar", "Destino", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Campo oculto para ID de Destino -->
+    @Html.HiddenFor(model => model.id_destino)
+
+    <!-- Nombre -->
+    <div class="form-group row">
+        @Html.LabelFor(model => model.nombre_destino, "Nombre", new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.nombre_destino, new { @class = "form-control", required = "required", maxlength = 100 })
+            @Html.ValidationMessageFor(model => model.nombre_destino, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Tipo de Destino -->
+    <div class="form-group row">
+        @Html.LabelFor(model => model.tipo_destino, "Tipo de Destino", new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.tipo_destino, new { @class = "form-control", maxlength = 50 })
+            @Html.ValidationMessageFor(model => model.tipo_destino, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Descripción -->
+    <div class="form-group row">
+        @Html.LabelFor(model => model.descripcion, "Descripción", new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", rows = 4, maxlength = 1000 })
+            @Html.ValidationMessageFor(model => model.descripcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- País -->
+    <div class="form-group row">
+        @Html.LabelFor(model => model.pais, "País", new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.pais, new { @class = "form-control", maxlength = 100, required = "required" })
+            @Html.ValidationMessageFor(model => model.pais, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Estado -->
+    <div class="form-group row">
+        @Html.LabelFor(model => model.estado, "Estado", new { @class = "col-md-2 col-form-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.estado, new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Activo", Value = "A" },
+                new SelectListItem { Text = "Inactivo", Value = "I" }
+            }, "Seleccione el estado", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary ml-2" })
+    </div>
+}

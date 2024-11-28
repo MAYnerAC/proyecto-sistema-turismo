@@ -1,63 +1,56 @@
-﻿@model IEnumerable<ProyectoSistemaTurismo.Models.Comentario>
+﻿@model List<ProyectoSistemaTurismo.Models.Comentario>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Listado de Comentarios";
 }
 
-<h2>Index</h2>
+<h2>Listado de Comentarios</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nuevo Comentario", "Crear", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Oferta.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuario.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.comentario1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.puntuacion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fecha_comentario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Oferta.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.comentario1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.puntuacion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha_comentario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_comentario }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_comentario }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_comentario })
-        </td>
-    </tr>
-}
+<table id="DatatableP" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Contenido</th>
+            <th>Puntuación</th>
+            <th>Oferta</th>
+            <th>Usuario</th>
+            <th>Estado</th>
+            <th>Fecha de Comentario</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@((item.contenido?.Length > 70) ? item.contenido.Substring(0, 70) + "..." : item.contenido ?? "")</td>
 
+                <td>@(item.puntuacion.HasValue ? (item.puntuacion == 1 ? "Muy Malo" : item.puntuacion == 2 ? "Malo" : item.puntuacion == 3 ? "Regular" : item.puntuacion == 4 ? "Bueno" : "Excelente") : "N/A")</td>
+
+                <td>@Html.DisplayFor(modelItem => item.Oferta.nombre)</td>
+
+                <td>@Html.DisplayFor(modelItem => item.Usuario.nombre)</td>
+
+                <td>@(item.estado == "A" ? "Activo" : "Inactivo")</td>
+
+                <td>@DateTime.Parse(item.fecha_comentario.ToString()).ToString("dd/MM/yyyy")</td>
+
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Editar", new { id = item.id_comentario }, new { @class = "btn btn-sm btn-warning" })
+
+                    @Html.ActionLink("Detalle", "Detalles", new { id = item.id_comentario }, new { @class = "btn btn-sm btn-info" })
+
+                    @using (Html.BeginForm("Eliminar", "Comentario", FormMethod.Post, new { @onsubmit = "return confirm('¿Está seguro de eliminar este comentario?');" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.id_comentario)
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

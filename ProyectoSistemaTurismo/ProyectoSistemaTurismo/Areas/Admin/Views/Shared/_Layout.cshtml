@@ -143,27 +143,27 @@
                     <a class="nav-link" data-toggle="collapse" href="#gestionUsuarios" role="button">Gestión de Usuarios</a>
                     <div class="collapse" id="gestionUsuarios">
                         <ul class="nav flex-column pl-3">
-                            <li class="nav-item">@Html.ActionLink("Usuario", "Index", "Usuario", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Tipo Usuario", "Index", "Tipo_Usuario", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Preferencias Usuario", "Index", "Preferencias_Usuario", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Log Visitas", "Index", "Log_Visitas", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Usuarios", "Index", "Usuario", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Tipos de Usuario", "Index", "Tipo_Usuario", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Preferencias", "Index", "Preferencias_Usuario", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            @*<li class="nav-item">@Html.ActionLink("Log Visitas", "Index", "Log_Visitas", new { area = "Admin" }, new { @class = "nav-link" })</li>*@
                         </ul>
                     </div>
                 </li>
 
                 <!-- Gestión de Ofertas y Servicios -->
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#gestionOfertas" role="button">Gestión de Ofertas y Servicios</a>
+                    <a class="nav-link" data-toggle="collapse" href="#gestionOfertas" role="button">Gestión de Ofertas</a>
                     <div class="collapse" id="gestionOfertas">
                         <ul class="nav flex-column pl-3">
-                            <li class="nav-item">@Html.ActionLink("Oferta", "Index", "Oferta", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Tipo Oferta", "Index", "Tipo_Oferta", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Hospedaje", "Index", "Hospedaje", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Restaurante", "Index", "Restaurante", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Evento", "Index", "Evento", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Atractivo Turístico", "Index", "Atractivo_Turistico", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Institución", "Index", "Institucion", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Suscripción Negocio", "Index", "Suscripcion_Negocio", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Ofertas", "Index", "Oferta", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Tipos de Oferta", "Index", "Tipo_Oferta", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            @*<li class="nav-item">@Html.ActionLink("Hospedaje", "Index", "Hospedaje", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Restaurante", "Index", "Restaurante", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Evento", "Index", "Evento", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Atractivo Turístico", "Index", "Atractivo_Turistico", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Institución", "Index", "Institucion", new { area = "Admin" }, new { @class = "nav-link" })</li>*@
+                            @*<li class="nav-item">@Html.ActionLink("Suscripción Negocio", "Index", "Suscripcion_Negocio", new { area = "Admin" }, new { @class = "nav-link" })</li>*@
                             <li class="nav-item">@Html.ActionLink("Galeria", "Index", "Galeria", new { area = "Admin" }, new { @class = "nav-link" })</li>
                         </ul>
                     </div>
@@ -174,8 +174,8 @@
                     <a class="nav-link" data-toggle="collapse" href="#categoriasEtiquetas" role="button">Categorías y Etiquetas</a>
                     <div class="collapse" id="categoriasEtiquetas">
                         <ul class="nav flex-column pl-3">
-                            <li class="nav-item">@Html.ActionLink("Etiqueta", "Index", "Etiqueta", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Etiqueta Oferta", "Index", "Etiqueta_Oferta", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Etiquetas", "Index", "Etiqueta", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Etiquetas de Ofertas", "Index", "Etiqueta_Oferta", new { area = "Admin" }, new { @class = "nav-link" })</li>
                         </ul>
                     </div>
                 </li>
@@ -185,33 +185,33 @@
                     <a class="nav-link" data-toggle="collapse" href="#comentariosValoraciones" role="button">Comentarios y Valoraciones</a>
                     <div class="collapse" id="comentariosValoraciones">
                         <ul class="nav flex-column pl-3">
-                            <li class="nav-item">@Html.ActionLink("Comentario", "Index", "Comentario", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Foto Comentario", "Index", "Foto_Comentario", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Comentarios", "Index", "Comentario", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Fotos en Comentario", "Index", "Foto_Comentario", new { area = "Admin" }, new { @class = "nav-link" })</li>
                         </ul>
                     </div>
                 </li>
 
                 <!-- Gestión de Destinos -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#">@Html.ActionLink("Destino", "Index", "Destino", new { area = "Admin" }, new { @class = "nav-link" })</a>
+                    @Html.ActionLink("Administrar Destinos", "Index", "Destino", new { area = "Admin" }, new { @class = "nav-link" })
                 </li>
 
                 <!-- Administración de Reportes -->
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#administracionReportes" role="button">Administración de Reportes</a>
-                    <div class="collapse" id="administracionReportes">
-                        <ul class="nav flex-column pl-3">
-                            <li class="nav-item">@Html.ActionLink("Reporte", "Index", "Reporte", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Tipo Reporte", "Index", "Tipo_Reporte", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Estado Reporte", "Index", "Estado_Reporte", new { area = "Admin" }, new { @class = "nav-link" })</li>
-                        </ul>
-                    </div>
-                </li>
+                @*<li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#administracionReportes" role="button">Administración de Reportes</a>
+                        <div class="collapse" id="administracionReportes">
+                            <ul class="nav flex-column pl-3">
+                                <li class="nav-item">@Html.ActionLink("Reporte", "Index", "Reporte", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Tipo Reporte", "Index", "Tipo_Reporte", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Estado Reporte", "Index", "Estado_Reporte", new { area = "Admin" }, new { @class = "nav-link" })</li>
+                            </ul>
+                        </div>
+                    </li>*@
 
                 <!-- Publicidad y Promociones -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#">@Html.ActionLink("Publicidad", "Index", "Publicidad", new { area = "Admin" }, new { @class = "nav-link" })</a>
-                </li>
+                @*<li class="nav-item">
+                        <a class="nav-link" href="#">@Html.ActionLink("Publicidad", "Index", "Publicidad", new { area = "Admin" }, new { @class = "nav-link" })</a>
+                    </li>*@
             </ul>
         </div>
     </div>

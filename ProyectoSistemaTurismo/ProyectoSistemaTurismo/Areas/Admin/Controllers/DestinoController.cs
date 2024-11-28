@@ -7,11 +7,124 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
     public class DestinoController : Controller
     {
+
+
+        private DestinoService _destinoService = new DestinoService();
+
+
+        // GET: Admin/Destino
+        public ActionResult Index()
+        {
+            var destinos = _destinoService.ObtenerTodos();
+            return View(destinos);
+        }
+
+        // GET: Admin/Destino/Detalles/5
+        public ActionResult Detalles(int id)
+        {
+            var destino = _destinoService.ObtenerPorId(id);
+            if (destino == null)
+            {
+                TempData["Error"] = "El destino no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+            return View(destino);
+        }
+
+        // GET: Admin/Destino/Crear
+        public ActionResult Crear()
+        {
+            return View();
+        }
+
+        // POST: Admin/Destino/Crear
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Crear(Destino destino)
+        {
+            if (ModelState.IsValid)
+            {
+                _destinoService.Agregar(destino);
+                TempData["Mensaje"] = "Destino creado con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear el destino.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        // GET: Admin/Destino/Editar/5
+        public ActionResult Editar(int id)
+        {
+            var destino = _destinoService.ObtenerPorId(id);
+            if (destino == null)
+            {
+                TempData["Error"] = "El destino no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+            return View(destino);
+        }
+
+        // POST: Admin/Destino/Editar/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Destino destino)
+        {
+            if (ModelState.IsValid)
+            {
+                _destinoService.Actualizar(destino);
+                TempData["Mensaje"] = "Destino actualizado con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo actualizar el destino.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        // POST: Admin/Destino/Eliminar/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var destino = _destinoService.ObtenerPorId(id);
+            if (destino == null)
+            {
+                TempData["Error"] = "El destino no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+
+            _destinoService.Eliminar(id);
+            TempData["Mensaje"] = "Destino eliminado con éxito.";
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
         private ModeloSistema db = new ModeloSistema();
 
         // GET: Admin/Destino
@@ -123,5 +236,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+        */
     }
 }

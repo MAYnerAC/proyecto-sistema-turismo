@@ -1,57 +1,46 @@
-﻿@model IEnumerable<ProyectoSistemaTurismo.Models.Destino>
+﻿@model List<ProyectoSistemaTurismo.Models.Destino>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Listado de Destinos";
 }
 
-<h2>Index</h2>
+<h2>Listado de Destinos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nuevo Destino", "Crear", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre_destino)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tipo_destino)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.pais)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre_destino)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tipo_destino)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.pais)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_destino }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_destino }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_destino })
-        </td>
-    </tr>
-}
-
+<table id="DatatableP" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre del Destino</th>
+            <th>Tipo de Destino</th>
+            <th>Descripción</th>
+            <th>País</th>
+            <th>Estado</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.nombre_destino)</td>
+                <td>@Html.DisplayFor(modelItem => item.tipo_destino)</td>
+                <td>@((item.descripcion?.Length > 70) ? item.descripcion.Substring(0, 70) + "..." : item.descripcion ?? "")</td>
+                <td>@Html.DisplayFor(modelItem => item.pais)</td>
+                <td>@(item.estado == "A" ? "Activo" : "Inactivo")</td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Editar", new { id = item.id_destino }, new { @class = "btn btn-sm btn-warning" })
+                    @Html.ActionLink("Detalle", "Detalles", new { id = item.id_destino }, new { @class = "btn btn-sm btn-info" })
+                    @using (Html.BeginForm("Eliminar", "Destino", FormMethod.Post, new { @onsubmit = "return confirm('¿Está seguro de eliminar este destino?');" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.id_destino)
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

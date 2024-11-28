@@ -7,11 +7,121 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
     public class ComentarioController : Controller
     {
+        private ComentarioService _comentarioService = new ComentarioService();
+        private OfertaService ofertaService = new OfertaService();
+        private UsuarioService usuarioService = new UsuarioService();
+
+        public ActionResult Index()
+        {
+            var comentarios = _comentarioService.ObtenerTodos();
+            return View(comentarios);
+        }
+
+        public ActionResult Detalles(int id)
+        {
+            var comentario = _comentarioService.ObtenerPorId(id);
+            if (comentario == null)
+            {
+                TempData["Error"] = "El comentario no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+            return View(comentario);
+        }
+
+        public ActionResult Crear()
+        {
+            var ofertas = ofertaService.ObtenerTodosActivos();
+            var usuarios = usuarioService.ObtenerTodosActivos();
+
+            ViewBag.Ofertas = new SelectList(ofertas, "id_oferta", "nombre");
+            ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Crear(Comentario comentario)
+        {
+            if (ModelState.IsValid)
+            {
+                _comentarioService.Agregar(comentario);
+                TempData["Mensaje"] = "Comentario creado con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear el comentario.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Editar(int id)
+        {
+            var comentario = _comentarioService.ObtenerPorId(id);
+            if (comentario == null)
+            {
+                TempData["Error"] = "El comentario no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+
+            var ofertas = ofertaService.ObtenerTodosActivos();
+            var usuarios = usuarioService.ObtenerTodosActivos();
+
+            ViewBag.Ofertas = new SelectList(ofertas, "id_oferta", "nombre", comentario.id_oferta);
+            ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre", comentario.id_usuario);
+
+            return View(comentario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Comentario comentario)
+        {
+            if (ModelState.IsValid)
+            {
+                _comentarioService.Actualizar(comentario);
+                TempData["Mensaje"] = "Comentario actualizado con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo actualizar el comentario.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var comentario = _comentarioService.ObtenerPorId(id);
+            if (comentario == null)
+            {
+                TempData["Error"] = "El comentario no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+
+            _comentarioService.Eliminar(id);
+            TempData["Mensaje"] = "Comentario eliminado con éxito.";
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
+
+
+        /*
         private ModeloSistema db = new ModeloSistema();
 
         // GET: Admin/Comentario
@@ -132,5 +242,13 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+
+
+
+
+        */
     }
 }

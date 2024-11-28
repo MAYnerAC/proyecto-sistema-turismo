@@ -1,0 +1,48 @@
+﻿@model ProyectoSistemaTurismo.Models.Destino
+
+@{
+    ViewBag.Title = "Detalles de Destino";
+}
+
+<h2 class="text-center mb-4">Detalles de Destino</h2>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4>@Model.nombre_destino</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h5><strong>Nombre:</strong></h5>
+                <p>@Model.nombre_destino</p>
+            </div>
+            <div class="col-md-6">
+                <h5><strong>Tipo de Destino:</strong></h5>
+                <p>@Model.tipo_destino</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5><strong>Descripción:</strong></h5>
+                <p>@(string.IsNullOrEmpty(Model.descripcion) ? "No disponible" : Model.descripcion)</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h5><strong>País:</strong></h5>
+                <p>@Model.pais</p>
+            </div>
+            <div class="col-md-6">
+                <h5><strong>Estado:</strong></h5>
+                <p>@(Model.estado == "A" ? "Activo" : "Inactivo")</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer text-center">
+        @Html.ActionLink("Editar", "Editar", new { id = Model.id_destino }, new { @class = "btn btn-warning btn-sm mr-2" })
+        @Html.ActionLink("Volver a la lista", "Index", null, new { @class = "btn btn-secondary btn-sm" })
+    </div>
+</div>
