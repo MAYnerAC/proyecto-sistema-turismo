@@ -9,13 +9,13 @@
 </div>
 
 <h4>Fotos Asociadas:</h4>
-@if (ViewBag.FotosComentario != null && ViewBag.FotosComentario.Any())
+@if (ViewBag.FotosComentario != null)
 {
     <ul>
         @foreach (var foto in ViewBag.FotosComentario)
         {
             <li>
-                <img src="@foto.Url" alt="Foto del comentario" style="width: 200px; height: auto;" />
+                <img src="@foto.url_foto" alt="Foto del comentario" style="width: 200px; height: auto;" />
                 <!-- Asegúrate de usar la propiedad correcta que almacene la URL de la foto -->
             </li>
         }
