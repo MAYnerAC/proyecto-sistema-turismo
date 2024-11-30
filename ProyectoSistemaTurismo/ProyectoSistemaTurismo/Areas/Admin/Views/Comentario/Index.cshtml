@@ -41,7 +41,7 @@
                 <td class="text-center">
                     @Html.ActionLink("Editar", "Editar", new { id = item.id_comentario }, new { @class = "btn btn-sm btn-warning" })
 
-                    @Html.ActionLink("Detalle", "Detalles", new { id = item.id_comentario }, new { @class = "btn btn-sm btn-info" })
+                    @*@Html.ActionLink("Detalle", "Detalles", new { id = item.id_comentario }, new { @class = "btn btn-sm btn-info" })*@
 
                     @using (Html.BeginForm("Eliminar", "Comentario", FormMethod.Post, new { @onsubmit = "return confirm('¿Está seguro de eliminar este comentario?');" }))
                     {

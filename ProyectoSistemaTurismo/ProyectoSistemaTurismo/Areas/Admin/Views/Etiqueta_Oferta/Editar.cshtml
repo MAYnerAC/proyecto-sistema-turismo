@@ -1,0 +1,41 @@
+﻿@model ProyectoSistemaTurismo.Models.Etiqueta_Oferta
+
+@{
+    ViewBag.Title = "Editar Relación Etiqueta-Oferta";
+}
+
+<h2>Editar Relación Etiqueta-Oferta</h2>
+
+@using (Html.BeginForm("Editar", "Etiqueta_Oferta", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Campo oculto para ID de la relación -->
+    @Html.HiddenFor(model => model.id_etiqueta_oferta)
+
+    <!-- Oferta -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.id_oferta, "Oferta", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.id_oferta, (SelectList)ViewBag.Ofertas, "Seleccione una oferta", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.id_oferta, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Etiqueta -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.id_etiqueta, "Etiqueta", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.id_etiqueta, (SelectList)ViewBag.Etiquetas, "Seleccione una etiqueta", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.id_etiqueta, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}

@@ -2,16 +2,135 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
     public class Foto_ComentarioController : Controller
     {
+        private Foto_ComentarioService _fotoComentarioService = new Foto_ComentarioService();
+        private ComentarioService _comentarioService = new ComentarioService();
+
+        public ActionResult Index()
+        {
+            var fotosComentarios = _fotoComentarioService.ObtenerTodos();
+            return View(fotosComentarios);
+        }
+
+        public ActionResult Detalles(int id)
+        {
+            var fotoComentario = _fotoComentarioService.ObtenerPorId(id);
+            if (fotoComentario == null)
+            {
+                TempData["Error"] = "La foto de comentario no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+            return View(fotoComentario);
+        }
+
+        public ActionResult Crear()
+        {
+            var comentarios = _comentarioService.ObtenerTodosActivos();
+            ViewBag.Comentarios = new SelectList(comentarios, "id_comentario", "contenido");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Crear(Foto_Comentario fotoComentario, HttpPostedFileBase archivoImagen)
+        {
+            if (ModelState.IsValid)
+            {
+                if (archivoImagen != null)
+                {
+                    // Simular URL de Firebase
+                    string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
+                    fotoComentario.url_foto = "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
+                }
+                else
+                {
+                    TempData["Error"] = "Debe seleccionar un archivo para la imagen.";
+                    return RedirectToAction("Index");
+                }
+
+                _fotoComentarioService.Agregar(fotoComentario);
+                TempData["Mensaje"] = "Foto de comentario creada con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear la foto de comentario.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Editar(int id)
+        {
+            var fotoComentario = _fotoComentarioService.ObtenerPorId(id);
+            if (fotoComentario == null)
+            {
+                TempData["Error"] = "La foto de comentario no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            var comentarios = _comentarioService.ObtenerTodosActivos();
+            ViewBag.Comentarios = new SelectList(comentarios, "id_comentario", "contenido", fotoComentario.id_comentario);
+
+            return View(fotoComentario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Foto_Comentario fotoComentario, HttpPostedFileBase archivoImagen)
+        {
+            if (ModelState.IsValid)
+            {
+
+                if (archivoImagen != null)
+                {
+                    // Simular URL de Firebase
+                    string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
+                    fotoComentario.url_foto = "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
+                }
+
+
+                _fotoComentarioService.Actualizar(fotoComentario);
+                TempData["Mensaje"] = "Foto de comentario actualizada con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo actualizar la foto de comentario.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var fotoComentario = _fotoComentarioService.ObtenerPorId(id);
+            if (fotoComentario == null)
+            {
+                TempData["Error"] = "La foto de comentario no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            _fotoComentarioService.Eliminar(id);
+            TempData["Mensaje"] = "Foto de comentario eliminada con éxito.";
+            return RedirectToAction("Index");
+        }
+
+
+
+        /*
         private ModeloSistema db = new ModeloSistema();
 
         // GET: Admin/Foto_Comentario
@@ -128,5 +247,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+        */
     }
 }

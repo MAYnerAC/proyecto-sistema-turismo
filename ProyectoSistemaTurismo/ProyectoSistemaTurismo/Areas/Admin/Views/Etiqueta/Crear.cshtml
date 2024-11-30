@@ -1,0 +1,30 @@
+﻿@model ProyectoSistemaTurismo.Models.Etiqueta
+
+@{
+    ViewBag.Title = "Crear Nueva Etiqueta";
+}
+
+<h2>Crear Nueva Etiqueta</h2>
+
+@using (Html.BeginForm("Crear", "Etiqueta", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Nombre de la Etiqueta -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombre_etiqueta, "Nombre", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.nombre_etiqueta, new { @class = "form-control", placeholder = "Ingrese el nombre de la etiqueta", maxlength = 50, required = "required" })
+            @Html.ValidationMessageFor(model => model.nombre_etiqueta, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <!-- Botones -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}

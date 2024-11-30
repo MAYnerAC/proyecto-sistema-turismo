@@ -12,6 +12,11 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
     public class Preferencias_UsuarioController : Controller
     {
+
+
+
+
+        /*
         private ModeloSistema db = new ModeloSistema();
 
         // GET: Admin/Preferencias_Usuario
@@ -132,5 +137,9 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        */
     }
 }

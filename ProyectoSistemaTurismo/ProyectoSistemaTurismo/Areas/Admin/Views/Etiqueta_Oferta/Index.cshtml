@@ -1,39 +1,40 @@
-﻿@model IEnumerable<ProyectoSistemaTurismo.Models.Etiqueta_Oferta>
+﻿@model List<ProyectoSistemaTurismo.Models.Etiqueta_Oferta>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Listado de Etiquetas por Oferta";
 }
 
-<h2>Index</h2>
+<h2>Listado de Etiquetas por Oferta</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nueva Relación Etiqueta-Oferta", "Crear", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Etiqueta.nombre_etiqueta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Oferta.nombre)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Etiqueta.nombre_etiqueta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Oferta.nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_etiqueta_oferta }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_etiqueta_oferta }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_etiqueta_oferta })
-        </td>
-    </tr>
-}
-
+<table id="DatatableP" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Oferta</th>
+            <th>Etiqueta</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Oferta.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Etiqueta.nombre_etiqueta)</td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Editar", new { id = item.id_etiqueta_oferta }, new { @class = "btn btn-sm btn-warning" })
+                    @*@Html.ActionLink("Detalle", "Detalles", new { id = item.id_etiqueta_oferta }, new { @class = "btn btn-sm btn-info" })*@
+                    @using (Html.BeginForm("Eliminar", "Etiqueta_Oferta", FormMethod.Post, new { @onsubmit = "return confirm('¿Está seguro de eliminar esta relación?');" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.id_etiqueta_oferta)
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

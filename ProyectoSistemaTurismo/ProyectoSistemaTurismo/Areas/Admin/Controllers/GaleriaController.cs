@@ -52,7 +52,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
                 {
                     // Simular URL de Firebase
                     string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
-                    galeria.url_imagen = "https://firebasestorage.googleapis.com/v0/b/tu-proyecto.appspot.com/o/" + Uri.EscapeDataString(nombreArchivo);
+                    galeria.url_imagen = "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
                 }
                 else
                 {
@@ -104,7 +104,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
                 {
                     // Simular URL de Firebase
                     string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
-                    galeria.url_imagen = "https://firebasestorage.googleapis.com/v0/b/tu-proyecto.appspot.com/o/" + Uri.EscapeDataString(nombreArchivo);
+                    galeria.url_imagen = "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
                 }
                 //else
                 //{

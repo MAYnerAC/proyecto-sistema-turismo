@@ -7,11 +7,117 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
     public class Etiqueta_OfertaController : Controller
     {
+        private Etiqueta_OfertaService _etiquetaOfertaService = new Etiqueta_OfertaService();
+        private OfertaService _ofertaService = new OfertaService();
+        private EtiquetaService _etiquetaService = new EtiquetaService();
+
+        public ActionResult Index()
+        {
+            var etiquetaOfertas = _etiquetaOfertaService.ObtenerTodos();
+            return View(etiquetaOfertas);
+        }
+
+        public ActionResult Detalles(int id)
+        {
+            var etiquetaOferta = _etiquetaOfertaService.ObtenerPorId(id);
+            if (etiquetaOferta == null)
+            {
+                TempData["Error"] = "La relación Etiqueta-Oferta no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+            return View(etiquetaOferta);
+        }
+
+        public ActionResult Crear()
+        {
+            var ofertas = _ofertaService.ObtenerTodosActivos(); // Obtener todas las ofertas
+            var etiquetas = _etiquetaService.ObtenerTodosActivos(); // Obtener todas las etiquetas
+
+            ViewBag.Ofertas = new SelectList(ofertas, "id_oferta", "nombre");
+            ViewBag.Etiquetas = new SelectList(etiquetas, "id_etiqueta", "nombre_etiqueta");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Crear(Etiqueta_Oferta etiquetaOferta)
+        {
+            if (ModelState.IsValid)
+            {
+                _etiquetaOfertaService.Agregar(etiquetaOferta);
+                TempData["Mensaje"] = "Relación Etiqueta-Oferta creada con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear la relación.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Editar(int id)
+        {
+            var etiquetaOferta = _etiquetaOfertaService.ObtenerPorId(id);
+            if (etiquetaOferta == null)
+            {
+                TempData["Error"] = "La relación Etiqueta-Oferta no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            var ofertas = _ofertaService.ObtenerTodosActivos();
+            var etiquetas = _etiquetaService.ObtenerTodosActivos();
+
+            ViewBag.Ofertas = new SelectList(ofertas, "id_oferta", "nombre", etiquetaOferta.id_oferta);
+            ViewBag.Etiquetas = new SelectList(etiquetas, "id_etiqueta", "nombre_etiqueta", etiquetaOferta.id_etiqueta);
+
+            return View(etiquetaOferta);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Etiqueta_Oferta etiquetaOferta)
+        {
+            if (ModelState.IsValid)
+            {
+                _etiquetaOfertaService.Actualizar(etiquetaOferta);
+                TempData["Mensaje"] = "Relación Etiqueta-Oferta actualizada con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo actualizar la relación.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var etiquetaOferta = _etiquetaOfertaService.ObtenerPorId(id);
+            if (etiquetaOferta == null)
+            {
+                TempData["Error"] = "La relación Etiqueta-Oferta no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            _etiquetaOfertaService.Eliminar(id);
+            TempData["Mensaje"] = "Relación Etiqueta-Oferta eliminada con éxito.";
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+        /*
         private ModeloSistema db = new ModeloSistema();
 
         // GET: Admin/Etiqueta_Oferta
@@ -132,5 +238,9 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        */
     }
 }

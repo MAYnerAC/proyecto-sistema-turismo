@@ -1,0 +1,48 @@
+﻿@model ProyectoSistemaTurismo.Models.Foto_Comentario
+
+@{
+    ViewBag.Title = "Crear Foto de Comentario";
+}
+
+<h2>Crear Foto de Comentario</h2>
+
+@using (Html.BeginForm("Crear", "Foto_Comentario", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Archivo de Imagen -->
+    <div class="form-group">
+        @Html.Label("Foto", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="archivoImagen" class="form-control" required="required" />
+            <span class="text-muted">Seleccione una imagen para el comentario.</span>
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.url_foto, new { Value = "https://firebasestorage.googleapis.com/v0/default-image.png" })
+
+    <!-- Descripción -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.descripcion, "Descripción", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.descripcion, new { @class = "form-control", placeholder = "Ingrese una descripción (opcional)", maxlength = 255 })
+        </div>
+    </div>
+
+    <!-- Comentario Relacionado -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.id_comentario, "Comentario Relacionado", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.id_comentario, (SelectList)ViewBag.Comentarios, "Seleccione un comentario", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.id_comentario, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}

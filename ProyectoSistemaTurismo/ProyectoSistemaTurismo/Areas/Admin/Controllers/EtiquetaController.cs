@@ -7,11 +7,103 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
     public class EtiquetaController : Controller
     {
+
+        private EtiquetaService _etiquetaService = new EtiquetaService();
+
+        public ActionResult Index()
+        {
+            var etiquetas = _etiquetaService.ObtenerTodos();
+            return View(etiquetas);
+        }
+
+        public ActionResult Detalles(int id)
+        {
+            var etiqueta = _etiquetaService.ObtenerPorId(id);
+            if (etiqueta == null)
+            {
+                TempData["Error"] = "La etiqueta no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+            return View(etiqueta);
+        }
+
+        public ActionResult Crear()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Crear(Etiqueta etiqueta)
+        {
+            if (ModelState.IsValid)
+            {
+                _etiquetaService.Agregar(etiqueta);
+                TempData["Mensaje"] = "Etiqueta creada con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear la etiqueta.";
+            }
+
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult Editar(int id)
+        {
+            var etiqueta = _etiquetaService.ObtenerPorId(id);
+            if (etiqueta == null)
+            {
+                TempData["Error"] = "La etiqueta no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            return View(etiqueta);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Etiqueta etiqueta)
+        {
+            if (ModelState.IsValid)
+            {
+                _etiquetaService.Actualizar(etiqueta);
+                TempData["Mensaje"] = "Etiqueta actualizada con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo actualizar la etiqueta.";
+            }
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var etiqueta = _etiquetaService.ObtenerPorId(id);
+            if (etiqueta == null)
+            {
+                TempData["Error"] = "La etiqueta no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            _etiquetaService.Eliminar(id);
+            TempData["Mensaje"] = "Etiqueta eliminada con éxito.";
+            return RedirectToAction("Index");
+        }
+
+
+
+        /*
         private ModeloSistema db = new ModeloSistema();
 
         // GET: Admin/Etiqueta
@@ -123,5 +215,9 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        */
     }
 }
