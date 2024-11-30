@@ -128,7 +128,7 @@ namespace ProyectoSistemaTurismo.Service
                 {
                     return db.Foto_Comentario
                              .Include(f => f.Comentario)
-                             .Where(f => f.id_comentario == comentarioId)
+                             .Where(f => f.id_comentario == comentarioId && f.estado == "A")
                              .ToList();
                 }
             }

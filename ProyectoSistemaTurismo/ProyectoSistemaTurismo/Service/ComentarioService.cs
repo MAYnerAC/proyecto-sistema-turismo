@@ -123,6 +123,33 @@ namespace ProyectoSistemaTurismo.Service
 
         /*--------------------------------------------*/
 
+        public List<Comentario> ObtenerPorOferta(int idOferta)
+        {
+            try
+            {
+                using (var db = new ModeloSistema())
+                {
+                    return db.Comentario
+                             .Include(c => c.Oferta)
+                             .Include(c => c.Usuario)
+                             .Where(c => c.id_oferta == idOferta && c.estado == "A")
+                             .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
+
+
+
+        //ObtenerPorUsuario()
+        //AUN
+
 
 
 

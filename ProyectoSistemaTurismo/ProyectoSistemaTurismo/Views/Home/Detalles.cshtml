@@ -1,0 +1,186 @@
+﻿@model ProyectoSistemaTurismo.Models.Oferta
+
+<h2>Detalles de la Oferta</h2>
+
+<div>
+    <h3>@Model.nombre</h3>
+    <p>@Model.descripcion</p>
+    <p>Ubicación: @Model.ubicacion_lat @Model.ubicacion_lon </p>
+    <p>Tipo de Oferta: @Model.Tipo_Oferta.nombre_tipo</p>
+</div>
+
+<h4>Comentarios</h4>
+@if (ViewBag.Comentarios != null)
+{
+    <ul>
+        @foreach (var comentario in ViewBag.Comentarios)
+        {
+            <li>
+                <strong>@comentario.Usuario.nombre</strong>: @comentario.contenido
+                <br />
+                <!-- Enlace para ver las fotos asociadas al comentario -->
+                <a href="@Url.Action("DetallesComentario", "Home", new { id = comentario.id_comentario })">
+                    Ver fotos asociadas
+                </a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No hay comentarios para esta oferta.</p>
+}
+
+<h4>Galería de Fotos</h4>
+@if (ViewBag.Galeria != null)
+{
+    <ul>
+        @foreach (var foto in ViewBag.Galeria)
+        {
+            <li>
+                <img src="@foto.Url" alt="Foto de la oferta" style="width: 200px; height: auto;" />
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No hay fotos disponibles para esta oferta.</p>
+}
+
+<h4>Etiquetas</h4>
+@if (ViewBag.Etiquetas != null && ViewBag.Etiquetas.Any())
+{
+    <ul>
+        @foreach (var etiqueta in ViewBag.Etiquetas)
+        {
+            <li>@etiqueta.Etiqueta.Nombre</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No hay etiquetas para esta oferta.</p>
+}
+
+
+@*
+
+    @model ProyectoSistemaTurismo.ViewModels.OfertaPrevia
+
+    <div class="offer-detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-heading text-center">
+                        <h6>Detalles de la Oferta</h6>
+                        <h2>@Model.nombre</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- Imagen de la oferta -->
+                    <img src="@(string.IsNullOrEmpty(Model.imagen_url) ? Url.Content("~/Source/images/no-image-found.png") : Model.imagen_url)" alt="Imagen de oferta" class="offer-image">
+                </div>
+                <div class="col-lg-6">
+                    <h4>Tipo de Oferta: @Model.tipo_oferta</h4>
+                    <h5>Destino: @Model.nombre_destino</h5>
+                    <p><strong>Descripción:</strong> @Model.descripcion</p>
+                    <p><strong>Contacto:</strong> @Model.telefono</p>
+                    <p><strong>Verificado:</strong> @(Model.verificado == "S" ? "Sí" : "No")</p>
+
+                    <br />
+
+                    <div class="main-button">
+                        <a href="@Url.Action("Index", "Home")">Volver a la lista de ofertas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+*@
+
+
+
+
+
+@*
+
+    <div class="offer-detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-heading text-center">
+                        <h6>Detalles de la Oferta</h6>
+                        <h2>@Model.nombre</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- Imagen de la oferta -->
+                    <img src="@(string.IsNullOrEmpty(Model.imagen_url) ? Url.Content("~/Source/images/no-image-found.png") : Model.imagen_url)" alt="Imagen de oferta" class="offer-image">
+                </div>
+                <div class="col-lg-6">
+                    <h4>Tipo de Oferta: @Model.tipo_oferta</h4>
+                    <h5>Destino: @Model.nombre_destino</h5>
+                    <p><strong>Descripción:</strong> @Model.descripcion</p>
+                    <p><strong>Teléfono de contacto:</strong> @Model.telefono</p>
+                    <p><strong>Email de contacto:</strong> @Model.email_contacto</p>
+                    <p><strong>Sitio web:</strong> <a href="@Model.sitio_web" target="_blank">@Model.sitio_web</a></p>
+                    <p><strong>Vinculo con la oferta:</strong> @Model.vinculo_con_oferta</p>
+                    <p><strong>Fecha de creación:</strong> @Model.fecha_creacion.ToString("dd/MM/yyyy")</p>
+
+                    @if (!string.IsNullOrEmpty(Model.motivo_baja))
+                    {
+                        <p><strong>Motivo de baja:</strong> @Model.motivo_baja</p>
+                        <p><strong>Fecha de baja:</strong> @Model.fecha_baja.ToString("dd/MM/yyyy")</p>
+                    }
+
+                    <h6>@(Model.verificado == "S" ? "Verificado" : "No verificado")</h6>
+
+                    <!-- Ubicación del destino (si está disponible) -->
+                    @if (Model.ubicacion_lat != null && Model.ubicacion_lon != null)
+                    {
+                        <div id="map" style="height: 300px; width: 100%;"></div>
+                        <script>
+                            var map = new google.maps.Map(document.getElementById("map"), {
+                                center: { lat: @Model.ubicacion_lat, lng: @Model.ubicacion_lon },
+                                zoom: 10
+                            });
+                            new google.maps.Marker({
+                                position: { lat: @Model.ubicacion_lat, lng: @Model.ubicacion_lon },
+                                map: map
+                            });
+                        </script>
+                    }
+                </div>
+            </div>
+
+            <!-- Comentarios de los usuarios -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>Comentarios</h3>
+                    @foreach (var comentario in Model.Comentarios)
+                    {
+                        <div class="comment">
+                            <p><strong>@comentario.usuario_nombre</strong> - @comentario.fecha_comentario.ToString("dd/MM/yyyy")</p>
+                            <p>@comentario.contenido</p>
+                            <p><strong>Puntuación:</strong> @comentario.puntuacion</p>
+
+                            @foreach (var foto in comentario.Fotos)
+                            {
+                                <img src="@foto.url_foto" alt="Foto comentario" style="width: 100px; height: auto;">
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+*@

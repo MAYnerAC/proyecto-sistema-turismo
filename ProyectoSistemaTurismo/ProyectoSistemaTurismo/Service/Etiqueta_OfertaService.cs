@@ -118,6 +118,29 @@ namespace ProyectoSistemaTurismo.Service
         }
 
 
+        /*--------------------------------------------*/
+
+        public List<Etiqueta_Oferta> ObtenerPorOferta(int idOferta)
+        {
+            try
+            {
+                using (var db = new ModeloSistema())
+                {
+                    return db.Etiqueta_Oferta
+                             .Include(e => e.Oferta)
+                             .Include(e => e.Etiqueta)
+                             .Where(e => e.id_oferta == idOferta)
+                             .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
 
 
 

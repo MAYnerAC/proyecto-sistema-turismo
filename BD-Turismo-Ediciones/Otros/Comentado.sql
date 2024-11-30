@@ -1,5 +1,16 @@
 
+/*
 
+CREATE TABLE Favoritos (
+    id_favorito INT PRIMARY KEY IDENTITY(1,1),
+    id_usuario INT NOT NULL,
+    id_oferta INT NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (id_oferta) REFERENCES Oferta(id_oferta)
+);
+
+
+*/
 
 -- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*

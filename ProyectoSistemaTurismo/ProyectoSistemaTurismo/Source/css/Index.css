@@ -1,0 +1,67 @@
+﻿/*.hero-section {
+    background-image: url('https://via.placeholder.com/1500x600');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+}
+
+.card-custom {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+    .card-custom:hover {
+        border-color: #007bff;
+    }
+
+.card-body-custom {
+    padding: 20px;
+}
+*/
+
+/* Estilos personalizados */
+.hero-section {
+    background-image: url('https://via.placeholder.com/1500x600'); /* Imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+}
+
+.card-custom {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+}
+
+    .card-custom:hover {
+        border-color: #007bff;
+    }
+
+.card-body-custom {
+    padding: 20px;
+}
+
+.section-title {
+    margin-bottom: 20px;
+}
+
+.btn-custom {
+    background-color: #007bff;
+    color: white;
+}
+
+    .btn-custom:hover {
+        background-color: #0056b3;
+        color: white;
+    }
+
+.tag-btn {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+    .tag-btn:hover {
+        background-color: #007bff;
+        color: white;
+    }
