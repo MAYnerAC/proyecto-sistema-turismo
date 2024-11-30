@@ -1,0 +1,52 @@
+﻿@model ProyectoSistemaTurismo.Models.Usuario
+
+@{
+    ViewBag.Title = "Detalles de Usuario";
+}
+
+<div class="card">
+    <!-- Encabezado -->
+    <div class="card-header bg-primary text-white">
+        <h2>Detalles del Usuario</h2>
+    </div>
+
+    <!-- Cuerpo de la tarjeta -->
+    <div class="card-body">
+        <div class="row">
+            <!-- Información General del Usuario -->
+            <div class="col-md-6">
+                <h4 class="text-primary">Información Personal</h4>
+                <p><strong>Nombre:</strong> @Model.nombre</p>
+                <p><strong>Apellido:</strong> @Model.apellido</p>
+                <p><strong>Correo Electrónico:</strong> @Model.email</p>
+                <p><strong>Teléfono:</strong> @Model.telefono</p>
+            </div>
+
+            <!-- Información de Registro -->
+            <div class="col-md-6">
+                <h4 class="text-primary">Detalles de Registro</h4>
+                <p><strong>Fecha de Registro:</strong> @DateTime.Parse(Model.fecha_registro.ToString()).ToString("dd/MM/yyyy")</p>
+                <p><strong>Estado:</strong> @(Model.estado == "A" ? "Activo" : "Inactivo")</p>
+            </div>
+        </div>
+
+        <hr />
+
+        <!-- Tipo de Usuario -->
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-primary">Tipo de Usuario</h4>
+                <p><strong>Tipo:</strong> @Model.Tipo_Usuario.nombre_tipo</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de la tarjeta -->
+    <div class="card-footer text-center">
+        <a href="@Url.Action("Index", "Usuario")" class="btn btn-secondary">Volver al Listado</a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="@Url.Action("Editar", "Usuario", new { id = Model.id_usuario })" class="btn btn-warning">Editar</a>
+        }
+    </div>
+</div>

@@ -1,0 +1,44 @@
+﻿@model ProyectoSistemaTurismo.Models.Tipo_Oferta
+
+@{
+    ViewBag.Title = "Editar Tipo de Oferta";
+}
+
+<h2>Editar Tipo de Oferta</h2>
+
+@using (Html.BeginForm("Editar", "Tipo_Oferta", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Campo oculto para ID del tipo de oferta -->
+    @Html.HiddenFor(model => model.id_tipo_oferta)
+
+    <!-- Nombre -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombre_tipo, "Nombre del Tipo de Oferta", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.nombre_tipo, new { @class = "form-control", required = "required", maxlength = 50 })
+            @Html.ValidationMessageFor(model => model.nombre_tipo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Estado -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.estado, "Estado", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.estado, new SelectList(new[] {
+                new { Value = "A", Text = "Activo" },
+                new { Value = "I", Text = "Inactivo" }
+            }, "Value", "Text", Model.estado), "Seleccione un estado", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}

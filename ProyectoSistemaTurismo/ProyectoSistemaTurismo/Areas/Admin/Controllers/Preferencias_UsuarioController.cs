@@ -6,14 +6,116 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoSistemaTurismo.Filters;
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
+    [Autenticado]
+    [TipoUsuarioAutorizado(1)]
     public class Preferencias_UsuarioController : Controller
     {
 
+        private Preferencias_UsuarioService _preferenciasUsuarioService = new Preferencias_UsuarioService();
+        private UsuarioService usuarioService = new UsuarioService();
+        private EtiquetaService etiquetaService = new EtiquetaService();
 
+        public ActionResult Index()
+        {
+            var preferenciasUsuarios = _preferenciasUsuarioService.ObtenerTodos();
+            return View(preferenciasUsuarios);
+        }
+
+        public ActionResult Detalles(int id)
+        {
+            var preferenciaUsuario = _preferenciasUsuarioService.ObtenerPorId(id);
+            if (preferenciaUsuario == null)
+            {
+                TempData["Error"] = "La preferencia de usuario no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+            return View(preferenciaUsuario);
+        }
+
+        public ActionResult Crear()
+        {
+            var usuarios = usuarioService.ObtenerTodosActivos();
+            var etiquetas = etiquetaService.ObtenerTodosActivos();
+
+            ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre");
+            ViewBag.Etiquetas = new SelectList(etiquetas, "id_etiqueta", "nombre_etiqueta");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Crear(Preferencias_Usuario preferenciaUsuario)
+        {
+            if (ModelState.IsValid)
+            {
+                _preferenciasUsuarioService.Agregar(preferenciaUsuario);
+                TempData["Mensaje"] = "Preferencia de usuario creada con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear la preferencia de usuario.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Editar(int id)
+        {
+            var preferenciaUsuario = _preferenciasUsuarioService.ObtenerPorId(id);
+            if (preferenciaUsuario == null)
+            {
+                TempData["Error"] = "La preferencia de usuario no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            var usuarios = usuarioService.ObtenerTodosActivos();
+            var etiquetas = etiquetaService.ObtenerTodosActivos();
+
+            ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre", preferenciaUsuario.id_usuario);
+            ViewBag.Etiquetas = new SelectList(etiquetas, "id_etiqueta", "nombre_etiqueta", preferenciaUsuario.id_etiqueta);
+
+            return View(preferenciaUsuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Preferencias_Usuario preferenciaUsuario)
+        {
+            if (ModelState.IsValid)
+            {
+                _preferenciasUsuarioService.Actualizar(preferenciaUsuario);
+                TempData["Mensaje"] = "Preferencia de usuario actualizada con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo actualizar la preferencia de usuario.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var preferenciaUsuario = _preferenciasUsuarioService.ObtenerPorId(id);
+            if (preferenciaUsuario == null)
+            {
+                TempData["Error"] = "La preferencia de usuario no fue encontrada.";
+                return RedirectToAction("Index");
+            }
+
+            _preferenciasUsuarioService.Eliminar(id);
+            TempData["Mensaje"] = "Preferencia de usuario eliminada con éxito.";
+            return RedirectToAction("Index");
+        }
 
 
         /*

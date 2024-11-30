@@ -6,12 +6,115 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoSistemaTurismo.Filters;
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
+    [Autenticado]
+    [TipoUsuarioAutorizado(1)]
     public class Tipo_UsuarioController : Controller
     {
+
+        private Tipo_UsuarioService _tipoUsuarioService = new Tipo_UsuarioService();
+
+        public ActionResult Index()
+        {
+            var tiposUsuario = _tipoUsuarioService.ObtenerTodos();
+            return View(tiposUsuario);
+        }
+
+        public ActionResult Detalles(int id)
+        {
+            var tipoUsuario = _tipoUsuarioService.ObtenerPorId(id);
+            if (tipoUsuario == null)
+            {
+                TempData["Error"] = "El tipo de usuario no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+            return View(tipoUsuario);
+        }
+
+        public ActionResult Crear()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Crear(Tipo_Usuario tipoUsuario)
+        {
+            if (ModelState.IsValid)
+            {
+                _tipoUsuarioService.Agregar(tipoUsuario);
+                TempData["Mensaje"] = "Tipo de usuario creado con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear el tipo de usuario.";
+            }
+
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult Editar(int id)
+        {
+            var tipoUsuario = _tipoUsuarioService.ObtenerPorId(id);
+            if (tipoUsuario == null)
+            {
+                TempData["Error"] = "El tipo de usuario no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+            return View(tipoUsuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Tipo_Usuario tipoUsuario)
+        {
+            if (ModelState.IsValid)
+            {
+                _tipoUsuarioService.Actualizar(tipoUsuario);
+                TempData["Mensaje"] = "Tipo de usuario actualizado con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo actualizar el tipo de usuario.";
+            }
+
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var tipoUsuario = _tipoUsuarioService.ObtenerPorId(id);
+            if (tipoUsuario == null)
+            {
+                TempData["Error"] = "El tipo de usuario no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+
+            _tipoUsuarioService.Eliminar(id);
+            TempData["Mensaje"] = "Tipo de usuario eliminado con éxito.";
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /*
         private ModeloSistema db = new ModeloSistema();
 
         // GET: Admin/Tipo_Usuario
@@ -123,5 +226,8 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        */
     }
 }

@@ -1,0 +1,31 @@
+﻿@model ProyectoSistemaTurismo.Models.Tipo_Oferta
+
+@{
+    ViewBag.Title = "Crear Nuevo Tipo de Oferta";
+}
+
+<h2>Crear Nuevo Tipo de Oferta</h2>
+
+@using (Html.BeginForm("Crear", "Tipo_Oferta", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Nombre -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombre_tipo, "Nombre del Tipo de Oferta", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.nombre_tipo, new { @class = "form-control", placeholder = "Ingrese el nombre del tipo de oferta", maxlength = 50, required = "required" })
+            @Html.ValidationMessageFor(model => model.nombre_tipo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <!-- Botones -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}

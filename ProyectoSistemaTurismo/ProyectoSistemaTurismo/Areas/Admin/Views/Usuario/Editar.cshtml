@@ -1,0 +1,96 @@
+﻿@model ProyectoSistemaTurismo.Models.Usuario
+
+@{
+    ViewBag.Title = "Editar Usuario";
+}
+
+<h2>Editar Usuario</h2>
+
+@using (Html.BeginForm("Editar", "Usuario", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Campo oculto para ID de Usuario -->
+    @Html.HiddenFor(model => model.id_usuario)
+
+    <!-- Nombre -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombre, "Nombre", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.nombre, new { @class = "form-control", required = "required", maxlength = 100 })
+            @Html.ValidationMessageFor(model => model.nombre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Apellido -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.apellido, "Apellido", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.apellido, new { @class = "form-control", required = "required", maxlength = 100 })
+            @Html.ValidationMessageFor(model => model.apellido, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.email, "Correo Electrónico", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.email, new { @class = "form-control", type = "email", required = "required", maxlength = 100 })
+            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Contraseña -->
+    @Html.HiddenFor(model => model.contrasena)
+
+
+
+    <!-- Teléfono -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.telefono, "Teléfono", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.telefono, new { @class = "form-control", maxlength = 15, pattern = "[0-9]{7,15}", title = "El teléfono debe contener entre 7 y 15 números." })
+            @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Tipo de Usuario -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.id_tipo_usuario, "Tipo de Usuario", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.id_tipo_usuario, (SelectList)ViewBag.TiposUsuario, "Seleccione un tipo de usuario", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.id_tipo_usuario, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <!-- Fecha de Registro -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.fecha_registro, "Fecha de Registro", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.fecha_registro, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    </div>
+
+
+    <!-- Estado -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.estado, "Estado", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.estado, new SelectList(new[] {
+                new { Value = "A", Text = "Activo" },
+                new { Value = "I", Text = "Inactivo" }
+            }, "Value", "Text", Model.estado), "Seleccione un estado", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <!-- Botones -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}

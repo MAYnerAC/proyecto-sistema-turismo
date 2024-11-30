@@ -8,6 +8,7 @@ using System.Web.Mvc;
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
     [Autenticado]
+    [TipoUsuarioAutorizado(1)]
     public class PanelController : Controller
     {
         // GET: Admin/Panel

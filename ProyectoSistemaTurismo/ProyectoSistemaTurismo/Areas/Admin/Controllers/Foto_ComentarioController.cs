@@ -7,11 +7,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoSistemaTurismo.Filters;
 using ProyectoSistemaTurismo.Models;
 using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
+    [Autenticado]
+    [TipoUsuarioAutorizado(1)]
     public class Foto_ComentarioController : Controller
     {
         private Foto_ComentarioService _fotoComentarioService = new Foto_ComentarioService();

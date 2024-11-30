@@ -6,13 +6,126 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+
 //
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
+using ProyectoSistemaTurismo.Filters;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
+    [Autenticado]
+    [TipoUsuarioAutorizado(1)]
     public class UsuarioController : Controller
     {
+
+        private UsuarioService _usuarioService = new UsuarioService();
+        private Tipo_UsuarioService tipoUsuarioService = new Tipo_UsuarioService();
+
+
+
+        public ActionResult Index()
+        {
+            var usuarios = _usuarioService.ObtenerTodos();
+            return View(usuarios);
+        }
+
+        public ActionResult Detalles(int id)
+        {
+            var usuario = _usuarioService.ObtenerPorId(id);
+            if (usuario == null)
+            {
+                TempData["Error"] = "El usuario no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+            return View(usuario);
+        }
+
+        public ActionResult Crear()
+        {
+            var tiposUsuario = tipoUsuarioService.ObtenerTodosActivos();
+            ViewBag.TiposUsuario = new SelectList(tiposUsuario, "id_tipo_usuario", "nombre_tipo");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Crear(Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                _usuarioService.Agregar(usuario);
+                TempData["Mensaje"] = "Usuario creado con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear el usuario.";
+            }
+
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult Editar(int id)
+        {
+            var usuario = _usuarioService.ObtenerPorId(id);
+            if (usuario == null)
+            {
+                TempData["Error"] = "El usuario no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+
+            var tiposUsuario = tipoUsuarioService.ObtenerTodosActivos();
+            ViewBag.TiposUsuario = new SelectList(tiposUsuario, "id_tipo_usuario", "nombre_tipo", usuario.id_tipo_usuario);
+
+            return View(usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                _usuarioService.Actualizar(usuario);
+                TempData["Mensaje"] = "Usuario actualizado con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo actualizar el usuario.";
+            }
+
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var usuario = _usuarioService.ObtenerPorId(id);
+            if (usuario == null)
+            {
+                TempData["Error"] = "El usuario no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+
+            _usuarioService.Eliminar(id);
+            TempData["Mensaje"] = "Usuario eliminado con éxito.";
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
+
+
+
+        /*
         private ModeloSistema db = new ModeloSistema();
 
         // GET: Admin/Usuario
@@ -125,5 +238,8 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        */
     }
 }

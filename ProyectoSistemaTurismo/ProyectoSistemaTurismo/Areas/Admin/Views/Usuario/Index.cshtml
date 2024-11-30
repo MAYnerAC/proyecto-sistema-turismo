@@ -1,75 +1,48 @@
-﻿@model IEnumerable<ProyectoSistemaTurismo.Models.Usuario>
+﻿@model List<ProyectoSistemaTurismo.Models.Usuario>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Listado de Usuarios";
 }
 
-<h2>Index</h2>
+<h2>Listado de Usuarios</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nuevo Usuario", "Crear", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipo_Usuario.nombre_tipo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.apellido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.contrasena)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fecha_registro)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.estado)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo_Usuario.nombre_tipo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.apellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.contrasena)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha_registro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_usuario }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_usuario }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_usuario })
-        </td>
-    </tr>
-}
-
+<table id="DatatableP" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Tipo de Usuario</th>
+            <th>Estado</th>
+            <th>Fecha de Registro</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.apellido)</td>
+                <td>@Html.DisplayFor(modelItem => item.email)</td>
+                <td>@Html.DisplayFor(modelItem => item.Tipo_Usuario.nombre_tipo)</td>
+                <td>@(item.estado == "A" ? "Activo" : "Inactivo")</td>
+                <td>@DateTime.Parse(item.fecha_registro.ToString()).ToString("dd/MM/yyyy")</td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Editar", new { id = item.id_usuario }, new { @class = "btn btn-sm btn-warning" })
+                    @Html.ActionLink("Detalle", "Detalles", new { id = item.id_usuario }, new { @class = "btn btn-sm btn-info" })
+                    @using (Html.BeginForm("Eliminar", "Usuario", FormMethod.Post, new { @onsubmit = "return confirm('¿Está seguro de eliminar este usuario?');" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id", item.id_usuario)
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

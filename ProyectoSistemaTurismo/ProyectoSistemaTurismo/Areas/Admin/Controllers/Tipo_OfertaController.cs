@@ -6,12 +6,109 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using ProyectoSistemaTurismo.Filters;
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
+    [Autenticado]
+    [TipoUsuarioAutorizado(1)]
     public class Tipo_OfertaController : Controller
     {
+
+        private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
+
+        public ActionResult Index()
+        {
+            var tiposOferta = tipoOfertaService.ObtenerTodos();
+            return View(tiposOferta);
+        }
+
+        public ActionResult Detalles(int id)
+        {
+            var tipoOferta = tipoOfertaService.ObtenerPorId(id);
+            if (tipoOferta == null)
+            {
+                TempData["Error"] = "El tipo de oferta no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+            return View(tipoOferta);
+        }
+
+        public ActionResult Crear()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Crear(Tipo_Oferta tipoOferta)
+        {
+            if (ModelState.IsValid)
+            {
+                tipoOfertaService.Agregar(tipoOferta);
+                TempData["Mensaje"] = "Tipo de oferta creado con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear el tipo de oferta.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Editar(int id)
+        {
+            var tipoOferta = tipoOfertaService.ObtenerPorId(id);
+            if (tipoOferta == null)
+            {
+                TempData["Error"] = "El tipo de oferta no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+
+            return View(tipoOferta);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Tipo_Oferta tipoOferta)
+        {
+            if (ModelState.IsValid)
+            {
+                tipoOfertaService.Actualizar(tipoOferta);
+                TempData["Mensaje"] = "Tipo de oferta actualizado con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo actualizar el tipo de oferta.";
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Eliminar(int id)
+        {
+            var tipoOferta = tipoOfertaService.ObtenerPorId(id);
+            if (tipoOferta == null)
+            {
+                TempData["Error"] = "El tipo de oferta no fue encontrado.";
+                return RedirectToAction("Index");
+            }
+
+            tipoOfertaService.Eliminar(id);
+            TempData["Mensaje"] = "Tipo de oferta eliminado con éxito.";
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+        /*
         private ModeloSistema db = new ModeloSistema();
 
         // GET: Admin/Tipo_Oferta
@@ -123,5 +220,8 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        */
     }
 }
