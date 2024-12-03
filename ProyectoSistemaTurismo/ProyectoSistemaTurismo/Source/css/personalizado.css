@@ -1,0 +1,27 @@
+﻿
+
+
+
+
+
+/* Estilos para las estrellas */
+.star-rating {
+    font-size: 1.5em;
+    color: #f39c12; /* Color */
+}
+
+.star {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"><path d="M10 15.27l6.18 3.73-1.64-7.03L19 7.24l-7.19-.61L10 .25 8.19 6.63 1 7.24l4.46 4.73-1.64 7.03L10 15.27z" fill="%23f39c12"></path></svg>') no-repeat center center;
+    background-size: contain;
+}
+
+    .star.filled {
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"><path d="M10 15.27l6.18 3.73-1.64-7.03L19 7.24l-7.19-.61L10 .25 8.19 6.63 1 7.24l4.46 4.73-1.64 7.03L10 15.27z" fill="%23f39c12"></path></svg>') no-repeat center center;
+    }
+
+    .star.empty {
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"><path d="M10 15.27l6.18 3.73-1.64-7.03L19 7.24l-7.19-.61L10 .25 8.19 6.63 1 7.24l4.46 4.73-1.64 7.03L10 15.27z" fill="%23d3d3d3"></path></svg>') no-repeat center center;
+    }

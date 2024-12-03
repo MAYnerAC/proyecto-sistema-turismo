@@ -1,0 +1,94 @@
+﻿@model ProyectoSistemaTurismo.Models.Comentario
+
+<div class="page-heading header-text">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="breadcrumb"><a href="@Url.Action("Index", "Home")">Home</a> / Detalles del Comentario</span>
+                <h3>@Model.Oferta.nombre</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="single-comment section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="section-heading">
+                    @*<h6>| Detalles del Comentario</h6>*@
+                    <h6>| Comentario de @Model.Usuario.nombre @Model.Usuario.apellido - @Model.Usuario.email</h6>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="star-rating">
+                            <span class="star @((Model.puntuacion >= 1) ? "filled" : "empty")"></span>
+                            <span class="star @((Model.puntuacion >= 2) ? "filled" : "empty")"></span>
+                            <span class="star @((Model.puntuacion >= 3) ? "filled" : "empty")"></span>
+                            <span class="star @((Model.puntuacion >= 4) ? "filled" : "empty")"></span>
+                            <span class="star @((Model.puntuacion >= 5) ? "filled" : "empty")"></span>
+                        </div>
+                        <p>@Model.fecha_comentario</p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p style="white-space: pre-line;">@Model.contenido</p>
+                    </div>
+                </div>
+
+
+                <div class="mt-4">
+                    <h5>Fotos Asociadas:</h5><br />
+                    <div class="row">
+                        @if (ViewBag.FotosComentario != null && ViewBag.FotosComentario.Count > 0)
+                        {
+                            foreach (var foto in ViewBag.FotosComentario)
+                            {
+                                <div class="col-lg-12 mb-4">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <img src="@foto.url_foto" alt="Foto del comentario" class="img-fluid" />
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <p>@foto.fecha_subida</p>
+
+                                            @if (!string.IsNullOrEmpty(foto.descripcion))
+                                            {
+                                                <p>@foto.descripcion</p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No hay fotos asociadas a este comentario.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="info-table">
+                    <ul>
+                        <li>
+                            <h5>Oferta:</h5>
+                            <p>@Model.Oferta.nombre</p>
+                        </li>
+
+                        <li>
+                            <h5>Informacion:</h5>
+                            <p>@Model.Oferta.telefono</p>
+                            <p>@Model.Oferta.email_contacto</p>
+                            <p>@Model.Oferta.direccion</p>
+                            <p><a href="@Model.Oferta.sitio_web" target="_blank">@Model.Oferta.sitio_web</a></p>
+                            <p class="text-muted">@(Model.Oferta.verificado == "S" ? "Verificado" : "No Verificado")"</p>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

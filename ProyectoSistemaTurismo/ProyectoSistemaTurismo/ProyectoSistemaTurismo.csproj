@@ -146,10 +146,11 @@
     <Compile Include="Areas\Proveedor\Controllers\OfertaController.cs" />
     <Compile Include="Areas\Proveedor\Controllers\PanelController.cs" />
     <Compile Include="Areas\Proveedor\ProveedorAreaRegistration.cs" />
+    <Compile Include="Controllers\ComentariosController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\OfertaController.cs" />
+    <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Filters\AutenticadoAttribute.cs" />
     <Compile Include="Filters\ManejoErroresFiltroAttribute.cs" />
     <Compile Include="Filters\OfertaSeleccionadaAttribute.cs" />
@@ -297,6 +298,7 @@
     <Content Include="Source\css\fontawesome.css" />
     <Content Include="Source\css\Index.css" />
     <Content Include="Source\css\owl.css" />
+    <Content Include="Source\css\personalizado.css" />
     <Content Include="Source\css\templatemo-villa-agency.css" />
     <Content Include="Source\images\banner-01.jpg" />
     <Content Include="Source\images\banner-02.jpg" />
@@ -361,15 +363,14 @@
     <Content Include="Source\webfonts\fa-v4compatibility.woff2" />
     <Content Include="Source\vendor\jquery\jquery.min.map" />
     <Content Include="Source\vendor\jquery\jquery.slim.min.map" />
-    <Content Include="Views\Home\Detalles.cshtml" />
-    <Content Include="Views\Home\DetallesComentario.cshtml" />
+    <Content Include="Views\Comentarios\Detalles.cshtml" />
+    <Content Include="Views\Ofertas\Detalles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Proveedor\Data\" />
     <Folder Include="ReportModels\" />
-    <Folder Include="Views\Oferta\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

@@ -368,21 +368,21 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="item">
                         <!-- Imagen de la oferta -->
-                        <a href="@Url.Action("Detalles", "Home", new { id = oferta.id_oferta })">
+                        <a href="@Url.Action("Detalles", "Ofertas", new { id = oferta.id_oferta })">
                             <img src="@(string.IsNullOrEmpty(oferta.imagen_url) ? Url.Content("~/Source/images/no-image-found.png") : oferta.imagen_url)" alt="Imagen de oferta" /><!--  style="max-width: 350px; max-height: 250px;" -->
                         </a>
                         <!-- Categoría de la oferta -->
                         <span class="category">@oferta.tipo_oferta</span>
                         <!-- Nombre de la oferta -->
-                        <h6>@(oferta.verificado == "S" ? "Verificado" : "No verificado")</h6>  <!-- Aquí puedes colocar la lógica para mostrar el rango de precio -->
-                        <h4><a href="@Url.Action("Detalles", "Home", new { id = oferta.id_oferta })">@oferta.nombre</a></h4>
+                        <h6>@(oferta.verificado == "S" ? "Verificado" : "No verificado")</h6>
+                        <h4><a href="@Url.Action("Detalles", "Ofertas", new { id = oferta.id_oferta })">@oferta.nombre</a></h4>
                         <ul>
                             <li>Destino: <span>@oferta.nombre_destino</span></li>
                             <li>Descripción corta: <span>@(oferta.descripcion.Length > 100 ? oferta.descripcion.Substring(0, 100) + "..." : oferta.descripcion)</span></li>
                             <li>Contactar: <span>@oferta.telefono</span></li>
                         </ul>
                         <div class="main-button">
-                            <a href="@Url.Action("Detalles", "Home", new { id = oferta.id_oferta })">Ver más detalles</a>
+                            <a href="@Url.Action("Detalles", "Ofertas", new { id = oferta.id_oferta })">Ver más detalles</a>
                         </div>
                     </div>
                 </div>

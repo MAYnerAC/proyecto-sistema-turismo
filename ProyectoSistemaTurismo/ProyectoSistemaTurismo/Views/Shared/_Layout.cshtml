@@ -32,6 +32,13 @@
 
 
 
+    <!-- Personalizados -->
+    <link href="~/Source/css/personalizado.css" rel="stylesheet" />
+
+
+
+
+
     <!--
     TemplateMo 591 villa agency
     https://templatemo.com/tm-591-villa-agency
@@ -87,16 +94,17 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- Logo -->
-                        <a href="index.html" class="logo">
+                        <a href="@Url.Action("Index", "Home")" class="logo">
                             <h1>TurismoApp</h1>
                         </a>
 
                         <!-- Navbar Menu -->
                         <ul class="nav">
                             <li><a href="@Url.Action("Index", "Home")" class="active">Inicio</a></li>
-                            <li><a href="@Url.Action("Destinos", "Home")">Destinos</a></li>
-                            <li><a href="@Url.Action("Experiencias", "Home")">Experiencias</a></li>
-                            <li><a href="@Url.Action("Contact", "Home")">Contacto</a></li>
+                            <li><a href="@Url.Action("Index", "Home")">Destinos</a></li>
+                            <li><a href="@Url.Action("Index", "Home")">Ofertas</a></li>
+                            <li><a href="@Url.Action("Index", "Home")">Ranking</a></li>
+                            <li><a href="@Url.Action("Index", "Home")">Contacto</a></li>
 
                             @if (Session["nombre_usuario"] != null)
                             {

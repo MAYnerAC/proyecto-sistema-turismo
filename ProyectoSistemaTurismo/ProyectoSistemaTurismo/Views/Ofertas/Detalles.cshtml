@@ -1,0 +1,265 @@
+﻿@model ProyectoSistemaTurismo.Models.Oferta
+
+<div class="page-heading header-text">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="breadcrumb"><a href="#">Home</a>  /  Detalles de la Oferta</span>
+                <h3>@Model.nombre</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="single-property section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="main-image">
+                    <img src="https://bit.ly/4fMxoFd" alt="@Model.nombre" class="img-fluid">
+                </div>
+                <div class="main-content">
+
+                    <span class="category">@Model.Tipo_Oferta.nombre_tipo</span>
+
+                    @if (ViewBag.Etiquetas != null)
+                    {
+                        foreach (var etiqueta in ViewBag.Etiquetas)
+                        {
+                            <span class="category bg-info-subtle">
+                                <a href="@Url.Action("Detalles", "Comentarios", new { id = etiqueta.id_etiqueta })">
+                                    @etiqueta.Etiqueta.nombre_etiqueta
+                                </a>
+                            </span>
+                        }
+                    }
+
+                    <h4>@Model.nombre</h4>
+                    <p>@Model.descripcion</p>
+                    <p><strong>Ubicación:</strong> @Model.ubicacion_lat, @Model.ubicacion_lon</p>
+                    <p><strong>Tipo de Oferta:</strong> @Model.Tipo_Oferta.nombre_tipo</p>
+                </div>
+
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingComentarios">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComentarios" aria-expanded="true" aria-controls="collapseComentarios">
+                                Comentarios
+                            </button>
+                        </h2>
+                        <div id="collapseComentarios" class="accordion-collapse collapse show" aria-labelledby="headingComentarios" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                @if (ViewBag.Comentarios != null)
+                                {
+                                    <ul>
+                                        @foreach (var comentario in ViewBag.Comentarios)
+                                        {
+                                            <li>
+                                                <strong>@comentario.Usuario.nombre @comentario.Usuario.apellido</strong>:<br />
+                                                <div class="star-rating">
+                                                    <span class="star @((comentario.puntuacion >= 1) ? "filled" : "empty")"></span>
+                                                    <span class="star @((comentario.puntuacion >= 2) ? "filled" : "empty")"></span>
+                                                    <span class="star @((comentario.puntuacion >= 3) ? "filled" : "empty")"></span>
+                                                    <span class="star @((comentario.puntuacion >= 4) ? "filled" : "empty")"></span>
+                                                    <span class="star @((comentario.puntuacion >= 5) ? "filled" : "empty")"></span>
+                                                </div>
+
+                                                @comentario.fecha_comentario<br />
+
+                                                @comentario.contenido<br />
+
+                                                <a href="@Url.Action("Detalles", "Comentarios", new { id = comentario.id_comentario })">
+                                                    Ver fotos
+                                                </a><br /><br />
+                                            </li>
+
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p>No hay comentarios para esta oferta.</p>
+                                }
+
+
+
+                                <!-- Agregar comentario Agregar comentario Agregar comentario -->
+                                @if (Session["correo_usuario"] != null)
+                                {
+                                    <form method="post" action="@Url.Action("AgregarComentario", "Comentarios")">
+                                        @Html.AntiForgeryToken() <!-- Agregar el token antifalsificación aquí -->
+
+                                        <div class="form-group">
+                                            <label for="contenido">Agregar un comentario</label><br /><br />
+                                            <textarea class="form-control" id="contenido" name="contenido" rows="4" maxlength="1000" placeholder="Escribe tu comentario aquí" required></textarea>
+                                        </div>
+                                        <br />
+                                        <div class="form-group">
+                                            <label for="puntuacion">Puntuación</label>
+                                            <select class="form-control" id="puntuacion" name="puntuacion" required>
+                                                <option value="1">Muy Malo</option>
+                                                <option value="2">Malo</option>
+                                                <option value="3">Regular</option>
+                                                <option value="4">Bueno</option>
+                                                <option value="5">Excelente</option>
+                                            </select>
+                                        </div>
+
+                                        <input type="hidden" name="id_oferta" value="@Model.id_oferta" />
+                                        <input type="hidden" name="id_usuario" value="@Session["id_usuario"]" />
+                                        <br />
+                                        <button type="submit" class="btn btn-primary">Enviar Comentario</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <p>Debes iniciar sesión para dejar un comentario.</p>
+                                }
+
+                                <!-- Agregar comentario Agregar comentario Agregar comentario -->
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingGaleria">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGaleria" aria-expanded="false" aria-controls="collapseGaleria">
+                                Galería de Fotos
+                            </button>
+                        </h2>
+                        <div id="collapseGaleria" class="accordion-collapse collapse" aria-labelledby="headingGaleria" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                @if (ViewBag.Galeria != null)
+                                {
+                                    <ul class="row">
+                                        @foreach (var foto in ViewBag.Galeria)
+                                        {
+                                            <li class="col-lg-4 col-md-6 col-12 mb-3">
+                                                <img src="@foto.url_imagen" alt="Foto de la oferta" class="img-fluid" />
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p>No hay fotos disponibles para esta oferta.</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingEtiquetas">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEtiquetas" aria-expanded="false" aria-controls="collapseEtiquetas">
+                                Etiquetas
+                            </button>
+                        </h2>
+                        <div id="collapseEtiquetas" class="accordion-collapse collapse" aria-labelledby="headingEtiquetas" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                @if (ViewBag.Etiquetas != null)
+                                {
+                                    <div class="main-content">
+
+                                        @foreach (var etiqueta in ViewBag.Etiquetas)
+                                        {
+
+                                            <span class="category bg-info-subtle">
+                                                @*<a href="@Url.Action("Detalles", "Comentarios", new { id = comentario.id_comentario })">*@
+                                                <a href="@Url.Action("Detalles", "Comentarios", new { id = etiqueta.id_etiqueta })">
+                                                    @etiqueta.Etiqueta.nombre_etiqueta
+                                                </a>
+
+                                            </span>
+
+                                        }
+
+                                        <br />   <br />   <br />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p>No hay etiquetas para esta oferta.</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="info-table">
+                    <ul>
+                        <li>
+                            <h4>@Model.nombre<br><span>Nombre de la Oferta</span></h4>
+                        </li>
+                        <li>
+                            <h4>@Model.telefono<br><span>Teléfono de Contacto</span></h4>
+                        </li>
+                        <li>
+                            <h4>@Model.email_contacto<br><span>Email de Contacto</span></h4>
+                        </li>
+                        <li>
+                            <h4>@Model.direccion<br><span>Dirección de la Oferta</span></h4>
+                        </li>
+                        <li>
+                            <h4>
+                                <a href="@Model.sitio_web" target="_blank">@Model.sitio_web</a><br><span>Sitio Web</span>
+                            </h4>
+                        </li>
+                        <li>
+                            <h4>
+                                @(Model.verificado == "S" ? "Verificado" : "No Verificado")<br>
+                                <span>Estado</span>
+                            </h4>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="contact-page section">
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-lg-6">
+                <div class="section-heading">
+                    <h2>Ubicacion</h2>
+                </div>
+                <p>Visualiza la ubicación de esta oferta en el mapa. Puedes hacer zoom o mover el mapa para explorar más detalles.</p>
+            </div>
+
+
+            <div class="col-lg-12">
+                @{
+                    var lat = Model.ubicacion_lat;
+                    var lon = Model.ubicacion_lon;
+                    var mapUrl = "https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3794.4338854214593!2d" + lon + "!3d" + lat + "!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1supt!5e0!3m2!1ses!2spe!4v1732965686197!5m2!1ses!2spe";
+                }
+
+                <iframe src="@mapUrl"
+                        width="100%"
+                        height="500px"
+                        frameborder="0"
+                        style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
