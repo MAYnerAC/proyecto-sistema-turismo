@@ -37,6 +37,41 @@
                 </div>
 
 
+
+                <!-- Agregar foto comentario -->
+                @if (Session["id_usuario"] != null)
+                {
+
+                    <div class="col-lg-8">
+                        <div class="info-table">
+                            <h5>Agregar Foto al Comentario:</h5><br />
+                            @using (Html.BeginForm("AgregarFoto", "Comentarios", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="mb-3">
+                                    <label for="archivoImagen" class="form-label">Seleccionar Foto</label>
+                                    <input id="archivoImagen" type="file" name="archivoImagen" class="form-control" required="required" />
+                                </div>
+                                @Html.Hidden("url_foto", "https://firebasestorage.googleapis.com/v0/default-image.png")
+                                <div class="mb-3">
+                                    <label for="descripcion" class="form-label">Descripción (Opcional)</label>
+                                    <textarea id="descripcion" name="descripcion" class="form-control" maxlength="255" rows="3" style="resize: none;"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="hidden" name="id_comentario" value="@Model.id_comentario" />
+                                </div>
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-primary">Subir Foto</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+                <!-- Agregar foto comentario -->
+
+
                 <div class="mt-4">
                     <h5>Fotos Asociadas:</h5><br />
                     <div class="row">
@@ -47,7 +82,8 @@
                                 <div class="col-lg-12 mb-4">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <img src="@foto.url_foto" alt="Foto del comentario" class="img-fluid" />
+
+                                            <img src="@(string.IsNullOrEmpty(foto.url_foto) ? Url.Content("~/Source/images/no-image-found.png") : foto.url_foto)" alt="Foto del comentario" class="img-fluid" />
                                         </div>
                                         <div class="col-lg-6">
                                             <p>@foto.fecha_subida</p>
@@ -67,7 +103,17 @@
                         }
                     </div>
                 </div>
+
+
             </div>
+
+
+
+
+
+
+
+
 
             <div class="col-lg-4">
                 <div class="info-table">

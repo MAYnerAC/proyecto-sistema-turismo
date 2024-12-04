@@ -2,7 +2,9 @@
 using ProyectoSistemaTurismo.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,6 +16,7 @@ namespace ProyectoSistemaTurismo.Controllers
 
         private ComentarioService _comentarioService = new ComentarioService();
         private Foto_ComentarioService _fotoComentarioService = new Foto_ComentarioService();
+        private FirebaseStorageService _firebaseStorageService = new FirebaseStorageService();
 
 
 
@@ -53,6 +56,38 @@ namespace ProyectoSistemaTurismo.Controllers
 
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AgregarFoto(Foto_Comentario fotoComentario, HttpPostedFileBase archivoImagen)
+        {
+            if (ModelState.IsValid)
+            {
+                if (archivoImagen != null)
+                {
+                    //// Simular URL de Firebase
+                    //string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
+                    //fotoComentario.url_foto = "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
+
+                    // Subir el archivo a Firebase
+                    string urlFotoFirebase = await _firebaseStorageService.SubirArchivo(archivoImagen);
+                    fotoComentario.url_foto = urlFotoFirebase;
+                }
+                else
+                {
+                    TempData["Error"] = "Debe seleccionar un archivo para la imagen.";
+                    return RedirectToAction("Detalles", "Comentarios", new { id = fotoComentario.id_comentario });
+                }
+
+                _fotoComentarioService.Agregar(fotoComentario);
+                TempData["Mensaje"] = "Foto subida con éxito.";
+            }
+            else
+            {
+                TempData["Error"] = "Los datos ingresados no son válidos. No se pudo crear la foto de comentario.";
+            }
+
+            return RedirectToAction("Detalles", "Comentarios", new { id = fotoComentario.id_comentario });
+        }
 
 
 

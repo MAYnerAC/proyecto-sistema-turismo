@@ -23,7 +23,7 @@ else
                         <p class="card-text">
                             <small class="text-muted">Tipo: @imagen.tipo_imagen</small><br />
                             <small class="text-muted">Estado: @(imagen.estado == "A" ? "Activo" : "Inactivo")</small><br />
-                            <small class="text-muted">Fecha: @imagen.fecha_subida?.ToString("dd/MM/yyyy")</small>
+                            <small class="text-muted">Fecha: @DateTime.Parse(imagen.fecha_subida.ToString()).ToString("dd/MM/yyyy")</small>
                         </p>
                         <div class="text-right">
                             @Html.ActionLink("Editar", "Editar", new { id = imagen.id_imagen, area = "Proveedor" }, new { @class = "btn btn-warning btn-sm" })

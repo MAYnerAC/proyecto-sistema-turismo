@@ -378,7 +378,7 @@
                         <h4><a href="@Url.Action("Detalles", "Ofertas", new { id = oferta.id_oferta })">@oferta.nombre</a></h4>
                         <ul>
                             <li>Destino: <span>@oferta.nombre_destino</span></li>
-                            <li>Descripción corta: <span>@(oferta.descripcion.Length > 100 ? oferta.descripcion.Substring(0, 100) + "..." : oferta.descripcion)</span></li>
+                            <li>Descripción corta: <span>@(string.IsNullOrEmpty(oferta.descripcion) ? "" : (oferta.descripcion.Length > 100 ? oferta.descripcion.Substring(0, 100) + "..." : oferta.descripcion))</span></li>
                             <li>Contactar: <span>@oferta.telefono</span></li>
                         </ul>
                         <div class="main-button">

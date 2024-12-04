@@ -25,3 +25,34 @@
     .star.empty {
         background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none"><path d="M10 15.27l6.18 3.73-1.64-7.03L19 7.24l-7.19-.61L10 .25 8.19 6.63 1 7.24l4.46 4.73-1.64 7.03L10 15.27z" fill="%23d3d3d3"></path></svg>') no-repeat center center;
     }
+
+
+
+
+
+
+
+
+
+.alert-floating {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+    min-width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.alert.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+/* Añadir una transición suave al desaparecer */
+.alert {
+    transition: opacity 0.5s ease-out;
+}
+
+.fade-out {
+    opacity: 0;
+}
