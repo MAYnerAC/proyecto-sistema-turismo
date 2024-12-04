@@ -278,6 +278,7 @@
     <Compile Include="Areas\Proveedor\Controllers\GaleriaController.cs" />
     <Compile Include="Areas\Proveedor\Controllers\OfertaController.cs" />
     <Compile Include="Areas\Proveedor\Controllers\PanelController.cs" />
+    <Compile Include="Areas\Proveedor\Controllers\ReporteController.cs" />
     <Compile Include="Areas\Proveedor\ProveedorAreaRegistration.cs" />
     <Compile Include="Controllers\ComentariosController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -315,6 +316,8 @@
     <Compile Include="Models\Tipo_Usuario.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportModels\OfertaPorDestinoReporte.cs" />
+    <Compile Include="ReportModels\OfertaPorTipoReporte.cs" />
     <Compile Include="Service\ComentarioService.cs" />
     <Compile Include="Service\DestinoService.cs" />
     <Compile Include="Service\EtiquetaService.cs" />
@@ -324,6 +327,7 @@
     <Compile Include="Service\GaleriaService.cs" />
     <Compile Include="Service\OfertaService.cs" />
     <Compile Include="Service\Preferencias_UsuarioService.cs" />
+    <Compile Include="Service\ReporteService.cs" />
     <Compile Include="Service\Tipo_OfertaService.cs" />
     <Compile Include="Service\Tipo_UsuarioService.cs" />
     <Compile Include="Service\UsuarioService.cs" />
@@ -414,6 +418,8 @@
     <Content Include="Areas\Admin\Views\Usuario\Detalles.cshtml" />
     <Content Include="Areas\Proveedor\Views\Galeria\Editar.cshtml" />
     <Content Include="Areas\Proveedor\Views\Comentario\Index.cshtml" />
+    <Content Include="Areas\Proveedor\Views\Reporte\ReporteOfertasPorTipo.cshtml" />
+    <Content Include="Areas\Proveedor\Views\Reporte\ReporteOfertasPorDestino.cshtml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - Web Deploy.pubxml" />
@@ -507,7 +513,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Proveedor\Data\" />
-    <Folder Include="ReportModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

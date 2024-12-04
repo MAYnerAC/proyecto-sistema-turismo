@@ -301,17 +301,25 @@
                     </a>
                     <div class="collapse" id="reportes">
                         <ul class="nav flex-column pl-3">
+                            @*<li class="nav-item">
+                                    @Html.ActionLink("Reporte de Ofertas por Tipo", "ReporteOfertasPorTipo", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Reporte de Ofertas por Destino", "ReporteOfertasPorDestino", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Reporte de Ofertas por Etiqueta", "ReporteOfertasPorEtiqueta", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Reporte de Ofertas No Verificadas", "ReporteOfertasNoVerificadas", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
+                                </li>*@
+
+
                             <li class="nav-item">
-                                @Html.ActionLink("Reporte de Ofertas por Tipo", "ReporteOfertasPorTipo", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
+                                @Html.ActionLink("Reporte de Ofertas por Tipo", "ReporteOfertasPorTipo", "Reporte", new { area = "Proveedor" }, new { @class = "nav-link" })
                             </li>
                             <li class="nav-item">
-                                @Html.ActionLink("Reporte de Ofertas por Destino", "ReporteOfertasPorDestino", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Reporte de Ofertas por Etiqueta", "ReporteOfertasPorEtiqueta", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
-                            </li>
-                            <li class="nav-item">
-                                @Html.ActionLink("Reporte de Ofertas No Verificadas", "ReporteOfertasNoVerificadas", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
+                                @Html.ActionLink("Reporte de Ofertas por Destino", "ReporteOfertasPorDestino", "Reporte", new { area = "Proveedor" }, new { @class = "nav-link" })
                             </li>
                         </ul>
                     </div>

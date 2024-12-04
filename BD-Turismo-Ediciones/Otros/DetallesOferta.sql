@@ -16,6 +16,7 @@ select * from Oferta
 select * from Galeria
 select * from Foto_Comentario
 select * from Comentario
+select * from Usuario
 
 
 

@@ -1,0 +1,25 @@
+﻿@model List<ProyectoSistemaTurismo.ReportModels.OfertaPorDestinoReporte>
+
+@{
+    ViewBag.Title = "Reporte de Ofertas por Destino";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Destino</th>
+            <th>Cantidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Destino</td>
+                <td>@item.Cantidad</td>
+            </tr>
+        }
+    </tbody>
+</table>
