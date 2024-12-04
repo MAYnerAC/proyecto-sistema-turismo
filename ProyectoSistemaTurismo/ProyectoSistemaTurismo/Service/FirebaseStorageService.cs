@@ -12,7 +12,7 @@ namespace ProyectoSistemaTurismo.Service
     public class FirebaseStorageService
     {
 
-        private readonly string _firebaseStorageBucket = "your_project_id.appspot.com"; // Cambia por tu bucket real
+        private readonly string _firebaseStorageBucket = "proyecto-moviles-ae540.appspot.com"; // Nombre bucket
 
         public async Task<string> SubirArchivo(HttpPostedFileBase archivo)
         {
@@ -24,7 +24,7 @@ namespace ProyectoSistemaTurismo.Service
 
                 // Subir el archivo a Firebase Storage
                 var task = await firebaseStorage
-                    .Child("imagenes_comentarios") // Directorio donde se almacenarán los archivos
+                    .Child("turismo_images") // Directorio
                     .Child(nombreArchivo) // Nombre del archivo
                     .PutAsync(stream);
 
@@ -35,7 +35,7 @@ namespace ProyectoSistemaTurismo.Service
             }
             catch (Exception)
             {
-                // Si ocurre un error, retornar una URL falsa (simulada)
+                // Retornar una URL falsa (simulacion)
                 string nombreArchivo = Path.GetFileName(archivo.FileName);
                 return "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
             }

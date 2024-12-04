@@ -251,43 +251,44 @@
 
             *@
 
+            @if (Session["OfertaId"] != null)
+            {
+
+                <!-- Gestión de Galería -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#gestionGaleria" role="button" aria-expanded="false" aria-controls="gestionGaleria">
+                        Galería de Imágenes
+                    </a>
+                    <div class="collapse" id="gestionGaleria">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Administrar Galería", "Index", "Galeria", new { area = "Proveedor" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Agregar Imágenes", "AgregarImagen", "Galeria", new { area = "Proveedor" }, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
 
-            <!-- Gestión de Galería -->
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#gestionGaleria" role="button" aria-expanded="false" aria-controls="gestionGaleria">
-                    Galería de Imágenes
-                </a>
-                <div class="collapse" id="gestionGaleria">
-                    <ul class="nav flex-column pl-3">
-                        <li class="nav-item">
-                            @Html.ActionLink("Administrar Galería", "Index", "Galeria", new { area = "Proveedor" }, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("Agregar Imágenes", "AgregarImagen", "Galeria", new { area = "Proveedor" }, new { @class = "nav-link" })
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
-            <!-- Sistema de Comentarios y Reseñas -->
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#sistemaComentarios" role="button" aria-expanded="false" aria-controls="sistemaComentarios">
-                    Comentarios y Reseñas
-                </a>
-                <div class="collapse" id="sistemaComentarios">
-                    <ul class="nav flex-column pl-3">
-                        <li class="nav-item">
-                            @Html.ActionLink("Ver Comentarios", "ComentariosRecibidos", "Comentarios", new { area = "Proveedor" }, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            @Html.ActionLink("Gestionar Reseñas", "ResponderComentario", "Comentarios", new { area = "Proveedor" }, new { @class = "nav-link" })
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
+                <!-- Sistema de Comentarios y Reseñas -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#sistemaComentarios" role="button" aria-expanded="false" aria-controls="sistemaComentarios">
+                        Comentarios y Reseñas
+                    </a>
+                    <div class="collapse" id="sistemaComentarios">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Ver Comentarios", "ComentariosRecibidos", "Comentarios", new { area = "Proveedor" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Gestionar Reseñas", "ResponderComentario", "Comentarios", new { area = "Proveedor" }, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            }
             <!-- Estadísticas de Visitas -->
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#estadisticas" role="button" aria-expanded="false" aria-controls="estadisticas">

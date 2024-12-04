@@ -181,8 +181,8 @@ CREATE TABLE Comentario (
 -- Tabla Galeria
 CREATE TABLE Galeria (
     id_imagen INT PRIMARY KEY IDENTITY(1,1),
-    url_imagen VARCHAR(200) NOT NULL,
-    descripcion VARCHAR(255) NULL,
+    url_imagen VARCHAR(MAX) NOT NULL,
+    descripcion VARCHAR(MAX) NULL,
     tipo_imagen VARCHAR(50) NULL,
     fecha_subida DATE DEFAULT GETDATE(),
     estado CHAR(1) DEFAULT 'A',
@@ -252,8 +252,8 @@ CREATE TABLE Reporte (
 -- Tabla Foto de Comentario
 CREATE TABLE Foto_Comentario (
     id_foto INT PRIMARY KEY IDENTITY(1,1),
-    url_foto VARCHAR(255) NOT NULL,
-    descripcion VARCHAR(255),
+    url_foto VARCHAR(MAX) NOT NULL,
+    descripcion VARCHAR(MAX),
     fecha_subida DATE DEFAULT GETDATE(),
     estado CHAR(1) DEFAULT 'A',
     id_comentario INT NOT NULL,
