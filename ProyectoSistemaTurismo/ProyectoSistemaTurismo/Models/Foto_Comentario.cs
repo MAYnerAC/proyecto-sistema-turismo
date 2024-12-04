@@ -12,10 +12,8 @@ namespace ProyectoSistemaTurismo.Models
         public int id_foto { get; set; }
 
         [Required]
-        [StringLength(255)]
         public string url_foto { get; set; }
 
-        [StringLength(255)]
         public string descripcion { get; set; }
 
         [Column(TypeName = "date")]

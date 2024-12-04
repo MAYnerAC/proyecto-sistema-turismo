@@ -43,6 +43,28 @@ namespace ProyectoSistemaTurismo.Service
 
 
 
+        public string ValidarArchivoImagen(HttpPostedFileBase archivoImagen)
+        {
+            string[] tiposPermitidos = { "image/jpeg", "image/png" };
+            int tamañoMaximoMB = 5;  // Tamaño máximo 5MB // Es 4 por defecto en "<system.web>"
+
+            // Tipo de archivo
+            if (!tiposPermitidos.Contains(archivoImagen.ContentType))
+            {
+                return "El archivo debe ser una imagen en formato JPG o PNG.";
+            }
+
+            // Tamaño
+            if (archivoImagen.ContentLength > tamañoMaximoMB * 1024 * 1024)
+            {
+                return $"El archivo es demasiado grande. El tamaño máximo permitido es {tamañoMaximoMB} MB.";
+            }
+
+            // Correcto
+            return null;
+        }
+
+
         //
     }
 }

@@ -68,6 +68,11 @@ namespace ProyectoSistemaTurismo.Controllers
                     //string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
                     //fotoComentario.url_foto = "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
 
+                    if ((TempData["Error"] = _firebaseStorageService.ValidarArchivoImagen(archivoImagen)) != null)
+                    {
+                        return RedirectToAction("Detalles", "Comentarios", new { id = fotoComentario.id_comentario });
+                    }
+
                     // Subir el archivo a Firebase
                     string urlFotoFirebase = await _firebaseStorageService.SubirArchivo(archivoImagen);
                     fotoComentario.url_foto = urlFotoFirebase;

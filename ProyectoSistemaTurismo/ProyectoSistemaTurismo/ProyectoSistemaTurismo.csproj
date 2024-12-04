@@ -274,6 +274,7 @@
     <Compile Include="Areas\Admin\Controllers\Tipo_OfertaController.cs" />
     <Compile Include="Areas\Admin\Controllers\Tipo_UsuarioController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
+    <Compile Include="Areas\Proveedor\Controllers\ComentarioController.cs" />
     <Compile Include="Areas\Proveedor\Controllers\GaleriaController.cs" />
     <Compile Include="Areas\Proveedor\Controllers\OfertaController.cs" />
     <Compile Include="Areas\Proveedor\Controllers\PanelController.cs" />
@@ -411,6 +412,8 @@
     <Content Include="Areas\Admin\Views\Usuario\Crear.cshtml" />
     <Content Include="Areas\Admin\Views\Usuario\Editar.cshtml" />
     <Content Include="Areas\Admin\Views\Usuario\Detalles.cshtml" />
+    <Content Include="Areas\Proveedor\Views\Galeria\Editar.cshtml" />
+    <Content Include="Areas\Proveedor\Views\Comentario\Index.cshtml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\sistematurismo - Web Deploy.pubxml" />

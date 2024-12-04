@@ -13,10 +13,8 @@ namespace ProyectoSistemaTurismo.Models
         public int id_imagen { get; set; }
 
         [Required]
-        [StringLength(200)]
         public string url_imagen { get; set; }
 
-        [StringLength(255)]
         public string descripcion { get; set; }
 
         [StringLength(50)]

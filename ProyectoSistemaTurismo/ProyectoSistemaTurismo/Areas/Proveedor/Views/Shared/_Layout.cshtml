@@ -14,6 +14,10 @@
     <!-- DataTables -->
     <link href="https://cdn.datatables.net/v/dt/dt-2.1.8/datatables.min.css" rel="stylesheet">
 
+    <!-- Personalizado CSS -->
+    <link href="~/Source/css/personalizado.css" rel="stylesheet" />
+
+
     <style>
         .alert-floating {
             position: fixed;
@@ -168,7 +172,8 @@
                     @Session["correo_usuario"]
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="@Url.Action("EditarPerfil", "Usuario", new { area = "Proveedor" })">Editar Perfil</a>
+                    <a class="dropdown-item" href="@Url.Action("Index", "Home", new { area = "" })">Explorar Ofertas Turísticas</a>
+                    <a class="dropdown-item" href="@Url.Action("Index", "Panel", new { area = "Proveedor" })">Editar Perfil</a>
                     @Html.ActionLink("Cerrar Sesión", "LogOut", "Login", new { area = "" }, new { @class = "dropdown-item" })
                 </div>
             </div>
@@ -225,10 +230,10 @@
                 <div class="collapse" id="gestionOfertas">
                     <ul class="nav flex-column pl-3">
                         <li class="nav-item">
-                            @Html.ActionLink("Crear Oferta", "Crear", "Oferta", new { area = "Proveedor" }, new { @class = "nav-link" })
+                            @Html.ActionLink("Mis Ofertas", "MisOfertas", "Oferta", new { area = "Proveedor" }, new { @class = "nav-link" })
                         </li>
                         <li class="nav-item">
-                            @Html.ActionLink("Mis Ofertas", "MisOfertas", "Oferta", new { area = "Proveedor" }, new { @class = "nav-link" })
+                            @Html.ActionLink("Crear Oferta", "Crear", "Oferta", new { area = "Proveedor" }, new { @class = "nav-link" })
                         </li>
                     </ul>
                 </div>
@@ -265,7 +270,7 @@
                                 @Html.ActionLink("Administrar Galería", "Index", "Galeria", new { area = "Proveedor" }, new { @class = "nav-link" })
                             </li>
                             <li class="nav-item">
-                                @Html.ActionLink("Agregar Imágenes", "AgregarImagen", "Galeria", new { area = "Proveedor" }, new { @class = "nav-link" })
+                                @Html.ActionLink("Agregar Nueva Imagen", "Crear", "Galeria", new { area = "Proveedor" }, new { @class = "nav-link" })
                             </li>
                         </ul>
                     </div>
@@ -280,44 +285,53 @@
                     <div class="collapse" id="sistemaComentarios">
                         <ul class="nav flex-column pl-3">
                             <li class="nav-item">
-                                @Html.ActionLink("Ver Comentarios", "ComentariosRecibidos", "Comentarios", new { area = "Proveedor" }, new { @class = "nav-link" })
+                                @Html.ActionLink("Ver Comentarios", "Index", "Comentario", new { area = "Proveedor" }, new { @class = "nav-link" })
+                            </li>
+                            @*<li class="nav-item">
+                                    @Html.ActionLink("Gestionar Reseñas", "ResponderComentario", "Comentarios", new { area = "Proveedor" }, new { @class = "nav-link" })
+                                </li>*@
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Estadísticas y Reportes -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#reportes" role="button" aria-expanded="false" aria-controls="reportes">
+                        Reportes de Ofertas
+                    </a>
+                    <div class="collapse" id="reportes">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Reporte de Ofertas por Tipo", "ReporteOfertasPorTipo", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
                             </li>
                             <li class="nav-item">
-                                @Html.ActionLink("Gestionar Reseñas", "ResponderComentario", "Comentarios", new { area = "Proveedor" }, new { @class = "nav-link" })
+                                @Html.ActionLink("Reporte de Ofertas por Destino", "ReporteOfertasPorDestino", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Reporte de Ofertas por Etiqueta", "ReporteOfertasPorEtiqueta", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                @Html.ActionLink("Reporte de Ofertas No Verificadas", "ReporteOfertasNoVerificadas", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
                             </li>
                         </ul>
                     </div>
                 </li>
             }
-            <!-- Estadísticas de Visitas -->
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#estadisticas" role="button" aria-expanded="false" aria-controls="estadisticas">
-                    Estadísticas de Visitas
-                </a>
-                <div class="collapse" id="estadisticas">
-                    <ul class="nav flex-column pl-3">
-                        <li class="nav-item">
-                            @Html.ActionLink("Visitas a Ofertas", "Visitas", "Estadisticas", new { area = "Proveedor" }, new { @class = "nav-link" })
-                        </li>
-                    </ul>
-                </div>
-            </li>
+
 
             <!-- Reportes y Reclamos -->
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#reportes" role="button" aria-expanded="false" aria-controls="reportes">
-                    Reportes y Reclamos
-                </a>
-                <div class="collapse" id="reportes">
-                    <ul class="nav flex-column pl-3">
-                        <li class="nav-item">
-                            @Html.ActionLink("Reportes de Ofertas", "ReportesOfertas", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
+            @*<li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#reportes" role="button" aria-expanded="false" aria-controls="reportes">
+                        Reportes y Reclamos
+                    </a>
+                    <div class="collapse" id="reportes">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                @Html.ActionLink("Reportes de Ofertas", "ReportesOfertas", "Reportes", new { area = "Proveedor" }, new { @class = "nav-link" })
+                            </li>
+                        </ul>
+                    </div>
+                </li>*@
 
 
 
@@ -363,6 +377,8 @@
 </body>
 </html>
 
+<!-- Personalizado JS -->
+<script src="~/Source/js/personalizado.js"></script>
 
 
 <script>

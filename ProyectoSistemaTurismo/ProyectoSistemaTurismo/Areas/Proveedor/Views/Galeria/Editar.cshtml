@@ -1,0 +1,67 @@
+﻿@model ProyectoSistemaTurismo.Models.Galeria
+
+@{
+    ViewBag.Title = "Editar Imagen";
+}
+
+<h2>Editar Imagen</h2>
+
+@using (Html.BeginForm("Editar", "Galeria", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.id_imagen)
+
+    <!-- URL de la Imagen (Simulada en el controlador) -->
+    <div class="form-group">
+        @Html.Label("Imagen", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="archivoImagen" class="form-control" />
+            <span class="text-muted">Deje vacío para mantener la imagen actual.</span>
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.url_imagen)
+
+    <!-- Descripción -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.descripcion, "Descripción", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.descripcion, new { @class = "form-control", placeholder = "Ingrese una descripción", rows = 3, maxlength = 200 })
+        </div>
+    </div>
+
+    <!-- Tipo de Imagen -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.tipo_imagen, "Tipo de Imagen", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.tipo_imagen, new { @class = "form-control", placeholder = "Ingrese el tipo de imagen", maxlength = 50 })
+        </div>
+    </div>
+
+    <!-- Fecha de Subida (Readonly) -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.fecha_subida, "Fecha de Subida", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.fecha_subida, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    </div>
+
+    <!-- Estado (Campo Hidden) -->
+    <div class="form-group">
+        @Html.HiddenFor(model => model.estado)
+    </div>
+
+
+    <!-- Oferta Relacionada (id_oferta desde la sesión) -->
+    <div class="form-group">
+        @Html.Hidden("id_oferta", Session["OfertaId"])
+    </div>
+
+    <!-- Botones -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+}

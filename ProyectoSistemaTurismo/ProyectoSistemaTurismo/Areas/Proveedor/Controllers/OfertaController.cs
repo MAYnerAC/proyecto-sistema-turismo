@@ -10,6 +10,7 @@ using System.Web.Mvc;
 namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
 {
     [Autenticado]
+    [TipoUsuarioAutorizado(2)]
     public class OfertaController : Controller
     {
 

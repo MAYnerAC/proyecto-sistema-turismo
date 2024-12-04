@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoSistemaTurismo.Filters;
@@ -19,6 +20,11 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     {
         private Foto_ComentarioService _fotoComentarioService = new Foto_ComentarioService();
         private ComentarioService _comentarioService = new ComentarioService();
+        private FirebaseStorageService _firebaseStorageService = new FirebaseStorageService();
+
+
+
+
 
         public ActionResult Index()
         {
@@ -47,15 +53,24 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Crear(Foto_Comentario fotoComentario, HttpPostedFileBase archivoImagen)
+        public async Task<ActionResult> Crear(Foto_Comentario fotoComentario, HttpPostedFileBase archivoImagen)
         {
             if (ModelState.IsValid)
             {
                 if (archivoImagen != null)
                 {
-                    // Simular URL de Firebase
-                    string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
-                    fotoComentario.url_foto = "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
+                    //// Simular URL de Firebase
+                    //string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
+                    //fotoComentario.url_foto = "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
+
+                    if ((TempData["Error"] = _firebaseStorageService.ValidarArchivoImagen(archivoImagen)) != null)
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                    // Subir el archivo a Firebase
+                    string urlFotoFirebase = await _firebaseStorageService.SubirArchivo(archivoImagen);
+                    fotoComentario.url_foto = urlFotoFirebase;
                 }
                 else
                 {
@@ -91,16 +106,24 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar(Foto_Comentario fotoComentario, HttpPostedFileBase archivoImagen)
+        public async Task<ActionResult> Editar(Foto_Comentario fotoComentario, HttpPostedFileBase archivoImagen)
         {
             if (ModelState.IsValid)
             {
-
                 if (archivoImagen != null)
                 {
-                    // Simular URL de Firebase
-                    string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
-                    fotoComentario.url_foto = "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
+                    //// Simular URL de Firebase
+                    //string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
+                    //fotoComentario.url_foto = "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
+
+                    if ((TempData["Error"] = _firebaseStorageService.ValidarArchivoImagen(archivoImagen)) != null)
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                    // Subir el archivo a Firebase
+                    string urlFotoFirebase = await _firebaseStorageService.SubirArchivo(archivoImagen);
+                    fotoComentario.url_foto = urlFotoFirebase;
                 }
 
 

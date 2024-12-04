@@ -113,7 +113,13 @@
                                         @Session["correo_usuario"]
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="@Url.Action("EditarPerfil", "Usuario", new { area = "Proveedor" })">Editar Perfil</a>
+
+                                        @if (Session["id_tipo_usuario"] != null && (int)Session["id_tipo_usuario"] == 2)
+                                        {
+                                            <a class="dropdown-item" href="@Url.Action("Index", "Panel", new { area = "Proveedor" })">Panel de Proveedor</a>
+                                        }
+
+                                        <a class="dropdown-item" href="@Url.Action("Index", "Home", new { area = "" })">Editar Perfil</a>
                                         <a class="dropdown-item" href="@Url.Action("LogOut", "Login")">Cerrar Sesión</a>
                                     </div>
                                 </li>

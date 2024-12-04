@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ProyectoSistemaTurismo.Models.Comentario>
+
+<h2>Comentarios de la Oferta</h2>
+
+@if (!Model.Any())
+{
+    <p class="text-center text-muted">No hay comentarios en esta oferta aún.</p>
+}
+else
+{
+    <div class="list-group">
+        @foreach (var comentario in Model)
+        {
+            <div class="list-group-item">
+                <h5>@(comentario.Usuario.nombre +" "+ comentario.Usuario.apellido +" | "+ comentario.Usuario.email)</h5>
+                <p>
+                    <strong>Puntuación:</strong> @(comentario.puntuacion.HasValue ?
+                    (comentario.puntuacion == 1 ? "Muy Malo" :
+                    comentario.puntuacion == 2 ? "Malo" :
+                    comentario.puntuacion == 3 ? "Regular" :
+                    comentario.puntuacion == 4 ? "Bueno" : "Excelente") : "N/A")
+                </p>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="star-rating">
+                            <span class="star @((comentario.puntuacion >= 1) ? "filled" : "empty")"></span>
+                            <span class="star @((comentario.puntuacion >= 2) ? "filled" : "empty")"></span>
+                            <span class="star @((comentario.puntuacion >= 3) ? "filled" : "empty")"></span>
+                            <span class="star @((comentario.puntuacion >= 4) ? "filled" : "empty")"></span>
+                            <span class="star @((comentario.puntuacion >= 5) ? "filled" : "empty")"></span>
+                        </div>
+                        <p><small class="text-muted">Fecha: @DateTime.Parse(comentario.fecha_comentario.ToString()).ToString("dd/MM/yyyy")</small></p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p style="white-space: pre-line;">@comentario.contenido</p>
+                    </div>
+                </div>
+            </div><br />
+        }
+    </div>
+}

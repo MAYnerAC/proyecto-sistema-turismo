@@ -27,7 +27,12 @@ else
                         </p>
                         <div class="text-right">
                             @Html.ActionLink("Editar", "Editar", new { id = imagen.id_imagen, area = "Proveedor" }, new { @class = "btn btn-warning btn-sm" })
-                            @Html.ActionLink("Eliminar", "Eliminar", new { id = imagen.id_imagen, area = "Proveedor" }, new { @class = "btn btn-danger btn-sm" })
+                            @using (Html.BeginForm("Eliminar", "Galeria", FormMethod.Post, new { @onsubmit = "return confirm('¿Está seguro de eliminar esta imagen?');" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("id", imagen.id_imagen)
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            }
                         </div>
                     </div>
                 </div>
