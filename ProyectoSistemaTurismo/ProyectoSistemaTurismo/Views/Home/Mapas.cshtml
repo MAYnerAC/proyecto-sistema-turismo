@@ -1,0 +1,69 @@
+﻿@model ProyectoSistemaTurismo.Models.Oferta
+
+@{
+    ViewBag.Title = "Ver Mapa";
+}
+
+<div id="map" style="height: 500px; width: 100%;"></div>
+
+<p>
+    @ViewBag.LatitudA;
+    @ViewBag.LongitudA;
+
+    <br /><br />
+
+    @ViewBag.LatitudB;
+    @ViewBag.LongitudB;
+</p>
+<script>
+    function initMap() {
+        // Coordenadas de la ubicación A (usando ViewBag)
+        var latitudA = @ViewBag.LatitudA;
+        var longitudA = @ViewBag.LongitudA;
+
+        // Coordenadas de la ubicación B (usando ViewBag)
+        var latitudB = @ViewBag.LatitudB;
+        var longitudB = @ViewBag.LongitudB;
+
+        // Crear el mapa centrado en la ubicación A
+        var mapa = new google.maps.Map(document.getElementById("map"), {
+            zoom: 14,
+            center: { lat: latitudA, lng: longitudA }
+        });
+
+        // Crear un marcador para la ubicación A
+        var marcadorA = new google.maps.Marker({
+            position: { lat: latitudA, lng: longitudA },
+            map: mapa,
+            title: "Ubicación A"
+        });
+
+        // Crear un marcador para la ubicación B
+        var marcadorB = new google.maps.Marker({
+            position: { lat: latitudB, lng: longitudB },
+            map: mapa,
+            title: "Ubicación B"
+        });
+
+        // Calcular la ruta entre A y B
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(mapa);
+
+        var request = {
+            origin: { lat: latitudA, lng: longitudA },
+            destination: { lat: latitudB, lng: longitudB },
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+
+        directionsService.route(request, function (result, status) {
+            if (status === google.maps.DirectionsStatus.OK) {
+                directionsRenderer.setDirections(result);
+            }
+        });
+    }
+</script>
+
+<!-- Colocar al final despues del script "Initmap" va antes -->
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf3-6IsVkMMm6G0L0XvV7NyH-Dcb2Kdio&callback=initMap&loading=async" async defer></script>

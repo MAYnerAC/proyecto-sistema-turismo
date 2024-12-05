@@ -32,7 +32,27 @@ namespace ProyectoSistemaTurismo.Controllers
         }
 
 
+        public ActionResult Mapas()
+        {
+            Oferta oferta1 = _ofertaService.ObtenerPorId(1);
+            Oferta oferta2 = _ofertaService.ObtenerPorId(13);
 
+            //decimal latitudA = 18.457232m;
+            //decimal longitudA = -70.660000m;
+
+            // Coordenadas de la ubicación B
+            //decimal latitudB = 18.467232m;
+            //decimal longitudB = -70.650000m;
+
+            // Pasar las coordenadas al ViewBag
+            ViewBag.LatitudA = oferta1.ubicacion_lat;
+            ViewBag.LongitudA = oferta1.ubicacion_lon;
+
+            ViewBag.LatitudB = oferta2.ubicacion_lat;
+            ViewBag.LongitudB = oferta2.ubicacion_lon;
+
+            return View();
+        }
 
 
 

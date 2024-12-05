@@ -508,6 +508,7 @@
     <Content Include="Source\vendor\jquery\jquery.slim.min.map" />
     <Content Include="Views\Comentarios\Detalles.cshtml" />
     <Content Include="Views\Ofertas\Detalles.cshtml" />
+    <Content Include="Views\Home\Mapas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
