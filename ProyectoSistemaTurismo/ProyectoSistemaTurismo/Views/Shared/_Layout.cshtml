@@ -104,7 +104,12 @@
                             <li><a href="@Url.Action("Index", "Home")">Destinos</a></li>
                             <li><a href="@Url.Action("Index", "Home")">Ofertas</a></li>
                             <li><a href="@Url.Action("Index", "Home")">Ranking</a></li>
-                            <li><a href="@Url.Action("Index", "Home")">Contacto</a></li>
+                            @*<li><a href="@Url.Action("Index", "Home")">Contacto</a></li>*@
+                            @if (Session["id_tipo_usuario"] != null)
+                            {
+                                <li><a href="@Url.Action("Index", "Chatbot")">Chatbot</a></li>
+                            }
+
 
                             @if (Session["nombre_usuario"] != null)
                             {
