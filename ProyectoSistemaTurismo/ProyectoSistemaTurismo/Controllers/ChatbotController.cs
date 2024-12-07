@@ -19,6 +19,7 @@ namespace ProyectoSistemaTurismo.Controllers
             return View();
         }
 
+        // Acción para procesar la consulta del usuario desde el formulario
         [HttpPost]
         public ActionResult GetResponse(string userInput)
         {
@@ -49,26 +50,6 @@ namespace ProyectoSistemaTurismo.Controllers
             return View("Index");
         }
 
-        /*
-        [HttpPost]
-        public async Task<ActionResult> ConsultarChatGPT(string query)
-        {
-            // Lógica para llamar a la API y obtener la respuesta
-            //var response = await GetChatGPTResponse(query);
-            var response = await ws.InteractuarConChatbotAsync(query);
-            ViewData["Response"] = response;
-            return View("Index");
-        }
-
-        private async Task<string> GetChatGPTResponse(string query)
-        {
-            using (var client = new HttpClient())
-            {
-                var response = await client.GetStringAsync($"https://localhost:5001/api/chat/UseChatGPT?query={query}");
-                return response;
-            }
-        }
-        */
 
         //
     }
