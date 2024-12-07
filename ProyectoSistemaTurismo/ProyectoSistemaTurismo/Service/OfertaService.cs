@@ -153,7 +153,60 @@ namespace ProyectoSistemaTurismo.Service
             }
         }
 
+        public List<OfertaPrevia> ObtenerPorDestino(int destinoId)
+        {
+            try
+            {
+                using (var db = new ModeloSistema())
+                {
+                    return db.Oferta
+                        .Include(o => o.Destino)
+                        .Include(o => o.Tipo_Oferta)
+                        .Include(o => o.Galeria)
+                        .Where(o => o.estado == "A" && o.visible == "S" && o.id_destino == destinoId) // Filtra por destino
+                        .Select(o => new OfertaPrevia
+                        {
+                            id_oferta = o.id_oferta,
+                            nombre = o.nombre,
+                            descripcion = o.descripcion,
+                            telefono = o.telefono,
+                            id_tipo_oferta = o.id_tipo_oferta,
+                            id_destino = o.id_destino,
+                            tipo_oferta = o.Tipo_Oferta.nombre_tipo,
+                            nombre_destino = o.Destino.nombre_destino,
+                            imagen_url = o.Galeria.FirstOrDefault(g => g.estado == "A").url_imagen,
+                            verificado = o.verificado
+                        })
+                        .OrderByDescending(x => x.verificado) // Ordenar por verificación
+                        .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
+
+        public List<Oferta> ObtenerPorTipoOferta(int tipoOfertaId)
+        {
+            try
+            {
+                using (var db = new ModeloSistema())
+                {
+                    return db.Oferta
+                             .Include(o => o.Destino)
+                             .Include(o => o.Usuario)
+                             .Include(o => o.Tipo_Oferta)
+                             .Where(o => o.id_tipo_oferta == tipoOfertaId && o.estado == "A")
+                             .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
 
         //ObtenerPorDestino()

@@ -1,0 +1,37 @@
+﻿@model List<ProyectoSistemaTurismo.Models.Destino>
+
+<div class="properties section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-4">
+                <div class="section-heading text-center">
+                    <h6>| Destinos Turísticos</h6>
+                    <h2>¡Explora los Mejores Destinos de Tacna!</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Iteración sobre los destinos -->
+            @foreach (var destino in Model)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="item">
+                        <!-- Nombre del destino -->
+                        <h4><a href="@Url.Action("PorDestino", "Ofertas", new { id = destino.id_destino })">@destino.nombre_destino</a></h4>
+
+                        <!-- Descripción del destino -->
+                        <p>@(string.IsNullOrEmpty(destino.descripcion) ? "Descripción no disponible." : destino.descripcion)</p><br />
+
+                        <!-- Ubicación del destino -->
+                        <p><strong>Ubicación:</strong> @destino.pais</p><br />
+
+                        <!-- Botón para ver las ofertas de este destino -->
+                        <div class="main-button">
+                            <a href="@Url.Action("PorDestino", "Ofertas", new { id = destino.id_destino })">Ver Ofertas en este Destino</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

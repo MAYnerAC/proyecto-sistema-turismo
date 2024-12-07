@@ -1,17 +1,18 @@
-﻿using ProyectoSistemaTurismo.WSChatbot;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+//
+using ProyectoSistemaTurismo.WSChatbot;
 
 namespace ProyectoSistemaTurismo.Controllers
 {
     public class ChatbotController : Controller
     {
-        private WSChatbot.WebService1SoapClient ws = new WSChatbot.WebService1SoapClient();
+        //private WSChatbot.WebService1SoapClient ws = new WSChatbot.WebService1SoapClient();
 
         // GET: Chatbot
         public ActionResult Index()

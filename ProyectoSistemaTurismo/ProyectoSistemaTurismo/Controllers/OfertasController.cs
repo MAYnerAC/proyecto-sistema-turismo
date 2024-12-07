@@ -18,6 +18,7 @@ namespace ProyectoSistemaTurismo.Controllers
         private ComentarioService _comentarioService = new ComentarioService();
         private Etiqueta_OfertaService _etiquetaOfertaService = new Etiqueta_OfertaService();
         private GaleriaService _galeriaService = new GaleriaService();
+        private DestinoService _destinoService = new DestinoService();
 
 
         public ActionResult Detalles(int id)
@@ -51,7 +52,27 @@ namespace ProyectoSistemaTurismo.Controllers
         }
 
 
+        public ActionResult PorDestino(int id)
+        {
 
-        //
+            var ofertasDelDestino = _ofertaService.ObtenerPorDestino(id);
+
+            if (ofertasDelDestino == null)
+            {
+                TempData["Error"] = "No hay ofertas disponibles para este destino.";
+                return RedirectToAction("Index");
+            }
+
+            var destino = _destinoService.ObtenerPorId(id);
+
+            ViewBag.DestinoNombre = destino.nombre_destino;
+
+            return View(ofertasDelDestino);
+        }
+
     }
+
+
+
+    //
 }

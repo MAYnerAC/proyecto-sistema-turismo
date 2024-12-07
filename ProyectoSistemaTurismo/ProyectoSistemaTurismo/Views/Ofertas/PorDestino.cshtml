@@ -1,0 +1,64 @@
+﻿@model List<ProyectoSistemaTurismo.ViewModels.OfertaPrevia>
+@{
+    ViewData["Title"] = "Ofertas por Destino";
+    //var destinoNombre = ViewData["DestinoNombre"];
+    //var mensajeError = TempData["Error"];
+}
+
+<!-- Mensaje de error si no hay ofertas -->
+@*@if (mensajeError != null)
+    {
+        <div class="alert alert-warning">
+            @mensajeError
+        </div>
+    }*@
+
+<div class="properties section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-4">
+                <div class="section-heading text-center">
+                    <h6>| Ofertas Turísticas</h6>
+                    <h2>¡Descubre las ofertas en @ViewBag.DestinoNombre!</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Verificamos si hay ofertas disponibles -->
+            @if (Model != null && Model.Any())
+            {
+                <!-- Iteramos sobre las ofertas -->
+                foreach (var oferta in Model)
+                {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="item">
+                            <!-- Imagen de la oferta -->
+                            <a href="@Url.Action("Detalles", "Ofertas", new { id = oferta.id_oferta })">
+                                <img src="@(string.IsNullOrEmpty(oferta.imagen_url) ? Url.Content("~/Source/images/no-image-found.png") : oferta.imagen_url)" alt="Imagen de oferta" class="img-fluid" />
+                            </a>
+                            <!-- Categoría de la oferta -->
+                            <span class="category">@oferta.tipo_oferta</span>
+                            <!-- Estado de verificación -->
+                            <h6>@(oferta.verificado == "S" ? "Verificado" : "No verificado")</h6>
+                            <h4><a href="@Url.Action("Detalles", "Ofertas", new { id = oferta.id_oferta })">@oferta.nombre</a></h4>
+                            <ul>
+                                <li>Destino: <span>@oferta.nombre_destino</span></li>
+                                <li>Descripción corta: <span>@(string.IsNullOrEmpty(oferta.descripcion) ? "" : (oferta.descripcion.Length > 100 ? oferta.descripcion.Substring(0, 100) + "..." : oferta.descripcion))</span></li>
+                                <li>Contactar: <span>@oferta.telefono</span></li>
+                            </ul>
+                            <div class="main-button">
+                                <a href="@Url.Action("Detalles", "Ofertas", new { id = oferta.id_oferta })">Ver más detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <p>No hay ofertas disponibles para este destino.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
