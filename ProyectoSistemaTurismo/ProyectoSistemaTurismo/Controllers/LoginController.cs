@@ -9,14 +9,26 @@ using ProyectoSistemaTurismo.Models;
 
 namespace ProyectoSistemaTurismo.Controllers
 {
+    /// <summary>
+    /// Controlador encargado de la autenticación de usuarios y el registro.
+    /// </summary>
     public class LoginController : Controller
     {
-        // GET: Login
+        /// <summary>
+        /// Muestra la vista de inicio de sesión.
+        /// </summary>
+        /// <returns>Vista del login</returns>
         public ActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// Procesa los datos del formulario de login.
+        /// Valida al usuario y redirige según el tipo de usuario.
+        /// </summary>
+        /// <param name="usuarios">Objeto Usuario con credenciales ingresadas</param>
+        /// <returns>Redirección o vista de login con mensaje</returns>
         [HttpPost]
         public ActionResult Index(Usuario usuarios)
         {
@@ -61,14 +73,20 @@ namespace ProyectoSistemaTurismo.Controllers
             return View(usuarios);
         }
 
-
-        // Método para validar el usuario
+        /// <summary>
+        /// Valida si el usuario ingresado es correcto según la lógica del modelo.
+        /// </summary>
+        /// <param name="usuarios">Usuario con las credenciales ingresadas</param>
+        /// <returns>True si es válido, false si no</returns>
         private bool IsValid(Usuario usuarios)
         {
             return usuarios.Autenticar();
         }
 
-
+        /// <summary>
+        /// Cierra sesión del usuario y lo redirige al inicio.
+        /// </summary>
+        /// <returns>Redirección a la vista de inicio</returns>
         public ActionResult LogOut()
         {
 
@@ -77,17 +95,20 @@ namespace ProyectoSistemaTurismo.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
-
-
-
-
+        /// <summary>
+        /// Muestra la vista de registro de nuevos usuarios.
+        /// </summary>
+        /// <returns>Vista de registro</returns>
         public ActionResult Registro()
         {
             return View();
         }
 
-        // Registro de Usuario
+        /// <summary>
+        /// Procesa el formulario de registro de usuario.
+        /// </summary>
+        /// <param name="usuario">Usuario a registrar</param>
+        /// <returns>Redirección al login o vista con mensaje</returns>
         [HttpPost]
         public ActionResult Registro(Usuario usuario)
         {

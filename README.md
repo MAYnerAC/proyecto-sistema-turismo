@@ -2,7 +2,6 @@
 
 - Anahua Coaquira Mayner Gonzalo
 - Zevallos Purca Justin Zinedine
-- Salinas Condori Erick Javier
 
 ## Enlace App Service
 

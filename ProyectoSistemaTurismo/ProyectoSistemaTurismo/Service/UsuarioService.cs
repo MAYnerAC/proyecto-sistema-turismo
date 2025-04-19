@@ -8,9 +8,16 @@ using ProyectoSistemaTurismo.Models;
 
 namespace ProyectoSistemaTurismo.Service
 {
+    /// <summary>
+    /// Servicio para gestionar operaciones relacionadas con los usuarios.
+    /// Incluye métodos para CRUD y filtrado por estado.
+    /// </summary>
     public class UsuarioService
     {
-
+        /// <summary>
+        /// Obtiene la lista completa de usuarios, incluyendo su tipo de usuario.
+        /// </summary>
+        /// <returns>Lista de objetos Usuario</returns>
         public List<Usuario> ObtenerTodos()
         {
             try
@@ -26,6 +33,10 @@ namespace ProyectoSistemaTurismo.Service
             }
         }
 
+        /// <summary>
+        /// Obtiene solo los usuarios con estado "A" (activos).
+        /// </summary>
+        /// <returns>Lista de usuarios activos</returns>
         public List<Usuario> ObtenerTodosActivos()
         {
             try
@@ -44,6 +55,11 @@ namespace ProyectoSistemaTurismo.Service
             }
         }
 
+        /// <summary>
+        /// Busca un usuario por su ID, incluyendo su tipo.
+        /// </summary>
+        /// <param name="id">ID del usuario</param>
+        /// <returns>Objeto Usuario o null si no se encuentra</returns>
         public Usuario ObtenerPorId(int id)
         {
             try
@@ -61,6 +77,11 @@ namespace ProyectoSistemaTurismo.Service
             }
         }
 
+        /// <summary>
+        /// Agrega un nuevo usuario a la base de datos.
+        /// Se asigna estado "A" por defecto y fecha actual.
+        /// </summary>
+        /// <param name="usuario">Usuario a agregar</param>
         public void Agregar(Usuario usuario)
         {
             try
@@ -79,6 +100,10 @@ namespace ProyectoSistemaTurismo.Service
             }
         }
 
+        /// <summary>
+        /// Actualiza la información de un usuario existente.
+        /// </summary>
+        /// <param name="usuario">Usuario con datos actualizados</param>
         public void Actualizar(Usuario usuario)
         {
             try
@@ -95,6 +120,10 @@ namespace ProyectoSistemaTurismo.Service
             }
         }
 
+        /// <summary>
+        /// Elimina lógicamente un usuario cambiando su estado a "I".
+        /// </summary>
+        /// <param name="id">ID del usuario a eliminar</param>
         public void Eliminar(int id)
         {
             try

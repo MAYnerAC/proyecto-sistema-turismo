@@ -9,11 +9,19 @@ using Firebase.Storage;
 
 namespace ProyectoSistemaTurismo.Service
 {
+    /// <summary>
+    /// Servicio para gestionar la subida y validación de archivos en Firebase Storage.
+    /// </summary>
     public class FirebaseStorageService
     {
-
+        // Nombre del bucket de Firebase Storage
         private readonly string _firebaseStorageBucket = "proyecto-moviles-ae540.appspot.com"; // Nombre bucket
 
+        /// <summary>
+        /// Sube un archivo al directorio "turismo_images" en Firebase Storage.
+        /// </summary>
+        /// <param name="archivo">Archivo recibido desde el formulario web</param>
+        /// <returns>URL del archivo subido o URL simulada en caso de error</returns>
         public async Task<string> SubirArchivo(HttpPostedFileBase archivo)
         {
             try
@@ -24,9 +32,9 @@ namespace ProyectoSistemaTurismo.Service
 
                 // Subir el archivo a Firebase Storage
                 var task = await firebaseStorage
-                    .Child("turismo_images") // Directorio
-                    .Child(nombreArchivo) // Nombre del archivo
-                    .PutAsync(stream);
+                    .Child("turismo_images") // Directorio en Firebase
+                    .Child(nombreArchivo)    // Nombre del archivo
+                    .PutAsync(stream);       // Subida del archivo como stream
 
                 // Retornar la URL del archivo subido
                 return task;
@@ -41,8 +49,11 @@ namespace ProyectoSistemaTurismo.Service
             }
         }
 
-
-
+        /// <summary>
+        /// Valida si el archivo recibido es una imagen permitida y no supera el tamaño máximo.
+        /// </summary>
+        /// <param name="archivoImagen">Archivo recibido desde el formulario</param>
+        /// <returns>Mensaje de error si no es válido, o null si es válido</returns>
         public string ValidarArchivoImagen(HttpPostedFileBase archivoImagen)
         {
             string[] tiposPermitidos = { "image/jpeg", "image/png" };

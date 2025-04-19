@@ -14,6 +14,10 @@ using ProyectoSistemaTurismo.Service;
 
 namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// Controlador del área Admin para gestionar ofertas turísticas.
+    /// Solo accesible para usuarios autenticados con tipo 1 (Admin).
+    /// </summary>
     [Autenticado]
     [TipoUsuarioAutorizado(1)]
     [ManejoErroresFiltro]
@@ -24,12 +28,20 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
         private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
         private UsuarioService usuarioService = new UsuarioService();
 
+        /// <summary>
+        /// Muestra la lista de todas las ofertas disponibles.
+        /// </summary>
         public ActionResult Index()
         {
             var ofertas = _ofertaService.ObtenerTodos();
             return View(ofertas);
         }
 
+        /// <summary>
+        /// Muestra los detalles de una oferta específica según su ID.
+        /// </summary>
+        /// <param name="id">ID de la oferta</param>
+        /// <returns>Vista con los detalles o redirección si no existe</returns>
         public ActionResult Detalles(int id)
         {
             var oferta = _ofertaService.ObtenerPorId(id);
@@ -41,6 +53,10 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             return View(oferta);
         }
 
+        /// <summary>
+        /// Muestra el formulario para crear una nueva oferta.
+        /// Carga listas desplegables de destinos, tipos de oferta y usuarios activos.
+        /// </summary>
         public ActionResult Crear()
         {
             var destinos = destinoService.ObtenerTodosActivos();
@@ -54,7 +70,11 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// Procesa los datos del formulario de creación de oferta.
+        /// </summary>
+        /// <param name="oferta">Objeto Oferta enviado desde el formulario</param>
+        /// <returns>Redirección al listado principal</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Crear(Oferta oferta)
@@ -72,7 +92,11 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-
+        /// <summary>
+        /// Muestra el formulario para editar una oferta existente.
+        /// </summary>
+        /// <param name="id">ID de la oferta a editar</param>
+        /// <returns>Vista de edición con datos precargados o redirección si no existe</returns>
         public ActionResult Editar(int id)
         {
             var oferta = _ofertaService.ObtenerPorId(id);
@@ -93,7 +117,11 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             return View(oferta);
         }
 
-
+        /// <summary>
+        /// Procesa los cambios realizados en una oferta ya existente.
+        /// </summary>
+        /// <param name="oferta">Objeto Oferta con los datos actualizados</param>
+        /// <returns>Redirección al listado principal</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar(Oferta oferta)
@@ -111,10 +139,11 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-
-
-
-
+        /// <summary>
+        /// Elimina una oferta específica por su ID (eliminación lógica).
+        /// </summary>
+        /// <param name="id">ID de la oferta a eliminar</param>
+        /// <returns>Redirección al listado principal</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Eliminar(int id)
@@ -130,6 +159,13 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             TempData["Mensaje"] = "Oferta eliminada con éxito.";
             return RedirectToAction("Index");
         }
+
+
+
+
+
+
+
 
 
         //private void CargarRelaciones(Oferta oferta = null)
