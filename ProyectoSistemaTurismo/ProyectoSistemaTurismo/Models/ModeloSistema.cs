@@ -2,10 +2,14 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+//
+using ProyectoSistemaTurismo.Interfaces;
+using System.Data.Entity.Infrastructure;
+
 
 namespace ProyectoSistemaTurismo.Models
 {
-    public partial class ModeloSistema : DbContext
+    public partial class ModeloSistema : DbContext, IModeloSistema
     {
         public ModeloSistema()
             : base("name=ModeloSistema")
@@ -34,6 +38,11 @@ namespace ProyectoSistemaTurismo.Models
         public virtual DbSet<Tipo_Reporte> Tipo_Reporte { get; set; }
         public virtual DbSet<Tipo_Usuario> Tipo_Usuario { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+
+        public new DbEntityEntry Entry(object entity)
+        {
+            return base.Entry(entity);
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

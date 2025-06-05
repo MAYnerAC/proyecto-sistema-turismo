@@ -20,7 +20,14 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     {
 
         private UsuarioService _usuarioService = new UsuarioService();
-        private Tipo_UsuarioService tipoUsuarioService = new Tipo_UsuarioService();
+        //private Tipo_UsuarioService _tipoUsuarioService = new Tipo_UsuarioService();
+
+        private Tipo_UsuarioService _tipoUsuarioService;
+
+        public UsuarioController()
+        {
+            _tipoUsuarioService = new Tipo_UsuarioService(new ModeloSistema());
+        }
 
 
 
@@ -43,7 +50,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 
         public ActionResult Crear()
         {
-            var tiposUsuario = tipoUsuarioService.ObtenerTodosActivos();
+            var tiposUsuario = _tipoUsuarioService.ObtenerTodosActivos();
             ViewBag.TiposUsuario = new SelectList(tiposUsuario, "id_tipo_usuario", "nombre_tipo");
 
             return View();
@@ -76,7 +83,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            var tiposUsuario = tipoUsuarioService.ObtenerTodosActivos();
+            var tiposUsuario = _tipoUsuarioService.ObtenerTodosActivos();
             ViewBag.TiposUsuario = new SelectList(tiposUsuario, "id_tipo_usuario", "nombre_tipo", usuario.id_tipo_usuario);
 
             return View(usuario);

@@ -17,7 +17,14 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     public class Tipo_UsuarioController : Controller
     {
 
-        private Tipo_UsuarioService _tipoUsuarioService = new Tipo_UsuarioService();
+        //private Tipo_UsuarioService _tipoUsuarioService = new Tipo_UsuarioService();
+
+        private Tipo_UsuarioService _tipoUsuarioService;
+
+        public Tipo_UsuarioController()
+        {
+            _tipoUsuarioService = new Tipo_UsuarioService(new ModeloSistema());
+        }
 
         public ActionResult Index()
         {
