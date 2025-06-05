@@ -18,7 +18,7 @@ namespace ProyectoSistemaTurismo.Interfaces
 
 
 
-        DbEntityEntry Entry(object entity);
+        DbEntityEntry<T> Entry<T>(T entity) where T : class;
         int SaveChanges();
     }
 }

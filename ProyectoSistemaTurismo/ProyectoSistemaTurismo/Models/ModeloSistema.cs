@@ -39,7 +39,7 @@ namespace ProyectoSistemaTurismo.Models
         public virtual DbSet<Tipo_Usuario> Tipo_Usuario { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
 
-        public new DbEntityEntry Entry(object entity)
+        public new DbEntityEntry<T> Entry<T>(T entity) where T : class
         {
             return base.Entry(entity);
         }
