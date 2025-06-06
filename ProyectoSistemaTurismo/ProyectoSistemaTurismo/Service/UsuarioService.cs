@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 //
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Interfaces;
 
 namespace ProyectoSistemaTurismo.Service
 {
@@ -14,23 +15,22 @@ namespace ProyectoSistemaTurismo.Service
     /// </summary>
     public class UsuarioService
     {
+
+        private readonly IModeloSistema _db;
+
+        // Constructor
+        public UsuarioService(IModeloSistema db)
+        {
+            _db = db;
+        }
+
         /// <summary>
         /// Obtiene la lista completa de usuarios, incluyendo su tipo de usuario.
         /// </summary>
         /// <returns>Lista de objetos Usuario</returns>
         public List<Usuario> ObtenerTodos()
         {
-            try
-            {
-                using (var db = new ModeloSistema())
-                {
-                    return db.Usuario.Include(u => u.Tipo_Usuario).ToList();
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _db.Usuario.Include(u => u.Tipo_Usuario).ToList();
         }
 
         /// <summary>
@@ -39,20 +39,7 @@ namespace ProyectoSistemaTurismo.Service
         /// <returns>Lista de usuarios activos</returns>
         public List<Usuario> ObtenerTodosActivos()
         {
-            try
-            {
-                using (var db = new ModeloSistema())
-                {
-                    return db.Usuario
-                             .Include(u => u.Tipo_Usuario)
-                             .Where(u => u.estado == "A")
-                             .ToList();
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _db.Usuario.Include(u => u.Tipo_Usuario).Where(u => u.estado == "A").ToList();
         }
 
         /// <summary>
@@ -62,19 +49,7 @@ namespace ProyectoSistemaTurismo.Service
         /// <returns>Objeto Usuario o null si no se encuentra</returns>
         public Usuario ObtenerPorId(int id)
         {
-            try
-            {
-                using (var db = new ModeloSistema())
-                {
-                    return db.Usuario
-                             .Include(u => u.Tipo_Usuario)
-                             .SingleOrDefault(u => u.id_usuario == id);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _db.Usuario.Include(u => u.Tipo_Usuario).SingleOrDefault(u => u.id_usuario == id);
         }
 
         /// <summary>
@@ -82,22 +57,13 @@ namespace ProyectoSistemaTurismo.Service
         /// Se asigna estado "A" por defecto y fecha actual.
         /// </summary>
         /// <param name="usuario">Usuario a agregar</param>
+
         public void Agregar(Usuario usuario)
         {
-            try
-            {
-                using (var db = new ModeloSistema())
-                {
-                    usuario.estado = "A"; // Estado activo por defecto
-                    usuario.fecha_registro = DateTime.Now; // Fecha de registro actual
-                    db.Usuario.Add(usuario);
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            usuario.estado = "A"; // Estado activo por defecto
+            usuario.fecha_registro = DateTime.Now; // Fecha de registro actual
+            _db.Usuario.Add(usuario);
+            _db.SaveChanges();
         }
 
         /// <summary>
@@ -106,18 +72,8 @@ namespace ProyectoSistemaTurismo.Service
         /// <param name="usuario">Usuario con datos actualizados</param>
         public void Actualizar(Usuario usuario)
         {
-            try
-            {
-                using (var db = new ModeloSistema())
-                {
-                    db.Entry(usuario).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _db.Entry(usuario).State = EntityState.Modified;
+            _db.SaveChanges();
         }
 
         /// <summary>
@@ -126,21 +82,11 @@ namespace ProyectoSistemaTurismo.Service
         /// <param name="id">ID del usuario a eliminar</param>
         public void Eliminar(int id)
         {
-            try
+            var usuario = _db.Usuario.Find(id);
+            if (usuario != null)
             {
-                using (var db = new ModeloSistema())
-                {
-                    var usuario = db.Usuario.Find(id);
-                    if (usuario != null)
-                    {
-                        usuario.estado = "I";
-                        db.SaveChanges();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                usuario.estado = "I";
+                _db.SaveChanges();
             }
         }
 

@@ -18,8 +18,19 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     {
 
         private Preferencias_UsuarioService _preferenciasUsuarioService = new Preferencias_UsuarioService();
-        private UsuarioService usuarioService = new UsuarioService();
+        //private UsuarioService usuarioService = new UsuarioService();
         private EtiquetaService etiquetaService = new EtiquetaService();
+
+        //private readonly Preferencias_UsuarioService _preferenciasUsuarioService;
+        private readonly UsuarioService _usuarioService;
+        //private readonly EtiquetaService _etiquetaService;
+
+        public Preferencias_UsuarioController()
+        {
+            //_preferenciasUsuarioService = new Preferencias_UsuarioService(new ModeloSistema());
+            _usuarioService = new UsuarioService(new ModeloSistema());
+            //_etiquetaService = new EtiquetaService(new ModeloSistema());
+        }
 
         public ActionResult Index()
         {
@@ -40,7 +51,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 
         public ActionResult Crear()
         {
-            var usuarios = usuarioService.ObtenerTodosActivos();
+            var usuarios = _usuarioService.ObtenerTodosActivos();
             var etiquetas = etiquetaService.ObtenerTodosActivos();
 
             ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre");
@@ -75,7 +86,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            var usuarios = usuarioService.ObtenerTodosActivos();
+            var usuarios = _usuarioService.ObtenerTodosActivos();
             var etiquetas = etiquetaService.ObtenerTodosActivos();
 
             ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre", preferenciaUsuario.id_usuario);

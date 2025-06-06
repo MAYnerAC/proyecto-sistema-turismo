@@ -14,6 +14,7 @@ namespace ProyectoSistemaTurismo.Interfaces
     public interface IModeloSistema : IDisposable
     {
         DbSet<Tipo_Usuario> Tipo_Usuario { get; set; }
+        DbSet<Usuario> Usuario { get; set; }
         //DbSet +
 
 
