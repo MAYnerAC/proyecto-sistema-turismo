@@ -17,17 +17,17 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     public class Preferencias_UsuarioController : Controller
     {
 
-        private Preferencias_UsuarioService _preferenciasUsuarioService = new Preferencias_UsuarioService();
+        //private Preferencias_UsuarioService _preferenciasUsuarioService = new Preferencias_UsuarioService();
         //private UsuarioService usuarioService = new UsuarioService();
         private EtiquetaService etiquetaService = new EtiquetaService();
 
-        //private readonly Preferencias_UsuarioService _preferenciasUsuarioService;
+        private readonly Preferencias_UsuarioService _preferenciasUsuarioService;
         private readonly UsuarioService _usuarioService;
         //private readonly EtiquetaService _etiquetaService;
 
         public Preferencias_UsuarioController()
         {
-            //_preferenciasUsuarioService = new Preferencias_UsuarioService(new ModeloSistema());
+            _preferenciasUsuarioService = new Preferencias_UsuarioService(new ModeloSistema());
             _usuarioService = new UsuarioService(new ModeloSistema());
             //_etiquetaService = new EtiquetaService(new ModeloSistema());
         }
