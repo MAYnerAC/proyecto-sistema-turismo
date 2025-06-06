@@ -16,7 +16,18 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
 
         private OfertaService _ofertaService = new OfertaService();
         private DestinoService destinoService = new DestinoService();
-        private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
+        //private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
+
+        //private readonly OfertaService _ofertaService;
+        //private readonly DestinoService _destinoService;
+        private readonly Tipo_OfertaService _tipoOfertaService;
+
+        public OfertaController()
+        {
+            //_ofertaService = new OfertaService(new ModeloSistema());
+            //_destinoService = new DestinoService(new ModeloSistema());
+            _tipoOfertaService = new Tipo_OfertaService(new ModeloSistema());
+        }
 
         // Seleccionar una oferta
         //post
@@ -90,7 +101,7 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
         public ActionResult Crear()
         {
             var destinos = destinoService.ObtenerTodosActivos();
-            var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+            var tiposOferta = _tipoOfertaService.ObtenerTodosActivos();
 
             ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino");
             ViewBag.TiposOferta = new SelectList(tiposOferta, "id_tipo_oferta", "nombre_tipo");
@@ -131,7 +142,7 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
             }
 
             var destinos = destinoService.ObtenerTodosActivos();
-            var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+            var tiposOferta = _tipoOfertaService.ObtenerTodosActivos();
 
             ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino", oferta.id_destino);
             ViewBag.TiposOferta = new SelectList(tiposOferta, "id_tipo_oferta", "nombre_tipo", oferta.id_tipo_oferta);

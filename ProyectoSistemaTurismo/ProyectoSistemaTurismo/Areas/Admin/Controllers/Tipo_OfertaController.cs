@@ -17,17 +17,24 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     public class Tipo_OfertaController : Controller
     {
 
-        private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
+        //private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
+
+        private readonly Tipo_OfertaService _tipoOfertaService;
+
+        public Tipo_OfertaController()
+        {
+            _tipoOfertaService = new Tipo_OfertaService(new ModeloSistema());
+        }
 
         public ActionResult Index()
         {
-            var tiposOferta = tipoOfertaService.ObtenerTodos();
+            var tiposOferta = _tipoOfertaService.ObtenerTodos();
             return View(tiposOferta);
         }
 
         public ActionResult Detalles(int id)
         {
-            var tipoOferta = tipoOfertaService.ObtenerPorId(id);
+            var tipoOferta = _tipoOfertaService.ObtenerPorId(id);
             if (tipoOferta == null)
             {
                 TempData["Error"] = "El tipo de oferta no fue encontrado.";
@@ -47,7 +54,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                tipoOfertaService.Agregar(tipoOferta);
+                _tipoOfertaService.Agregar(tipoOferta);
                 TempData["Mensaje"] = "Tipo de oferta creado con éxito.";
             }
             else
@@ -60,7 +67,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 
         public ActionResult Editar(int id)
         {
-            var tipoOferta = tipoOfertaService.ObtenerPorId(id);
+            var tipoOferta = _tipoOfertaService.ObtenerPorId(id);
             if (tipoOferta == null)
             {
                 TempData["Error"] = "El tipo de oferta no fue encontrado.";
@@ -76,7 +83,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                tipoOfertaService.Actualizar(tipoOferta);
+                _tipoOfertaService.Actualizar(tipoOferta);
                 TempData["Mensaje"] = "Tipo de oferta actualizado con éxito.";
             }
             else
@@ -91,14 +98,14 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Eliminar(int id)
         {
-            var tipoOferta = tipoOfertaService.ObtenerPorId(id);
+            var tipoOferta = _tipoOfertaService.ObtenerPorId(id);
             if (tipoOferta == null)
             {
                 TempData["Error"] = "El tipo de oferta no fue encontrado.";
                 return RedirectToAction("Index");
             }
 
-            tipoOfertaService.Eliminar(id);
+            _tipoOfertaService.Eliminar(id);
             TempData["Mensaje"] = "Tipo de oferta eliminado con éxito.";
             return RedirectToAction("Index");
         }

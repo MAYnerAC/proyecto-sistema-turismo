@@ -25,19 +25,19 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     {
         private OfertaService _ofertaService = new OfertaService();
         private DestinoService destinoService = new DestinoService();
-        private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
+        //private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
         //private UsuarioService usuarioService = new UsuarioService();
 
         //private readonly OfertaService _ofertaService;
         //private readonly DestinoService _destinoService;
-        //private readonly Tipo_OfertaService _tipoOfertaService;
+        private readonly Tipo_OfertaService _tipoOfertaService;
         private readonly UsuarioService _usuarioService;
 
         public OfertaController()
         {
             //_ofertaService = new OfertaService(new ModeloSistema());
             //_destinoService = new DestinoService(new ModeloSistema());
-            //_tipoOfertaService = new Tipo_OfertaService(new ModeloSistema());
+            _tipoOfertaService = new Tipo_OfertaService(new ModeloSistema());
             _usuarioService = new UsuarioService(new ModeloSistema());
         }
 
@@ -73,7 +73,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
         public ActionResult Crear()
         {
             var destinos = destinoService.ObtenerTodosActivos();
-            var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+            var tiposOferta = _tipoOfertaService.ObtenerTodosActivos();
             var usuarios = _usuarioService.ObtenerTodosActivos();
 
             ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino");
@@ -120,7 +120,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
 
             var destinos = destinoService.ObtenerTodosActivos();
-            var tiposOferta = tipoOfertaService.ObtenerTodosActivos();
+            var tiposOferta = _tipoOfertaService.ObtenerTodosActivos();
             var usuarios = _usuarioService.ObtenerTodosActivos();
 
             ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino", oferta.id_destino);
