@@ -20,18 +20,18 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     {
         //private Foto_ComentarioService _fotoComentarioService = new Foto_ComentarioService();
         //private ComentarioService _comentarioService = new ComentarioService();
-        private FirebaseStorageService _firebaseStorageService = new FirebaseStorageService();
+        //private FirebaseStorageService _firebaseStorageService = new FirebaseStorageService();
 
 
         private readonly Foto_ComentarioService _fotoComentarioService;
         private readonly ComentarioService _comentarioService;
-        //private readonly FirebaseStorageService _firebaseStorageService;
+        private readonly FirebaseStorageService _firebaseStorageService;
 
         public Foto_ComentarioController()
         {
             _fotoComentarioService = new Foto_ComentarioService(new ModeloSistema());
             _comentarioService = new ComentarioService(new ModeloSistema());
-            //_firebaseStorageService = new FirebaseStorageService(); // solo si no requiere contexto
+            _firebaseStorageService = new FirebaseStorageService(); // solo si no requiere contexto
         }
 
 

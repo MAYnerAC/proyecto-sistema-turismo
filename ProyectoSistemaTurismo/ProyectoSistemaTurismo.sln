@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoSistemaTurismo", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoSistemaTurismo.Tests", "ProyectoSistemaTurismo.Tests\ProyectoSistemaTurismo.Tests.csproj", "{CFB4A01C-6341-4253-84EB-F66361CA2426}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoSistemaTurismo.IntegrationTests", "ProyectoSistemaTurismo.IntegrationTests\ProyectoSistemaTurismo.IntegrationTests.csproj", "{BFB89E06-76EC-4DE7-9311-2D06C40648D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CFB4A01C-6341-4253-84EB-F66361CA2426}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFB4A01C-6341-4253-84EB-F66361CA2426}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFB4A01C-6341-4253-84EB-F66361CA2426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFB89E06-76EC-4DE7-9311-2D06C40648D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFB89E06-76EC-4DE7-9311-2D06C40648D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFB89E06-76EC-4DE7-9311-2D06C40648D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFB89E06-76EC-4DE7-9311-2D06C40648D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

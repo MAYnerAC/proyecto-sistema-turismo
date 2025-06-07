@@ -19,18 +19,18 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
     {
         //private GaleriaService _galeriaService = new GaleriaService();
         //private OfertaService _ofertaService = new OfertaService();
-        private FirebaseStorageService _firebaseStorageService = new FirebaseStorageService();
+        //private FirebaseStorageService _firebaseStorageService = new FirebaseStorageService();
 
 
         private readonly GaleriaService _galeriaService;
         private readonly OfertaService _ofertaService;
-        //private readonly FirebaseStorageService _firebaseStorageService;
+        private readonly FirebaseStorageService _firebaseStorageService;
 
         public GaleriaController()
         {
             _galeriaService = new GaleriaService(new ModeloSistema());
             _ofertaService = new OfertaService(new ModeloSistema());
-            //_firebaseStorageService = new FirebaseStorageService(); // Solo si no necesita contexto
+            _firebaseStorageService = new FirebaseStorageService(); // Solo si no necesita contexto
         }
 
         public ActionResult Index()
