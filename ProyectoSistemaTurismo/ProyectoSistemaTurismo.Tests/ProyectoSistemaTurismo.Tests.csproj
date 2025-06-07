@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\Service\FirebaseStorageServiceTests.cs" />
+    <Compile Include="Unit\Service\PreferenciasUsuarioServiceTests.cs" />
     <Compile Include="Unit\Service\TipoOfertaServiceTests.cs" />
     <Compile Include="Unit\Service\TipoUsuarioServiceTests.cs" />
     <Compile Include="Unit\Service\UsuarioServiceTests.cs" />
