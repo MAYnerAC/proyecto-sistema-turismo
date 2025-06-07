@@ -17,7 +17,14 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     public class EtiquetaController : Controller
     {
 
-        private EtiquetaService _etiquetaService = new EtiquetaService();
+        //private EtiquetaService _etiquetaService = new EtiquetaService();
+
+        private readonly EtiquetaService _etiquetaService;
+
+        public EtiquetaController()
+        {
+            _etiquetaService = new EtiquetaService(new ModeloSistema());
+        }
 
         public ActionResult Index()
         {

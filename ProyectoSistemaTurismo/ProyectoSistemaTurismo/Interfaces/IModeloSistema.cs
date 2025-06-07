@@ -19,6 +19,8 @@ namespace ProyectoSistemaTurismo.Interfaces
         DbSet<Preferencias_Usuario> Preferencias_Usuario { get; set; }
         DbSet<Oferta> Oferta { get; set; }
         DbSet<Galeria> Galeria { get; set; }
+        DbSet<Foto_Comentario> Foto_Comentario { get; set; }
+        DbSet<Etiqueta> Etiqueta { get; set; }
         //DbSet +
 
 

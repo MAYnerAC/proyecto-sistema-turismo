@@ -18,17 +18,17 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     {
         private Etiqueta_OfertaService _etiquetaOfertaService = new Etiqueta_OfertaService();
         //private OfertaService _ofertaService = new OfertaService();
-        private EtiquetaService _etiquetaService = new EtiquetaService();
+        //private EtiquetaService _etiquetaService = new EtiquetaService();
 
         //private readonly Etiqueta_OfertaService _etiquetaOfertaService;
         private readonly OfertaService _ofertaService;
-        //private readonly EtiquetaService _etiquetaService;
+        private readonly EtiquetaService _etiquetaService;
 
         public Etiqueta_OfertaController()
         {
             //_etiquetaOfertaService = new Etiqueta_OfertaService(new ModeloSistema());
             _ofertaService = new OfertaService(new ModeloSistema());
-            //_etiquetaService = new EtiquetaService(new ModeloSistema());
+            _etiquetaService = new EtiquetaService(new ModeloSistema());
         }
 
         public ActionResult Index()

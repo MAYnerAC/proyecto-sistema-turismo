@@ -11,7 +11,7 @@ namespace ProyectoSistemaTurismo.Controllers
     public class OfertasController : Controller
     {
 
-        private Foto_ComentarioService _fotoComentarioService = new Foto_ComentarioService();
+        //private Foto_ComentarioService _fotoComentarioService = new Foto_ComentarioService();
 
 
         //Falta separar? o usar FACADE?
@@ -23,7 +23,7 @@ namespace ProyectoSistemaTurismo.Controllers
 
 
 
-        //private readonly Foto_ComentarioService _fotoComentarioService;
+        private readonly Foto_ComentarioService _fotoComentarioService;
         private readonly OfertaService _ofertaService;
         //private readonly ComentarioService _comentarioService;
         //private readonly Etiqueta_OfertaService _etiquetaOfertaService;
@@ -32,7 +32,7 @@ namespace ProyectoSistemaTurismo.Controllers
 
         public OfertasController()
         {
-            //_fotoComentarioService = new Foto_ComentarioService(new ModeloSistema());
+            _fotoComentarioService = new Foto_ComentarioService(new ModeloSistema());
             _ofertaService = new OfertaService(new ModeloSistema());
             //_comentarioService = new ComentarioService(new ModeloSistema());
             //_etiquetaOfertaService = new Etiqueta_OfertaService(new ModeloSistema());
