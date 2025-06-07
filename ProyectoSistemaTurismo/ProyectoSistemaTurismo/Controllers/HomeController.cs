@@ -12,7 +12,9 @@ namespace ProyectoSistemaTurismo.Controllers
     public class HomeController : Controller
     {
         //Falta separar? o usar FACADE?
-        private OfertaService _ofertaService = new OfertaService();
+        
+        //private OfertaService _ofertaService = new OfertaService();
+        
         //private ComentarioService _comentarioService = new ComentarioService();
         //private Foto_ComentarioService _fotoComentarioService = new Foto_ComentarioService();
         //private Etiqueta_OfertaService _etiquetaOfertaService = new Etiqueta_OfertaService();
@@ -22,6 +24,13 @@ namespace ProyectoSistemaTurismo.Controllers
         //private DestinoService destinoService = new DestinoService();
         //private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
 
+
+        private readonly OfertaService _ofertaService;
+
+        public HomeController()
+        {
+            _ofertaService = new OfertaService(new ModeloSistema());
+        }
 
 
 

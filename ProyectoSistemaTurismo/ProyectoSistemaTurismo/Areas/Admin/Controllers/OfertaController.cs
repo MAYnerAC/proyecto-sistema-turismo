@@ -23,19 +23,19 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     [ManejoErroresFiltro]
     public class OfertaController : Controller
     {
-        private OfertaService _ofertaService = new OfertaService();
+        //private OfertaService _ofertaService = new OfertaService();
         private DestinoService destinoService = new DestinoService();
         //private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
         //private UsuarioService usuarioService = new UsuarioService();
 
-        //private readonly OfertaService _ofertaService;
+        private readonly OfertaService _ofertaService;
         //private readonly DestinoService _destinoService;
         private readonly Tipo_OfertaService _tipoOfertaService;
         private readonly UsuarioService _usuarioService;
 
         public OfertaController()
         {
-            //_ofertaService = new OfertaService(new ModeloSistema());
+            _ofertaService = new OfertaService(new ModeloSistema());
             //_destinoService = new DestinoService(new ModeloSistema());
             _tipoOfertaService = new Tipo_OfertaService(new ModeloSistema());
             _usuarioService = new UsuarioService(new ModeloSistema());

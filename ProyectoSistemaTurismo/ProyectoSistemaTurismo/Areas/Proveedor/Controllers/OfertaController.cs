@@ -14,17 +14,17 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
     public class OfertaController : Controller
     {
 
-        private OfertaService _ofertaService = new OfertaService();
+        //private OfertaService _ofertaService = new OfertaService();
         private DestinoService destinoService = new DestinoService();
         //private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
 
-        //private readonly OfertaService _ofertaService;
+        private readonly OfertaService _ofertaService;
         //private readonly DestinoService _destinoService;
         private readonly Tipo_OfertaService _tipoOfertaService;
 
         public OfertaController()
         {
-            //_ofertaService = new OfertaService(new ModeloSistema());
+            _ofertaService = new OfertaService(new ModeloSistema());
             //_destinoService = new DestinoService(new ModeloSistema());
             _tipoOfertaService = new Tipo_OfertaService(new ModeloSistema());
         }

@@ -17,17 +17,17 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     public class ComentarioController : Controller
     {
         private ComentarioService _comentarioService = new ComentarioService();
-        private OfertaService ofertaService = new OfertaService();
+        //private OfertaService ofertaService = new OfertaService();
         //private UsuarioService usuarioService = new UsuarioService();
 
         //private readonly ComentarioService _comentarioService;
-        //private readonly OfertaService _ofertaService;
+        private readonly OfertaService _ofertaService;
         private readonly UsuarioService _usuarioService;
 
         public ComentarioController()
         {
             //_comentarioService = new ComentarioService(new ModeloSistema());
-            //_ofertaService = new OfertaService(new ModeloSistema());
+            _ofertaService = new OfertaService(new ModeloSistema());
             _usuarioService = new UsuarioService(new ModeloSistema());
         }
 
@@ -50,7 +50,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
 
         public ActionResult Crear()
         {
-            var ofertas = ofertaService.ObtenerTodosActivos();
+            var ofertas = _ofertaService.ObtenerTodosActivos();
             var usuarios = _usuarioService.ObtenerTodosActivos();
 
             ViewBag.Ofertas = new SelectList(ofertas, "id_oferta", "nombre");
@@ -85,7 +85,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            var ofertas = ofertaService.ObtenerTodosActivos();
+            var ofertas = _ofertaService.ObtenerTodosActivos();
             var usuarios = _usuarioService.ObtenerTodosActivos();
 
             ViewBag.Ofertas = new SelectList(ofertas, "id_oferta", "nombre", comentario.id_oferta);
