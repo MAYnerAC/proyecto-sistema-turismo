@@ -148,44 +148,14 @@ namespace ProyectoSistemaTurismo.Tests.Unit.Service
         /// <summary>
         /// Prueba que Actualizar cambie el estado de la entidad y guarde los cambios.
         /// Este método no puede ser probado completamente con mocks,
-        /// ya que DbEntityEntry&lt;T&gt; no es mockeable.
-        /// La línea 'Entry(...).State = Modified' solo se puede cubrir con pruebas de integración.
+        /// No testeable con unit test por uso de Include. Solo integracion.
         /// </summary>
         [TestMethod]
         public void Actualizar_DebeGuardarCambios()
         {
-            /*
-            // Arrange
-            var tipoUsuario = new Tipo_Usuario { id_tipo_usuario = 1, nombre_tipo = "Admin", estado = "A" };
-            var mockSet = new Mock<DbSet<Tipo_Usuario>>();
-            var mockContext = new Mock<IModeloSistema>();
-
-            // Mock de DbEntityEntry<Tipo_Usuario>
-            var mockEntry = new Mock<DbEntityEntry<Tipo_Usuario>>();
-            mockContext.Setup(c => c.Tipo_Usuario).Returns(mockSet.Object);
-
-            // ¡Este setup es CLAVE para que no lance NullReferenceException!
-            mockContext.Setup(c => c.Entry(tipoUsuario)).Returns(mockEntry.Object);
-
-            var service = new Tipo_UsuarioService(mockContext.Object);
-
-            // Act
-            service.Actualizar(tipoUsuario);
-
-            // Assert
-            mockContext.Verify(c => c.SaveChanges(), Times.Once());
-            */
-
-            // Arrange
-            var tipoUsuario = new Tipo_Usuario { id_tipo_usuario = 1, nombre_tipo = "Admin", estado = "A" };
-            var mockSet = new Mock<DbSet<Tipo_Usuario>>();
-            var mockContext = new Mock<IModeloSistema>();
-            var service = new Tipo_UsuarioService(mockContext.Object);
-
-            // Act & Assert
             // No se puede testear correctamente en unit test con Moq.
             // Este test debe implementarse como test de integración.
-            Assert.Inconclusive("No se puede mockear DbEntityEntry<Tipo_Usuario> en Entity Framework 6. Test sólo posible como prueba de integración.");
+            Assert.Inconclusive("No se puede probar este método con mocks porque utiliza Include. Solo posible con pruebas de integración.");
 
         }
 
