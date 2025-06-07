@@ -22,8 +22,8 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
         //private UsuarioService _usuarioService = new UsuarioService();
         //private Tipo_UsuarioService _tipoUsuarioService = new Tipo_UsuarioService();
 
-        private UsuarioService _usuarioService;
-        private Tipo_UsuarioService _tipoUsuarioService;
+        private readonly UsuarioService _usuarioService;
+        private readonly Tipo_UsuarioService _tipoUsuarioService;
 
         public UsuarioController()
         {
