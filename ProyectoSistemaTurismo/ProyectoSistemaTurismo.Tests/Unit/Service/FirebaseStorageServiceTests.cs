@@ -8,6 +8,10 @@ using System.Web;
 
 namespace ProyectoSistemaTurismo.Tests.Unit.Service
 {
+    /// <summary>
+    /// Pruebas unitarias para la clase <see cref="FirebaseStorageService"/>.
+    /// Valida la lógica de validación de archivos para subida a Firebase Storage.
+    /// </summary>
     [TestClass]
     public class FirebaseStorageServiceTests
     {
