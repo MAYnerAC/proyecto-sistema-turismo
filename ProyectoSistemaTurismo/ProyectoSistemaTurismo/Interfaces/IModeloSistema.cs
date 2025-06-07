@@ -23,6 +23,7 @@ namespace ProyectoSistemaTurismo.Interfaces
         DbSet<Etiqueta> Etiqueta { get; set; }
         DbSet<Etiqueta_Oferta> Etiqueta_Oferta { get; set; }
         DbSet<Destino> Destino { get; set; }
+        DbSet<Comentario> Comentario { get; set; }
 
         //DbSet +
 

@@ -16,17 +16,17 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     [TipoUsuarioAutorizado(1)]
     public class ComentarioController : Controller
     {
-        private ComentarioService _comentarioService = new ComentarioService();
+        //private ComentarioService _comentarioService = new ComentarioService();
         //private OfertaService ofertaService = new OfertaService();
         //private UsuarioService usuarioService = new UsuarioService();
 
-        //private readonly ComentarioService _comentarioService;
+        private readonly ComentarioService _comentarioService;
         private readonly OfertaService _ofertaService;
         private readonly UsuarioService _usuarioService;
 
         public ComentarioController()
         {
-            //_comentarioService = new ComentarioService(new ModeloSistema());
+            _comentarioService = new ComentarioService(new ModeloSistema());
             _ofertaService = new OfertaService(new ModeloSistema());
             _usuarioService = new UsuarioService(new ModeloSistema());
         }

@@ -1,4 +1,5 @@
 ﻿using ProyectoSistemaTurismo.Filters;
+using ProyectoSistemaTurismo.Models;
 using ProyectoSistemaTurismo.Service;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,14 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
     [OfertaSeleccionada]
     public class ComentarioController : Controller
     {
-        private ComentarioService _comentarioService = new ComentarioService();
+        //private ComentarioService _comentarioService = new ComentarioService();
 
+        private readonly ComentarioService _comentarioService;
+
+        public ComentarioController()
+        {
+            _comentarioService = new ComentarioService(new ModeloSistema());
+        }
 
         public ActionResult Index()
         {
