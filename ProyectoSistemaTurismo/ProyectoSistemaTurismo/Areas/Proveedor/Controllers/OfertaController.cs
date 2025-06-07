@@ -15,17 +15,17 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
     {
 
         //private OfertaService _ofertaService = new OfertaService();
-        private DestinoService destinoService = new DestinoService();
+        //private DestinoService destinoService = new DestinoService();
         //private Tipo_OfertaService tipoOfertaService = new Tipo_OfertaService();
 
         private readonly OfertaService _ofertaService;
-        //private readonly DestinoService _destinoService;
+        private readonly DestinoService _destinoService;
         private readonly Tipo_OfertaService _tipoOfertaService;
 
         public OfertaController()
         {
             _ofertaService = new OfertaService(new ModeloSistema());
-            //_destinoService = new DestinoService(new ModeloSistema());
+            _destinoService = new DestinoService(new ModeloSistema());
             _tipoOfertaService = new Tipo_OfertaService(new ModeloSistema());
         }
 
@@ -100,7 +100,7 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
 
         public ActionResult Crear()
         {
-            var destinos = destinoService.ObtenerTodosActivos();
+            var destinos = _destinoService.ObtenerTodosActivos();
             var tiposOferta = _tipoOfertaService.ObtenerTodosActivos();
 
             ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino");
@@ -141,7 +141,7 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
                 return RedirectToAction("MisOfertas");
             }
 
-            var destinos = destinoService.ObtenerTodosActivos();
+            var destinos = _destinoService.ObtenerTodosActivos();
             var tiposOferta = _tipoOfertaService.ObtenerTodosActivos();
 
             ViewBag.Destinos = new SelectList(destinos, "id_destino", "nombre_destino", oferta.id_destino);

@@ -18,8 +18,14 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
     {
 
 
-        private DestinoService _destinoService = new DestinoService();
+        //private DestinoService _destinoService = new DestinoService();
 
+        private readonly DestinoService _destinoService;
+
+        public DestinoController()
+        {
+            _destinoService = new DestinoService(new ModeloSistema());
+        }
 
         // GET: Admin/Destino
         public ActionResult Index()

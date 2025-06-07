@@ -1,4 +1,5 @@
-﻿using ProyectoSistemaTurismo.Service;
+﻿using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,19 @@ namespace ProyectoSistemaTurismo.Controllers
     public class DestinosController : Controller
     {
 
-        private DestinoService destinoService = new DestinoService();
+        //private DestinoService destinoService = new DestinoService();
 
+        private readonly DestinoService _destinoService;
+
+        public DestinosController()
+        {
+            _destinoService = new DestinoService(new ModeloSistema());
+        }
 
         // GET: Destinos
         public ActionResult Index()
         {
-            var ofertas = destinoService.ObtenerTodosActivos();
+            var ofertas = _destinoService.ObtenerTodosActivos();
             return View(ofertas);
         }
 

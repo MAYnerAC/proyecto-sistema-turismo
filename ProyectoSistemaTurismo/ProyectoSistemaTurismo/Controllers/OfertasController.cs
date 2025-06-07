@@ -19,7 +19,7 @@ namespace ProyectoSistemaTurismo.Controllers
         private ComentarioService _comentarioService = new ComentarioService();
         //private Etiqueta_OfertaService _etiquetaOfertaService = new Etiqueta_OfertaService();
         //private GaleriaService _galeriaService = new GaleriaService();
-        private DestinoService _destinoService = new DestinoService();
+        //private DestinoService _destinoService = new DestinoService();
 
 
 
@@ -28,7 +28,7 @@ namespace ProyectoSistemaTurismo.Controllers
         //private readonly ComentarioService _comentarioService;
         private readonly Etiqueta_OfertaService _etiquetaOfertaService;
         private readonly GaleriaService _galeriaService;
-        //private readonly DestinoService _destinoService;
+        private readonly DestinoService _destinoService;
 
         public OfertasController()
         {
@@ -37,7 +37,7 @@ namespace ProyectoSistemaTurismo.Controllers
             //_comentarioService = new ComentarioService(new ModeloSistema());
             _etiquetaOfertaService = new Etiqueta_OfertaService(new ModeloSistema());
             _galeriaService = new GaleriaService(new ModeloSistema());
-            //_destinoService = new DestinoService(new ModeloSistema());
+            _destinoService = new DestinoService(new ModeloSistema());
         }
 
 
