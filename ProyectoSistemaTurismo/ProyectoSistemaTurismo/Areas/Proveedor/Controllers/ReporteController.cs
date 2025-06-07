@@ -1,4 +1,5 @@
 ﻿using ProyectoSistemaTurismo.Filters;
+using ProyectoSistemaTurismo.Models;
 using ProyectoSistemaTurismo.Service;
 using System;
 using System.Collections.Generic;
@@ -14,22 +15,26 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
     public class ReporteController : Controller
     {
 
+        //private ReporteService _reportService = new ReporteService();
 
-        private ReporteService _reportService = new ReporteService();
+        private readonly ReporteService _reporteService;
 
-
+        public ReporteController()
+        {
+            _reporteService = new ReporteService(new ModeloSistema());
+        }
 
         public ActionResult ReporteOfertasPorTipo()
         {
             int idOferta = (int)Session["OfertaId"];
-            var ofertasPorTipo = _reportService.ObtenerOfertasPorTipo(idOferta);
+            var ofertasPorTipo = _reporteService.ObtenerOfertasPorTipo(idOferta);
             return View(ofertasPorTipo);
         }
 
         public ActionResult ReporteOfertasPorDestino()
         {
             int idOferta = (int)Session["OfertaId"];
-            var ofertasPorDestino = _reportService.ObtenerOfertasPorDestino(idOferta);
+            var ofertasPorDestino = _reporteService.ObtenerOfertasPorDestino(idOferta);
             return View(ofertasPorDestino);
         }
 

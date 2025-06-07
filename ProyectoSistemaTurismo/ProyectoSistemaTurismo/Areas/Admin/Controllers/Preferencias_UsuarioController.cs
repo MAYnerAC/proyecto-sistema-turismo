@@ -52,7 +52,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
         public ActionResult Crear()
         {
             var usuarios = _usuarioService.ObtenerTodosActivos();
-            var etiquetas = etiquetaService.ObtenerTodosActivos();
+            var etiquetas = _etiquetaService.ObtenerTodosActivos();
 
             ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre");
             ViewBag.Etiquetas = new SelectList(etiquetas, "id_etiqueta", "nombre_etiqueta");
@@ -87,7 +87,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             }
 
             var usuarios = _usuarioService.ObtenerTodosActivos();
-            var etiquetas = etiquetaService.ObtenerTodosActivos();
+            var etiquetas = _etiquetaService.ObtenerTodosActivos();
 
             ViewBag.Usuarios = new SelectList(usuarios, "id_usuario", "nombre", preferenciaUsuario.id_usuario);
             ViewBag.Etiquetas = new SelectList(etiquetas, "id_etiqueta", "nombre_etiqueta", preferenciaUsuario.id_etiqueta);
