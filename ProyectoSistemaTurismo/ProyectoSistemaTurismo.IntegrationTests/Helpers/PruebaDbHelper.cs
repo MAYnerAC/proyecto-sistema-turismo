@@ -27,6 +27,9 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Helpers
             // Calcula la ruta absoluta de los scripts para evitar errores de ubicación
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string scriptsDir = Path.Combine(baseDir, "Scripts");
+
+            // NOTA: Propiedad de los archivos .sql (Copiar en el directorio de salida = Copiar si es posterior)
+
             string ddlPath = Path.Combine(scriptsDir, "DDL-dbSistemaTurismo-Tablas.sql");
             string dmlPath = Path.Combine(scriptsDir, "DML-dbSistemaTurismo-Registros.sql");
 
