@@ -111,6 +111,7 @@
     <Compile Include="Controllers\Admin\TipoOfertaControllerIntegrationTests.cs" />
     <Compile Include="Controllers\Admin\TipoUsuarioControllerIntegrationTests.cs" />
     <Compile Include="Controllers\Admin\UsuarioControllerIntegrationTests.cs" />
+    <Compile Include="Controllers\ComentariosControllerIntegrationTests.cs" />
     <Compile Include="Controllers\Proveedor\ComentarioControllerProveedorIntegrationTests.cs" />
     <Compile Include="Controllers\Proveedor\GaleriaControllerProveedorIntegrationTests.cs" />
     <Compile Include="Controllers\Proveedor\OfertaControllerProveedorIntegrationTests.cs" />

@@ -22,7 +22,7 @@ namespace ProyectoSistemaTurismo.Service
         /// </summary>
         /// <param name="archivo">Archivo recibido desde el formulario web</param>
         /// <returns>URL del archivo subido o URL simulada en caso de error</returns>
-        public async Task<string> SubirArchivo(HttpPostedFileBase archivo)
+        public virtual async Task<string> SubirArchivo(HttpPostedFileBase archivo)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace ProyectoSistemaTurismo.Service
         /// </summary>
         /// <param name="archivoImagen">Archivo recibido desde el formulario</param>
         /// <returns>Mensaje de error si no es válido, o null si es válido</returns>
-        public string ValidarArchivoImagen(HttpPostedFileBase archivoImagen)
+        public virtual string ValidarArchivoImagen(HttpPostedFileBase archivoImagen)
         {
             string[] tiposPermitidos = { "image/jpeg", "image/png" };
             int tamañoMaximoMB = 5;  // Tamaño máximo 5MB // Es 4 por defecto en "<system.web>"
