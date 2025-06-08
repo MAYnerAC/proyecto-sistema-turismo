@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using ProyectoSistemaTurismo.Areas.Admin.Controllers;
 using ProyectoSistemaTurismo.Models;
 
-namespace ProyectoSistemaTurismo.IntegrationTests.Controllers
+namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
 {
     /// <summary>
     /// Pruebas de integración para el controlador OfertaController.
@@ -96,7 +96,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers
 
         /// <summary>
         /// Prueba que Crear POST con modelo válido redirecciona a Index y agrega la oferta.
-        /// ⚠️ Requiere una base de datos preparada y puede dejar datos de prueba.
+        /// Requiere una base de datos preparada y puede dejar datos de prueba.
         /// </summary>
         [TestMethod]
         public void Crear_Post_OfertaValida_RedireccionaAIndex()
@@ -105,19 +105,30 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers
             var controller = new OfertaController();
             var oferta = new Oferta
             {
-                nombre = "Test Oferta",
-                descripcion = "Descripción de prueba",
-                telefono = "999999999",
-                id_tipo_oferta = 1,   // IDs en la BD de prueba
+                nombre = "Oferta Completa Prueba",
+                descripcion = "Descripción de oferta de integración",
+                direccion = "Av. Integración 123",
+                ubicacion_lat = -16.4090m,
+                ubicacion_lon = -71.5375m,
+                telefono = "123456789",
+                email_contacto = "oferta@prueba.com",
+                sitio_web = "http://www.ofertaprueba.com",
+                vinculo_con_oferta = "Ninguno",
+                id_usuario = 1,
+                id_tipo_oferta = 1,
                 id_destino = 1,
-                id_usuario = 1
+                fecha_creacion = DateTime.Now,
+                estado = "A",
+                verificado = "N",
+                visible = "N",
+                motivo_baja = null
             };
 
             // Act
             var result = controller.Crear(oferta) as RedirectToRouteResult;
 
             // Assert
-            Assert.IsNotNull(result, "Debe redireccionar al crear una oferta válida.");
+            Assert.IsNotNull(result, "Debe redireccionar al crear una oferta válida y completa.");
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
 
@@ -141,7 +152,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers
 
         /// <summary>
         /// Prueba que Editar POST con datos válidos redirecciona a Index.
-        /// ⚠️ Debe existir la oferta a editar.
+        /// Debe existir la oferta a editar.
         /// </summary>
         [TestMethod]
         public void Editar_Post_OfertaValida_RedireccionaAIndex()
