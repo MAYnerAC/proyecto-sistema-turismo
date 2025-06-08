@@ -88,6 +88,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Admin\EtiquetaControllerIntegrationTests.cs" />
+    <Compile Include="Controllers\Admin\FotoComentarioControllerIntegrationTests.cs" />
     <Compile Include="Controllers\Admin\GaleriaControllerIntegrationTests.cs" />
     <Compile Include="Controllers\Admin\OfertaControllerIntegrationTests.cs" />
     <Compile Include="Controllers\Admin\PreferenciasUsuarioControllerIntegrationTests.cs" />
