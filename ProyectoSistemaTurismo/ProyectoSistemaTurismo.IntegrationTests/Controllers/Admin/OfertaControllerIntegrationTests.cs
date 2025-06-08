@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using ProyectoSistemaTurismo.Areas.Admin.Controllers;
 using ProyectoSistemaTurismo.Models;
+using ProyectoSistemaTurismo.IntegrationTests.Helpers;
 
 namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
 {
@@ -15,6 +16,15 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
     [TestClass]
     public class OfertaControllerIntegrationTests
     {
+        /// <summary>
+        /// Inicializa la base de datos solo una vez por clase
+        /// </summary>
+        [ClassInitialize]
+        public static void ClassSetup(TestContext context)
+        {
+            PruebaDbHelper.InicializarBD();
+        }
+
         /// <summary>
         /// Prueba que Index devuelve una vista y un modelo de tipo List<Oferta>.
         /// Escenario: La base de datos puede tener o no registros.

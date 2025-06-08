@@ -14,18 +14,18 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
     [TestClass]
     public class UsuarioControllerIntegrationTests
     {
+        /*--------------------------------------------------*/
+        //[TestInitialize]
+        //public void Setup()
+        /*--------------------------------------------------*/
+        //[ClassInitialize]
+        //public static void ClassSetup(TestContext context)
+        /*--------------------------------------------------*/
 
         /// <summary>
         /// [TestInitialize] - Inicializa la base de datos antes de cada método de prueba
         /// [ClassInitialize] - Inicializa la base de datos solo una vez por clase
         /// </summary>
-        /*
-        [TestInitialize]
-        public void Setup()
-        *//*
-        [ClassInitialize]
-        public static void ClassSetup(TestContext context)
-        */
         [ClassInitialize]
         public static void ClassSetup(TestContext context)
         {
