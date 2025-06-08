@@ -112,6 +112,7 @@
     <Compile Include="Controllers\Admin\TipoUsuarioControllerIntegrationTests.cs" />
     <Compile Include="Controllers\Admin\UsuarioControllerIntegrationTests.cs" />
     <Compile Include="Controllers\Proveedor\ComentarioControllerProveedorIntegrationTests.cs" />
+    <Compile Include="Controllers\Proveedor\GaleriaControllerProveedorIntegrationTests.cs" />
     <Compile Include="Helpers\PruebaDbHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
