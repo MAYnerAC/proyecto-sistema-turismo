@@ -45,7 +45,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         public void Detalles_TipoUsuarioExistente_RetornaVistaYModelo()
         {
             var controller = new Tipo_UsuarioController();
-            int tipoUsuarioId = 1; // Debe existir según tu DML
+            int tipoUsuarioId = 1;
 
             var result = controller.Detalles(tipoUsuarioId) as ViewResult;
 
@@ -61,7 +61,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         public void Detalles_TipoUsuarioNoExiste_RedireccionaIndex()
         {
             var controller = new Tipo_UsuarioController();
-            int tipoUsuarioId = 99999; // Se asume que no existe
+            int tipoUsuarioId = 99999;
 
             var result = controller.Detalles(tipoUsuarioId) as RedirectToRouteResult;
 
@@ -108,7 +108,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         public void Editar_Get_TipoUsuarioExistente_RetornaVistaYModelo()
         {
             var controller = new Tipo_UsuarioController();
-            int tipoUsuarioId = 1; // Debe existir
+            int tipoUsuarioId = 1;
 
             var result = controller.Editar(tipoUsuarioId) as ViewResult;
 
@@ -159,7 +159,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         public void Eliminar_TipoUsuarioExistente_RedireccionaAIndex()
         {
             var controller = new Tipo_UsuarioController();
-            int tipoUsuarioId = 1; // Debe existir
+            int tipoUsuarioId = 1;
 
             var result = controller.Eliminar(tipoUsuarioId) as RedirectToRouteResult;
 

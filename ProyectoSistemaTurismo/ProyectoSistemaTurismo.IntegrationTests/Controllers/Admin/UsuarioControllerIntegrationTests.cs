@@ -54,7 +54,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         public void Detalles_UsuarioExistente_RetornaVistaYModelo()
         {
             var controller = new UsuarioController();
-            int usuarioId = 1; // Debe existir en la base de datos de prueba
+            int usuarioId = 1;
 
             var result = controller.Detalles(usuarioId) as ViewResult;
 
@@ -70,7 +70,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         public void Detalles_UsuarioNoExiste_RedireccionaIndex()
         {
             var controller = new UsuarioController();
-            int usuarioId = 999999; // Se asume que no existe
+            int usuarioId = 999999; // No existe
 
             var result = controller.Detalles(usuarioId) as RedirectToRouteResult;
 
@@ -125,7 +125,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         public void Editar_Get_UsuarioExistente_RetornaVistaYModelo()
         {
             var controller = new UsuarioController();
-            int usuarioId = 1; // Debe existir en la base de datos de prueba
+            int usuarioId = 1;
 
             var result = controller.Editar(usuarioId) as ViewResult;
 
@@ -141,7 +141,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         public void Editar_Get_UsuarioNoExiste_RedireccionaIndex()
         {
             var controller = new UsuarioController();
-            int usuarioId = 999999; // Se asume que no existe
+            int usuarioId = 999999;
 
             var result = controller.Editar(usuarioId) as RedirectToRouteResult;
 

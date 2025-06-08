@@ -46,7 +46,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         public void Detalles_TipoOfertaExistente_RetornaVistaYModelo()
         {
             var controller = new Tipo_OfertaController();
-            int id = 1; // Asegúrate que exista en la base de datos de pruebas
+            int id = 1;
 
             var result = controller.Detalles(id) as ViewResult;
 
