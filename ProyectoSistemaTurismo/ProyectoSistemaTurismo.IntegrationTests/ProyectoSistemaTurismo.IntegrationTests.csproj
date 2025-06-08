@@ -113,6 +113,7 @@
     <Compile Include="Controllers\Admin\UsuarioControllerIntegrationTests.cs" />
     <Compile Include="Controllers\Proveedor\ComentarioControllerProveedorIntegrationTests.cs" />
     <Compile Include="Controllers\Proveedor\GaleriaControllerProveedorIntegrationTests.cs" />
+    <Compile Include="Controllers\Proveedor\OfertaControllerProveedorIntegrationTests.cs" />
     <Compile Include="Helpers\PruebaDbHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
