@@ -24,9 +24,21 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Helpers
         {
             string connStr = ConfigurationManager.ConnectionStrings["ModeloSistema"].ConnectionString;
 
+            // Calcula la ruta absoluta de los scripts para evitar errores de ubicación
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string scriptsDir = Path.Combine(baseDir, "Scripts");
+            string ddlPath = Path.Combine(scriptsDir, "DDL-dbSistemaTurismo-Tablas.sql");
+            string dmlPath = Path.Combine(scriptsDir, "DML-dbSistemaTurismo-Registros.sql");
+
+            // Si los archivos no existen, lanza una excepción descriptiva
+            if (!File.Exists(ddlPath))
+                throw new FileNotFoundException($"No se encuentra el script DDL en: {ddlPath}");
+            if (!File.Exists(dmlPath))
+                throw new FileNotFoundException($"No se encuentra el script DML en: {dmlPath}");
+
             // Lee los scripts DDL (estructura) y DML (datos)
-            string ddl = File.ReadAllText(@"Scripts\DDL-dbSistemaTurismo-Tablas.sql");
-            string dml = File.ReadAllText(@"Scripts\DML-dbSistemaTurismo-Registros.sql");
+            string ddl = File.ReadAllText(ddlPath);
+            string dml = File.ReadAllText(dmlPath);
 
             using (var conn = new SqlConnection(connStr))
             {

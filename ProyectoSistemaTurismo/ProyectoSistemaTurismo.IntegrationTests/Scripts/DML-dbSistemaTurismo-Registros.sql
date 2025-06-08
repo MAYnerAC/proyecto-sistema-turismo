@@ -2,6 +2,52 @@
 -- GO
 
 
+-- Limpiar tablas y resetear IDENTITYs (IMPORTANTE: respeta el orden de dependencias)
+DELETE FROM Foto_Comentario;
+DELETE FROM Reporte;
+DELETE FROM Preferencias_Usuario;
+DELETE FROM Log_Visitas;
+DELETE FROM Galeria;
+DELETE FROM Comentario;
+DELETE FROM Etiqueta_Oferta;
+DELETE FROM Institucion;
+DELETE FROM Atractivo_Turistico;
+DELETE FROM Evento;
+DELETE FROM Restaurante;
+DELETE FROM Hospedaje;
+DELETE FROM Oferta;
+DELETE FROM Usuario;
+DELETE FROM Destino;
+DELETE FROM Etiqueta;
+DELETE FROM Estado_Reporte;
+DELETE FROM Tipo_Reporte;
+DELETE FROM Tipo_Oferta;
+DELETE FROM Tipo_Usuario;
+
+
+-- Resetear IDENTITYs (si usas SQL Server)
+DBCC CHECKIDENT ('Foto_Comentario', RESEED, 1);
+DBCC CHECKIDENT ('Reporte', RESEED, 1);
+DBCC CHECKIDENT ('Preferencias_Usuario', RESEED, 1);
+DBCC CHECKIDENT ('Log_Visitas', RESEED, 1);
+DBCC CHECKIDENT ('Galeria', RESEED, 1);
+DBCC CHECKIDENT ('Comentario', RESEED, 1);
+DBCC CHECKIDENT ('Etiqueta_Oferta', RESEED, 1);
+DBCC CHECKIDENT ('Institucion', RESEED, 0);
+DBCC CHECKIDENT ('Atractivo_Turistico', RESEED, 1);
+DBCC CHECKIDENT ('Evento', RESEED, 1);
+DBCC CHECKIDENT ('Restaurante', RESEED, 1);
+DBCC CHECKIDENT ('Hospedaje', RESEED, 1);
+DBCC CHECKIDENT ('Oferta', RESEED, 1);
+DBCC CHECKIDENT ('Usuario', RESEED, 1);
+DBCC CHECKIDENT ('Destino', RESEED, 1);
+DBCC CHECKIDENT ('Etiqueta', RESEED, 1);
+DBCC CHECKIDENT ('Estado_Reporte', RESEED, 1);
+DBCC CHECKIDENT ('Tipo_Reporte', RESEED, 1);
+DBCC CHECKIDENT ('Tipo_Oferta', RESEED, 1);
+DBCC CHECKIDENT ('Tipo_Usuario', RESEED, 1);
+
+
 -- Tabla Tipo de Usuario
 
 INSERT INTO Tipo_Usuario (nombre_tipo, estado) VALUES ('Administrador', 'A');
