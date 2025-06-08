@@ -103,6 +103,27 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         }
 
         /// <summary>
+        /// Verifica que la acción Crear (POST) con datos inválidos no crea el tipo de oferta y retorna error.
+        /// </summary>
+        [TestMethod]
+        public void Crear_Post_TipoOfertaInvalido_NoRedirigeYSeteaError()
+        {
+            var controller = new Tipo_OfertaController();
+            var tipoOferta = new Tipo_Oferta
+            {
+                // nombre_tipo es requerido, lo dejamos vacío
+                estado = "A"
+            };
+            controller.ModelState.AddModelError("nombre_tipo", "El nombre es obligatorio.");
+
+            var result = controller.Crear(tipoOferta) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
+        }
+
+        /// <summary>
         /// Verifica que la acción Editar (GET) retorne la vista y modelo esperados cuando el registro existe.
         /// </summary>
         [TestMethod]
@@ -154,6 +175,28 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         }
 
         /// <summary>
+        /// Verifica que la acción Editar (POST) con datos inválidos no actualiza y retorna error.
+        /// </summary>
+        [TestMethod]
+        public void Editar_Post_TipoOfertaInvalido_NoRedirigeYSeteaError()
+        {
+            var controller = new Tipo_OfertaController();
+            var tipoOferta = new Tipo_Oferta
+            {
+                id_tipo_oferta = 1,
+                // nombre_tipo es requerido
+                estado = "A"
+            };
+            controller.ModelState.AddModelError("nombre_tipo", "El nombre es obligatorio.");
+
+            var result = controller.Editar(tipoOferta) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
+        }
+
+        /// <summary>
         /// Verifica que la acción Eliminar elimine un tipo de oferta existente y redirija a Index.
         /// </summary>
         [TestMethod]
@@ -166,6 +209,22 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
 
             Assert.IsNotNull(result, "Debe redirigir tras eliminar.");
             Assert.AreEqual("Index", result.RouteValues["action"], "Debe redirigir a Index tras eliminar.");
+        }
+
+        /// <summary>
+        /// Verifica que la acción Eliminar con tipo de oferta inexistente redirige a Index y muestra error.
+        /// </summary>
+        [TestMethod]
+        public void Eliminar_TipoOfertaNoExistente_RedireccionaAIndexYError()
+        {
+            var controller = new Tipo_OfertaController();
+            int id = 99999;
+
+            var result = controller.Eliminar(id) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
         }
 
         //

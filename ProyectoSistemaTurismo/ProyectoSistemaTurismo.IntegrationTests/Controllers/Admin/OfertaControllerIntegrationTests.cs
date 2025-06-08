@@ -105,6 +105,43 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         }
 
         /// <summary>
+        /// Prueba que Crear POST con modelo inválido redirecciona a Index y NO crea la oferta.
+        /// </summary>
+        [TestMethod]
+        public void Crear_Post_OfertaInvalida_RedireccionaAIndexConError()
+        {
+            var controller = new OfertaController();
+            var oferta = new Oferta
+            {
+                // Falta el campo nombre (requerido)
+                // nombre = null,
+                descripcion = "Oferta sin nombre",
+                direccion = "Av. Falsa 123",
+                ubicacion_lat = -16.4090m,
+                ubicacion_lon = -71.5375m,
+                telefono = "123456789",
+                email_contacto = "oferta@prueba.com",
+                sitio_web = "http://www.ofertaprueba.com",
+                vinculo_con_oferta = "Ninguno",
+                id_usuario = 1,
+                id_tipo_oferta = 1,
+                id_destino = 1,
+                fecha_creacion = DateTime.Now,
+                estado = "A",
+                verificado = "N",
+                visible = "N",
+                motivo_baja = null
+            };
+            controller.ModelState.AddModelError("nombre", "El nombre es obligatorio");
+
+            var result = controller.Crear(oferta) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result, "Debe redireccionar aunque falle la validación.");
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
+        }
+
+        /// <summary>
         /// Prueba que Crear POST con modelo válido redirecciona a Index y agrega la oferta.
         /// Requiere una base de datos preparada y puede dejar datos de prueba.
         /// </summary>
@@ -158,6 +195,31 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
             // Assert
             Assert.IsNotNull(result, "Debe devolver la vista de edición.");
             Assert.IsInstanceOfType(result.Model, typeof(Oferta), "El modelo debe ser una oferta.");
+        }
+
+        /// <summary>
+        /// Prueba que Editar POST con datos inválidos redirecciona a Index con error.
+        /// </summary>
+        [TestMethod]
+        public void Editar_Post_OfertaInvalida_RedireccionaAIndexConError()
+        {
+            var controller = new OfertaController();
+
+            // Busca la oferta existente para editar
+            int ofertaId = 1;
+            var ofertaExistente = controller.Detalles(ofertaId) as ViewResult;
+            var oferta = ofertaExistente?.Model as Oferta;
+            if (oferta == null) Assert.Inconclusive("No existe la oferta a editar para la prueba.");
+
+            oferta.nombre = null;
+
+            controller.ModelState.AddModelError("nombre", "El nombre es obligatorio");
+
+            var result = controller.Editar(oferta) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
         }
 
         /// <summary>

@@ -117,6 +117,32 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
 
+        /// <summary>
+        /// Prueba que Crear (POST) con datos inválidos no crea usuario y setea TempData["Error"].
+        /// </summary>
+        [TestMethod]
+        public void Crear_Post_UsuarioInvalido_NoRedirigeYSeteaError()
+        {
+            var controller = new UsuarioController();
+            var usuario = new Usuario
+            {
+                // Falta nombre requerido
+                apellido = "Apellido Prueba",
+                email = "prueba@email.com",
+                contrasena = "Prueba123",
+                telefono = "999999999",
+                id_tipo_usuario = 1,
+                estado = "A",
+                fecha_registro = DateTime.Now
+            };
+            controller.ModelState.AddModelError("nombre", "El nombre es obligatorio.");
+
+            var result = controller.Crear(usuario) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
+        }
 
         /// <summary>
         /// Prueba que Editar (GET) retorna la vista con el usuario si existe.
@@ -176,6 +202,34 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         }
 
         /// <summary>
+        /// Prueba que Editar (POST) con datos inválidos no actualiza usuario y setea TempData["Error"].
+        /// </summary>
+        [TestMethod]
+        public void Editar_Post_UsuarioInvalido_NoRedirigeYSeteaError()
+        {
+            var controller = new UsuarioController();
+            var usuario = new Usuario
+            {
+                id_usuario = 1,
+                // Falta email requerido
+                nombre = "Usuario Editado",
+                apellido = "Apellido Editado",
+                contrasena = "NuevaClave123",
+                telefono = "888888888",
+                id_tipo_usuario = 1,
+                estado = "A",
+                fecha_registro = DateTime.Now
+            };
+            controller.ModelState.AddModelError("email", "El email es obligatorio.");
+
+            var result = controller.Editar(usuario) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
+        }
+
+        /// <summary>
         /// Prueba que Eliminar (POST) con usuario existente redirige a Index.
         /// </summary>
         [TestMethod]
@@ -188,6 +242,22 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Index", result.RouteValues["action"]);
+        }
+
+        /// <summary>
+        /// Prueba que Eliminar (POST) con usuario inexistente redirige a Index y muestra error.
+        /// </summary>
+        [TestMethod]
+        public void Eliminar_UsuarioNoExistente_RedireccionaAIndexYSeteaError()
+        {
+            var controller = new UsuarioController();
+            int usuarioId = 999999;
+
+            var result = controller.Eliminar(usuarioId) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
         }
 
         //

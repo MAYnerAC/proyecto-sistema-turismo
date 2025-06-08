@@ -105,6 +105,29 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         }
 
         /// <summary>
+        /// Verifica que la acción Crear (POST) con datos inválidos no redirige y muestra error.
+        /// </summary>
+        [TestMethod]
+        public void Crear_Post_PreferenciaInvalida_NoRedirigeYSeteaError()
+        {
+            var controller = new Preferencias_UsuarioController();
+            // No seteamos id_usuario (campo requerido)
+            var preferencia = new Preferencias_Usuario
+            {
+                id_etiqueta = 1
+            };
+
+            // Forzamos error de validación manualmente
+            controller.ModelState.AddModelError("id_usuario", "El usuario es requerido.");
+
+            var result = controller.Crear(preferencia) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
+        }
+
+        /// <summary>
         /// Verifica que la acción Editar (GET) retorne la vista y modelo cuando la preferencia existe.
         /// </summary>
         [TestMethod]
@@ -156,6 +179,29 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
             Assert.IsNotNull(result);
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
+
+        /// <summary>
+        /// Verifica que la acción Editar (POST) con datos inválidos no redirige y muestra error.
+        /// </summary>
+        [TestMethod]
+        public void Editar_Post_PreferenciaInvalida_NoRedirigeYSeteaError()
+        {
+            var controller = new Preferencias_UsuarioController();
+            // Falta id_usuario
+            var preferencia = new Preferencias_Usuario
+            {
+                id_preferencia = 1,
+                id_etiqueta = 1
+            };
+            controller.ModelState.AddModelError("id_usuario", "El usuario es requerido.");
+
+            var result = controller.Editar(preferencia) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
+        }
+
 
         /// <summary>
         /// Verifica que la acción Eliminar elimina la preferencia y redirige a Index.

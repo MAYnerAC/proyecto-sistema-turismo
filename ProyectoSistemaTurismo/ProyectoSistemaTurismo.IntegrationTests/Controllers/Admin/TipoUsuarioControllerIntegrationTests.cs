@@ -102,6 +102,27 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         }
 
         /// <summary>
+        /// Prueba que Crear (POST) con datos inválidos no crea el tipo de usuario y retorna error.
+        /// </summary>
+        [TestMethod]
+        public void Crear_Post_TipoUsuarioInvalido_NoRedirigeYSeteaError()
+        {
+            var controller = new Tipo_UsuarioController();
+            var tipoUsuario = new Tipo_Usuario
+            {
+                // nombre_tipo es requerido, se deja vacío para simular inválido
+                estado = "A"
+            };
+            controller.ModelState.AddModelError("nombre_tipo", "El nombre es obligatorio.");
+
+            var result = controller.Crear(tipoUsuario) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
+        }
+
+        /// <summary>
         /// Prueba que Editar (GET) retorna la vista con el tipo de usuario si existe.
         /// </summary>
         [TestMethod]
@@ -153,6 +174,28 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         }
 
         /// <summary>
+        /// Prueba que Editar (POST) con datos inválidos no actualiza y retorna error.
+        /// </summary>
+        [TestMethod]
+        public void Editar_Post_TipoUsuarioInvalido_NoRedirigeYSeteaError()
+        {
+            var controller = new Tipo_UsuarioController();
+            var tipoUsuario = new Tipo_Usuario
+            {
+                id_tipo_usuario = 1,
+                // nombre_tipo vacío (inválido)
+                estado = "A"
+            };
+            controller.ModelState.AddModelError("nombre_tipo", "El nombre es obligatorio.");
+
+            var result = controller.Editar(tipoUsuario) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
+        }
+
+        /// <summary>
         /// Prueba que Eliminar (POST) con tipo de usuario existente redirige a Index.
         /// </summary>
         [TestMethod]
@@ -165,6 +208,22 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
 
             Assert.IsNotNull(result, "Debe redireccionar después de eliminar.");
             Assert.AreEqual("Index", result.RouteValues["action"]);
+        }
+
+        /// <summary>
+        /// Prueba que Eliminar (POST) con tipo de usuario inexistente redirige a Index y muestra error.
+        /// </summary>
+        [TestMethod]
+        public void Eliminar_TipoUsuarioNoExistente_RedireccionaAIndexYError()
+        {
+            var controller = new Tipo_UsuarioController();
+            int tipoUsuarioId = 99999;
+
+            var result = controller.Eliminar(tipoUsuarioId) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
         }
 
         //

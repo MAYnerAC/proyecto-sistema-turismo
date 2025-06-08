@@ -84,6 +84,48 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
         }
 
         /// <summary>
+        /// Verifica que Crear (POST) con datos válidos redirecciona a Index.
+        /// </summary>
+        [TestMethod]
+        public void Crear_Post_DatosValidos_RedireccionaAIndex()
+        {
+            var controller = new EtiquetaController();
+            var etiqueta = new Etiqueta
+            {
+                nombre_etiqueta = "Etiqueta Integración",
+                estado = "A"
+            };
+
+            var result = controller.Crear(etiqueta) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Mensaje"]);
+        }
+
+        /// <summary>
+        /// Verifica que Crear (POST) con modelo inválido redirecciona a Index y muestra error.
+        /// </summary>
+        [TestMethod]
+        public void Crear_Post_DatosInvalidos_RedireccionaAIndexConError()
+        {
+            var controller = new EtiquetaController();
+            var etiqueta = new Etiqueta
+            {
+                // nombre_etiqueta = null, // Campo requerido omitido
+                estado = "A"
+            };
+            controller.ModelState.AddModelError("nombre_etiqueta", "El nombre de la etiqueta es obligatorio");
+
+            var result = controller.Crear(etiqueta) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
+        }
+
+
+        /// <summary>
         /// Verifica que Editar (GET) retorna la vista y modelo cuando la etiqueta existe.
         /// </summary>
         [TestMethod]
@@ -112,6 +154,53 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Index", result.RouteValues["action"]);
+        }
+
+        /// <summary>
+        /// Verifica que Editar (POST) con datos válidos redirecciona a Index.
+        /// </summary>
+        [TestMethod]
+        public void Editar_Post_DatosValidos_RedireccionaAIndex()
+        {
+            var controller = new EtiquetaController();
+
+            // Busca la etiqueta existente para editar
+            int idEtiqueta = 1;
+            var etiquetaExistente = controller.Detalles(idEtiqueta) as ViewResult;
+            var etiqueta = etiquetaExistente?.Model as Etiqueta;
+            if (etiqueta == null) Assert.Inconclusive("No existe la etiqueta a editar para la prueba.");
+
+            etiqueta.nombre_etiqueta = "Etiqueta Editada Integración";
+
+            var result = controller.Editar(etiqueta) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Mensaje"]);
+        }
+
+        /// <summary>
+        /// Verifica que Editar (POST) con modelo inválido redirecciona a Index y muestra error.
+        /// </summary>
+        [TestMethod]
+        public void Editar_Post_DatosInvalidos_RedireccionaAIndexConError()
+        {
+            var controller = new EtiquetaController();
+
+            // Busca la etiqueta existente para editar
+            int idEtiqueta = 1;
+            var etiquetaExistente = controller.Detalles(idEtiqueta) as ViewResult;
+            var etiqueta = etiquetaExistente?.Model as Etiqueta;
+            if (etiqueta == null) Assert.Inconclusive("No existe la etiqueta a editar para la prueba.");
+
+            etiqueta.nombre_etiqueta = null; // Campo requerido omitido
+            controller.ModelState.AddModelError("nombre_etiqueta", "El nombre de la etiqueta es obligatorio");
+
+            var result = controller.Editar(etiqueta) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Error"]);
         }
 
         /// <summary>
