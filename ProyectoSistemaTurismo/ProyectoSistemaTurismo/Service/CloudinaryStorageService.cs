@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 //
 using System.IO;
+using DotNetEnv;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using System.Threading.Tasks;
@@ -21,11 +22,14 @@ namespace ProyectoSistemaTurismo.Service
         // Constructor del objeto Cloudinary con las credenciales
         public CloudinaryStorageService()
         {
-            var account = new Account(
-                "tu_cloud_name",    // Tu Cloud Name
-                "tu_api_key",       // Tu API Key
-                "tu_api_secret"     // Tu API Secret
-            );
+            Env.Load();
+
+            //var cloudName = Env.GetString("CLOUDINARY_CLOUD_NAME");
+            //var apiKey = Env.GetString("CLOUDINARY_API_KEY");
+            //var apiSecret = Env.GetString("CLOUDINARY_API_SECRET");
+            //var account = new Account(cloudName, apiKey, apiSecret);
+            var cloudinaryUrl = Env.GetString("CLOUDINARY_URL");
+            var account = new Account(cloudinaryUrl);
 
             _cloudinary = new Cloudinary(account);
         }
@@ -55,7 +59,7 @@ namespace ProyectoSistemaTurismo.Service
             {
                 // Retornar una URL falsa (simulación)
                 string nombreArchivo = Path.GetFileName(archivo.FileName);
-                return "https://res.cloudinary.com/tu_cloud_name/image/upload/v1/turismo_images/" + Uri.EscapeDataString(nombreArchivo);
+                return "https://res.cloudinary.com/dugkds0b7/image/upload/v1/turismo_images/" + Uri.EscapeDataString(nombreArchivo);
             }
         }
 
