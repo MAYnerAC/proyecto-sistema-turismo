@@ -23,7 +23,7 @@ namespace ProyectoSistemaTurismo.Controllers
         private readonly Foto_ComentarioService _fotoComentarioService;
         private readonly FirebaseStorageService _firebaseStorageService;
         private readonly DataValidationService _dataValidationService;
-
+        private readonly CloudinaryStorageService _cloudinaryStorageService;
 
         public ComentariosController()
         {
@@ -31,6 +31,7 @@ namespace ProyectoSistemaTurismo.Controllers
             _fotoComentarioService = new Foto_ComentarioService(new ModeloSistema());
             _firebaseStorageService = new FirebaseStorageService(); // solo si no requiere contexto
             _dataValidationService = new DataValidationService();
+            _cloudinaryStorageService = new CloudinaryStorageService();
         }
 
 
@@ -88,7 +89,7 @@ namespace ProyectoSistemaTurismo.Controllers
                     }
 
                     // Subir el archivo a Firebase
-                    string urlFotoFirebase = await _firebaseStorageService.SubirArchivo(archivoImagen);
+                    string urlFotoFirebase = await _cloudinaryStorageService.SubirArchivo(archivoImagen);
                     fotoComentario.url_foto = urlFotoFirebase;
                 }
                 else

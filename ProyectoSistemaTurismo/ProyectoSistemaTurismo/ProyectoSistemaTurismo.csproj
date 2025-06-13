@@ -368,6 +368,7 @@
     <Content Include="Connected Services\ServiceReference1\ProyectoSistemaTurismo.ServiceReference1.InteractuarConChatbotResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include=".env" />
     <None Include="Connected Services\ServiceReference1\WebService1.disco" />
     <None Include="Connected Services\ServiceReference1\configuration91.svcinfo" />
     <None Include="Connected Services\ServiceReference1\configuration.svcinfo" />

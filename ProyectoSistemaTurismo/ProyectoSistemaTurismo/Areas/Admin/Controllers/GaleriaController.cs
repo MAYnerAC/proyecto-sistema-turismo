@@ -28,6 +28,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
         private readonly OfertaService _ofertaService;
         private readonly FirebaseStorageService _firebaseStorageService;
         private readonly DataValidationService _dataValidationService;
+        private readonly CloudinaryStorageService _cloudinaryStorageService;
 
 
         public GaleriaController()
@@ -36,7 +37,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
             _ofertaService = new OfertaService(new ModeloSistema());
             _firebaseStorageService = new FirebaseStorageService(); // Solo si no necesita contexto
             _dataValidationService = new DataValidationService();
-
+            _cloudinaryStorageService = new CloudinaryStorageService();
         }
 
 
@@ -82,7 +83,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
                     }
 
                     // Subir el archivo a Firebase
-                    string urlFotoFirebase = await _firebaseStorageService.SubirArchivo(archivoImagen);
+                    string urlFotoFirebase = await _cloudinaryStorageService.SubirArchivo(archivoImagen);
                     galeria.url_imagen = urlFotoFirebase;
                 }
                 else
@@ -143,7 +144,7 @@ namespace ProyectoSistemaTurismo.Areas.Admin.Controllers
                     }
 
                     // Subir el archivo a Firebase
-                    string urlFotoFirebase = await _firebaseStorageService.SubirArchivo(archivoImagen);
+                    string urlFotoFirebase = await _cloudinaryStorageService.SubirArchivo(archivoImagen);
                     galeria.url_imagen = urlFotoFirebase;
                 }
                 //else
