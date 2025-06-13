@@ -1,9 +1,36 @@
 -- Creación de la base de datos
+/*
 CREATE DATABASE dbSistemaTurismo;
 GO
-
+*/
 USE dbSistemaTurismo;
 GO
+
+
+-- Limpieza de todas las tablas (Orden Reverso al CREATE TABLE)
+DROP TABLE IF EXISTS Foto_Comentario;
+DROP TABLE IF EXISTS Reporte;
+DROP TABLE IF EXISTS Suscripcion_Negocio;
+DROP TABLE IF EXISTS Publicidad;
+DROP TABLE IF EXISTS Preferencias_Usuario;
+DROP TABLE IF EXISTS Log_Visitas;
+DROP TABLE IF EXISTS Galeria;
+DROP TABLE IF EXISTS Comentario;
+DROP TABLE IF EXISTS Etiqueta_Oferta;
+DROP TABLE IF EXISTS Institucion;
+DROP TABLE IF EXISTS Atractivo_Turistico;
+DROP TABLE IF EXISTS Evento;
+DROP TABLE IF EXISTS Restaurante;
+DROP TABLE IF EXISTS Hospedaje;
+DROP TABLE IF EXISTS Oferta;
+DROP TABLE IF EXISTS Usuario;
+DROP TABLE IF EXISTS Destino;
+DROP TABLE IF EXISTS Etiqueta;
+DROP TABLE IF EXISTS Estado_Reporte;
+DROP TABLE IF EXISTS Tipo_Reporte;
+DROP TABLE IF EXISTS Tipo_Oferta;
+DROP TABLE IF EXISTS Tipo_Usuario;
+
 
 -- Tabla Tipo de Usuario
 CREATE TABLE Tipo_Usuario (

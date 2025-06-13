@@ -2,6 +2,52 @@ USE dbSistemaTurismo;
 GO
 
 
+-- Limpiar tablas y resetear IDENTITYs (en orden de dependencias)
+DELETE FROM Foto_Comentario;
+DELETE FROM Reporte;
+DELETE FROM Preferencias_Usuario;
+DELETE FROM Log_Visitas;
+DELETE FROM Galeria;
+DELETE FROM Comentario;
+DELETE FROM Etiqueta_Oferta;
+DELETE FROM Institucion;
+DELETE FROM Atractivo_Turistico;
+DELETE FROM Evento;
+DELETE FROM Restaurante;
+DELETE FROM Hospedaje;
+DELETE FROM Oferta;
+DELETE FROM Usuario;
+DELETE FROM Destino;
+DELETE FROM Etiqueta;
+DELETE FROM Estado_Reporte;
+DELETE FROM Tipo_Reporte;
+DELETE FROM Tipo_Oferta;
+DELETE FROM Tipo_Usuario;
+
+
+-- Resetear IDENTITYs (en SQL Server)
+DBCC CHECKIDENT ('Foto_Comentario', RESEED, 1);
+DBCC CHECKIDENT ('Reporte', RESEED, 1);
+DBCC CHECKIDENT ('Preferencias_Usuario', RESEED, 1);
+DBCC CHECKIDENT ('Log_Visitas', RESEED, 1);
+DBCC CHECKIDENT ('Galeria', RESEED, 1);
+DBCC CHECKIDENT ('Comentario', RESEED, 1);
+DBCC CHECKIDENT ('Etiqueta_Oferta', RESEED, 1);
+DBCC CHECKIDENT ('Institucion', RESEED, 0);
+DBCC CHECKIDENT ('Atractivo_Turistico', RESEED, 1);
+DBCC CHECKIDENT ('Evento', RESEED, 1);
+DBCC CHECKIDENT ('Restaurante', RESEED, 1);
+DBCC CHECKIDENT ('Hospedaje', RESEED, 1);
+DBCC CHECKIDENT ('Oferta', RESEED, 1);
+DBCC CHECKIDENT ('Usuario', RESEED, 1);
+DBCC CHECKIDENT ('Destino', RESEED, 1);
+DBCC CHECKIDENT ('Etiqueta', RESEED, 1);
+DBCC CHECKIDENT ('Estado_Reporte', RESEED, 1);
+DBCC CHECKIDENT ('Tipo_Reporte', RESEED, 1);
+DBCC CHECKIDENT ('Tipo_Oferta', RESEED, 1);
+DBCC CHECKIDENT ('Tipo_Usuario', RESEED, 1);
+
+
 -- Tabla Tipo de Usuario
 
 INSERT INTO Tipo_Usuario (nombre_tipo, estado) VALUES ('Administrador', 'A');
@@ -248,34 +294,34 @@ VALUES ('Un lugar hist�rico impresionante.', 5, '2024-03-19', 'A', 10, 10);
 -- Tabla Galeria
 
 INSERT INTO Galeria (url_imagen, descripcion, tipo_imagen, fecha_subida, estado, id_oferta) 
-VALUES ('https://example.com/hotel_tacna_plaza.jpg', 'Vista de la fachada del hotel', 'Foto', '2024-02-01', 'A', 1);
+VALUES ('https://bit.ly/4fMxoFd', 'Vista de la fachada del hotel', 'Foto', '2024-02-01', 'A', 1);
 
 INSERT INTO Galeria (url_imagen, descripcion, tipo_imagen, fecha_subida, estado, id_oferta) 
-VALUES ('https://example.com/hostal_valle_viejo.jpg', 'Entrada principal del hostal', 'Foto', '2024-02-02', 'A', 2);
+VALUES ('https://bit.ly/4fMxoFd', 'Entrada principal del hostal', 'Foto', '2024-02-02', 'A', 2);
 
 INSERT INTO Galeria (url_imagen, descripcion, tipo_imagen, fecha_subida, estado, id_oferta) 
-VALUES ('https://example.com/hotel_vista_del_mar.jpg', 'Vista desde la playa del hotel', 'Foto', '2024-02-03', 'A', 3);
+VALUES ('https://bit.ly/4fMxoFd', 'Vista desde la playa del hotel', 'Foto', '2024-02-03', 'A', 3);
 
 INSERT INTO Galeria (url_imagen, descripcion, tipo_imagen, fecha_subida, estado, id_oferta) 
-VALUES ('https://example.com/restaurante_el_fogon.jpg', 'Comedor principal del restaurante', 'Foto', '2024-02-04', 'A', 4);
+VALUES ('https://bit.ly/4fMxoFd', 'Comedor principal del restaurante', 'Foto', '2024-02-04', 'A', 4);
 
 INSERT INTO Galeria (url_imagen, descripcion, tipo_imagen, fecha_subida, estado, id_oferta) 
-VALUES ('https://example.com/la_casona_del_valle.jpg', 'Jardines del restaurante', 'Foto', '2024-02-05', 'A', 5);
+VALUES ('https://bit.ly/4fMxoFd', 'Jardines del restaurante', 'Foto', '2024-02-05', 'A', 5);
 
 INSERT INTO Galeria (url_imagen, descripcion, tipo_imagen, fecha_subida, estado, id_oferta) 
-VALUES ('https://example.com/marisqueria_boca_del_rio.jpg', 'Vista del comedor frente al mar', 'Foto', '2024-02-06', 'A', 6);
+VALUES ('https://bit.ly/4fMxoFd', 'Vista del comedor frente al mar', 'Foto', '2024-02-06', 'A', 6);
 
 INSERT INTO Galeria (url_imagen, descripcion, tipo_imagen, fecha_subida, estado, id_oferta) 
-VALUES ('https://example.com/festival_valle_viejo.jpg', 'Escenario principal del festival', 'Foto', '2024-02-07', 'A', 7);
+VALUES ('https://bit.ly/4fMxoFd', 'Escenario principal del festival', 'Foto', '2024-02-07', 'A', 7);
 
 INSERT INTO Galeria (url_imagen, descripcion, tipo_imagen, fecha_subida, estado, id_oferta) 
-VALUES ('https://example.com/carnaval_tacna.jpg', 'Desfile principal del carnaval', 'Foto', '2024-02-08', 'A', 8);
+VALUES ('https://bit.ly/4fMxoFd', 'Desfile principal del carnaval', 'Foto', '2024-02-08', 'A', 8);
 
 INSERT INTO Galeria (url_imagen, descripcion, tipo_imagen, fecha_subida, estado, id_oferta) 
-VALUES ('https://example.com/parque_alto_de_la_alianza.jpg', 'Monumento en el parque', 'Foto', '2024-02-09', 'A', 10);
+VALUES ('https://bit.ly/4fMxoFd', 'Monumento en el parque', 'Foto', '2024-02-09', 'A', 10);
 
 INSERT INTO Galeria (url_imagen, descripcion, tipo_imagen, fecha_subida, estado, id_oferta) 
-VALUES ('https://example.com/complejo_miculla.jpg', 'Petroglifos en el complejo arqueol�gico', 'Foto', '2024-02-10', 'A', 11);
+VALUES ('https://bit.ly/4fMxoFd', 'Petroglifos en el complejo arqueol�gico', 'Foto', '2024-02-10', 'A', 11);
 
 
 
@@ -389,31 +435,31 @@ VALUES ('Sugerencia de a�adir m�s iluminaci�n en el sitio.', '2024-03-10',
 -- Tabla Foto de Comentario
 
 INSERT INTO Foto_Comentario (url_foto, descripcion, fecha_subida, estado, id_comentario) 
-VALUES ('https://example.com/foto_hotel_tacna_plaza.jpg', 'Fachada del hotel visitado.', '2024-03-10', 'A', 1);
+VALUES ('https://bit.ly/4fMxoFd', 'Fachada del hotel visitado.', '2024-03-10', 'A', 1);
 
 INSERT INTO Foto_Comentario (url_foto, descripcion, fecha_subida, estado, id_comentario) 
-VALUES ('https://example.com/foto_hostal_valle_viejo.jpg', 'Vista desde la habitaci�n.', '2024-03-11', 'A', 2);
+VALUES ('https://bit.ly/4fMxoFd', 'Vista desde la habitaci�n.', '2024-03-11', 'A', 2);
 
 INSERT INTO Foto_Comentario (url_foto, descripcion, fecha_subida, estado, id_comentario) 
-VALUES ('https://example.com/foto_hotel_vista_del_mar.jpg', 'Vista al mar desde el hotel.', '2024-03-12', 'A', 3);
+VALUES ('https://bit.ly/4fMxoFd', 'Vista al mar desde el hotel.', '2024-03-12', 'A', 3);
 
 INSERT INTO Foto_Comentario (url_foto, descripcion, fecha_subida, estado, id_comentario) 
-VALUES ('https://example.com/foto_restaurante_el_fogon.jpg', 'Asado servido en el restaurante.', '2024-03-13', 'A', 4);
+VALUES ('https://bit.ly/4fMxoFd', 'Asado servido en el restaurante.', '2024-03-13', 'A', 4);
 
 INSERT INTO Foto_Comentario (url_foto, descripcion, fecha_subida, estado, id_comentario) 
-VALUES ('https://example.com/foto_casona_valle.jpg', 'Vista del jard�n del restaurante.', '2024-03-14', 'A', 5);
+VALUES ('https://bit.ly/4fMxoFd', 'Vista del jard�n del restaurante.', '2024-03-14', 'A', 5);
 
 INSERT INTO Foto_Comentario (url_foto, descripcion, fecha_subida, estado, id_comentario) 
-VALUES ('https://example.com/foto_marisqueria_boca.jpg', 'Comedor frente al mar.', '2024-03-15', 'A', 6);
+VALUES ('https://bit.ly/4fMxoFd', 'Comedor frente al mar.', '2024-03-15', 'A', 6);
 
 INSERT INTO Foto_Comentario (url_foto, descripcion, fecha_subida, estado, id_comentario) 
-VALUES ('https://example.com/foto_festival_valle.jpg', 'Escenario del festival.', '2024-03-16', 'A', 7);
+VALUES ('https://bit.ly/4fMxoFd', 'Escenario del festival.', '2024-03-16', 'A', 7);
 
 INSERT INTO Foto_Comentario (url_foto, descripcion, fecha_subida, estado, id_comentario) 
-VALUES ('https://example.com/foto_carnaval_tacna.jpg', 'Carro aleg�rico en el carnaval.', '2024-03-17', 'A', 8);
+VALUES ('https://bit.ly/4fMxoFd', 'Carro aleg�rico en el carnaval.', '2024-03-17', 'A', 8);
 
 INSERT INTO Foto_Comentario (url_foto, descripcion, fecha_subida, estado, id_comentario) 
-VALUES ('https://example.com/foto_parque_alianza.jpg', 'Monumento en el Parque Alto de la Alianza.', '2024-03-18', 'A', 10);
+VALUES ('https://bit.ly/4fMxoFd', 'Monumento en el Parque Alto de la Alianza.', '2024-03-18', 'A', 10);
 
 INSERT INTO Foto_Comentario (url_foto, descripcion, fecha_subida, estado, id_comentario) 
-VALUES ('https://example.com/foto_miculla.jpg', 'Petroglifo en Miculla.', '2024-03-19', 'A', 10);
+VALUES ('https://bit.ly/4fMxoFd', 'Petroglifo en Miculla.', '2024-03-19', 'A', 10);
