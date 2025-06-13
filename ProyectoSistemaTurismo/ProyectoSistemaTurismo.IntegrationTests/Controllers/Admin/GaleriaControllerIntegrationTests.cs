@@ -88,6 +88,44 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
             Assert.IsNotNull(result.ViewBag.Ofertas);
         }
 
+        [TestMethod]
+        public async Task Crear_Post_ImagenValidaYArchivo_RedireccionaAIndex()
+        {
+            var controller = new GaleriaController();
+
+            var galeria = new Galeria
+            {
+                descripcion = "Imagen test integración",
+                tipo_imagen = "JPEG",
+                fecha_subida = DateTime.Now,
+                estado = "A",
+                id_oferta = 1 // Debe existir oferta 1
+            };
+
+            var archivoMock = new Mock<HttpPostedFileBase>();
+            archivoMock.Setup(f => f.ContentLength).Returns(100);
+            archivoMock.Setup(f => f.FileName).Returns("foto.jpg");
+            archivoMock.Setup(f => f.InputStream).Returns(new MemoryStream(new byte[100]));
+            archivoMock.Setup(f => f.ContentType).Returns("image/jpeg");
+
+            // Cambiar el mock del servicio
+            var dataValidationMock = new Mock<ProyectoSistemaTurismo.Service.DataValidationService>();
+            dataValidationMock.Setup(f => f.ValidarArchivoImagen(It.IsAny<HttpPostedFileBase>())).Returns((string)null);
+
+            // Inyectar el mock en el controlador
+            typeof(GaleriaController)
+                .GetField("_dataValidationService", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .SetValue(controller, dataValidationMock.Object);
+
+            var result = await controller.Crear(galeria, archivoMock.Object) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Mensaje"]);
+        }
+
+
+        /*
         /// <summary>
         /// Verifica que Crear (POST) con datos válidos y archivo válido redirecciona a Index.
         /// </summary>
@@ -124,6 +162,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
             Assert.AreEqual("Index", result.RouteValues["action"]);
             Assert.IsNotNull(controller.TempData["Mensaje"]);
         }
+        */
 
         /// <summary>
         /// Verifica que Crear (POST) sin archivo retorna a Index y muestra error.
@@ -204,6 +243,43 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
 
+        [TestMethod]
+        public async Task Editar_Post_DatosValidosYArchivo_RedireccionaAIndex()
+        {
+            var controller = new GaleriaController();
+
+            int idImagen = 1;
+            var imagenExistente = controller.Detalles(idImagen) as ViewResult;
+            var galeria = imagenExistente?.Model as Galeria;
+            if (galeria == null) Assert.Inconclusive("No existe la imagen a editar para la prueba.");
+
+            galeria.descripcion = "Imagen editada";
+            galeria.estado = "A";
+
+            var archivoMock = new Mock<HttpPostedFileBase>();
+            archivoMock.Setup(f => f.ContentLength).Returns(100);
+            archivoMock.Setup(f => f.FileName).Returns("editada.jpg");
+            archivoMock.Setup(f => f.InputStream).Returns(new MemoryStream(new byte[100]));
+            archivoMock.Setup(f => f.ContentType).Returns("image/jpeg");
+
+            // Cambiar el mock del servicio
+            var dataValidationMock = new Mock<ProyectoSistemaTurismo.Service.DataValidationService>();
+            dataValidationMock.Setup(f => f.ValidarArchivoImagen(It.IsAny<HttpPostedFileBase>())).Returns((string)null);
+
+            // Inyectar el mock en el controlador
+            typeof(GaleriaController)
+                .GetField("_dataValidationService", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .SetValue(controller, dataValidationMock.Object);
+
+            var result = await controller.Editar(galeria, archivoMock.Object) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+            Assert.IsNotNull(controller.TempData["Mensaje"]);
+        }
+
+
+        /*
         /// <summary>
         /// Verifica que Editar (POST) con datos válidos y archivo válido redirecciona a Index.
         /// </summary>
@@ -239,6 +315,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers.Admin
             Assert.AreEqual("Index", result.RouteValues["action"]);
             Assert.IsNotNull(controller.TempData["Mensaje"]);
         }
+        */
 
         /// <summary>
         /// Verifica que Editar (POST) con datos inválidos redirecciona a Index y muestra error.

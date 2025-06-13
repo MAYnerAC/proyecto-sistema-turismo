@@ -132,6 +132,52 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers
             archivoMock.Setup(f => f.FileName).Returns("foto.jpg");
             archivoMock.Setup(f => f.InputStream).Returns(new MemoryStream(new byte[100]));
 
+            // Cambiar el mock del servicio a DataValidationService
+            var dataValidationMock = new Mock<ProyectoSistemaTurismo.Service.DataValidationService>();
+            dataValidationMock.Setup(f => f.ValidarArchivoImagen(It.IsAny<HttpPostedFileBase>())).Returns((string)null);  // No hay error, es válido
+
+            // Inyectar el mock del servicio en el controlador
+            typeof(ComentariosController)
+                .GetField("_dataValidationService", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .SetValue(controller, dataValidationMock.Object);
+
+            // Configurar el mock de Firebase para la subida de archivo (si sigue siendo necesario en el controlador)
+            var firebaseMock = new Mock<ProyectoSistemaTurismo.Service.FirebaseStorageService>();
+            firebaseMock.Setup(f => f.SubirArchivo(It.IsAny<HttpPostedFileBase>())).ReturnsAsync("https://fakeurl.com/foto.jpg");  // URL simulada de la imagen subida
+            typeof(ComentariosController)
+                .GetField("_firebaseStorageService", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .SetValue(controller, firebaseMock.Object);
+
+            var result = await controller.AgregarFoto(fotoComentario, archivoMock.Object) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Detalles", result.RouteValues["action"]);
+            Assert.AreEqual("Comentarios", result.RouteValues["controller"]);
+            Assert.AreEqual(1, result.RouteValues["id"]);
+        }
+
+
+        /*
+        /// <summary>
+        /// Verifica que AgregarFoto (POST) con datos válidos y archivo válido redirecciona a Detalles.
+        /// </summary>
+        [TestMethod]
+        public async Task AgregarFoto_DatosYArchivoValidos_RedireccionaADetalles()
+        {
+            var controller = new ComentariosController();
+
+            var fotoComentario = new Foto_Comentario
+            {
+                id_comentario = 1,
+                descripcion = "Foto válida"
+            };
+
+            // Simula archivo válido
+            var archivoMock = new Mock<HttpPostedFileBase>();
+            archivoMock.Setup(f => f.ContentLength).Returns(100);
+            archivoMock.Setup(f => f.FileName).Returns("foto.jpg");
+            archivoMock.Setup(f => f.InputStream).Returns(new MemoryStream(new byte[100]));
+
             // Simula que la subida a Firebase siempre devuelve una URL dummy
             var firebaseMock = new Mock<ProyectoSistemaTurismo.Service.FirebaseStorageService>();
             firebaseMock.Setup(f => f.ValidarArchivoImagen(It.IsAny<HttpPostedFileBase>())).Returns((string)null);
@@ -147,6 +193,7 @@ namespace ProyectoSistemaTurismo.IntegrationTests.Controllers
             Assert.AreEqual("Comentarios", result.RouteValues["controller"]);
             Assert.AreEqual(1, result.RouteValues["id"]);
         }
+        */
 
         /// <summary>
         /// Verifica que AgregarFoto (POST) con datos inválidos redirecciona a Detalles.

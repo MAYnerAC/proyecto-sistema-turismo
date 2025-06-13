@@ -4,18 +4,17 @@ using System;
 using Moq;
 using ProyectoSistemaTurismo.Service;
 using System.Web;
-//using Firebase.Storage;
 
 namespace ProyectoSistemaTurismo.Tests.Unit.Service
 {
     /// <summary>
-    /// Pruebas unitarias para la clase <see cref="FirebaseStorageService"/>.
-    /// Valida la lógica de validación de archivos para subida a Firebase Storage.
+    /// Pruebas unitarias para la clase <see cref="DataValidationServiceTests"/>.
+    /// Valida la lógica de validación de archivos para subida al Storage.
     /// </summary>
     [TestClass]
-    public class FirebaseStorageServiceTests
+    public class DataValidationServiceTests
     {
-        /*
+
         /// <summary>
         /// Prueba que el validador rechaza archivos no permitidos.
         /// </summary>
@@ -27,7 +26,7 @@ namespace ProyectoSistemaTurismo.Tests.Unit.Service
             fileMock.Setup(f => f.ContentType).Returns("application/pdf");
             fileMock.Setup(f => f.ContentLength).Returns(1000);
 
-            var service = new FirebaseStorageService();
+            var service = new DataValidationService();
 
             // Act
             var result = service.ValidarArchivoImagen(fileMock.Object);
@@ -46,7 +45,7 @@ namespace ProyectoSistemaTurismo.Tests.Unit.Service
             fileMock.Setup(f => f.ContentType).Returns("image/jpeg");
             fileMock.Setup(f => f.ContentLength).Returns(6 * 1024 * 1024); // 6 MB
 
-            var service = new FirebaseStorageService();
+            var service = new DataValidationService();
 
             var result = service.ValidarArchivoImagen(fileMock.Object);
 
@@ -63,15 +62,15 @@ namespace ProyectoSistemaTurismo.Tests.Unit.Service
             fileMock.Setup(f => f.ContentType).Returns("image/png");
             fileMock.Setup(f => f.ContentLength).Returns(1024 * 1024); // 1 MB
 
-            var service = new FirebaseStorageService();
+            var service = new DataValidationService();
 
             var result = service.ValidarArchivoImagen(fileMock.Object);
 
             Assert.IsNull(result); // null = válido
         }
-        */
 
 
         //
+
     }
 }

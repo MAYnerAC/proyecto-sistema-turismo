@@ -25,12 +25,16 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
         private readonly GaleriaService _galeriaService;
         private readonly OfertaService _ofertaService;
         private readonly FirebaseStorageService _firebaseStorageService;
+        private readonly DataValidationService _dataValidationService;
+
 
         public GaleriaController()
         {
             _galeriaService = new GaleriaService(new ModeloSistema());
             _ofertaService = new OfertaService(new ModeloSistema());
             _firebaseStorageService = new FirebaseStorageService(); // Solo si no necesita contexto
+            _dataValidationService = new DataValidationService();
+
         }
 
         public ActionResult Index()
@@ -69,7 +73,7 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
                     //string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
                     //galeria.url_imagen = "https://firebasestorage.googleapis.com/v0/b/tu-proyecto.appspot.com/o/" + Uri.EscapeDataString(nombreArchivo);
 
-                    if ((TempData["Error"] = _firebaseStorageService.ValidarArchivoImagen(archivoImagen)) != null)
+                    if ((TempData["Error"] = _dataValidationService.ValidarArchivoImagen(archivoImagen)) != null)
                     {
                         return RedirectToAction("Index");
                     }
@@ -121,7 +125,7 @@ namespace ProyectoSistemaTurismo.Areas.Proveedor.Controllers
                     //string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
                     //galeria.url_imagen = "https://firebasestorage.googleapis.com/v0/b/tu-proyecto.appspot.com/o/" + Uri.EscapeDataString(nombreArchivo);
 
-                    if ((TempData["Error"] = _firebaseStorageService.ValidarArchivoImagen(archivoImagen)) != null)
+                    if ((TempData["Error"] = _dataValidationService.ValidarArchivoImagen(archivoImagen)) != null)
                     {
                         return RedirectToAction("Index");
                     }

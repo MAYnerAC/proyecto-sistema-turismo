@@ -22,12 +22,15 @@ namespace ProyectoSistemaTurismo.Controllers
         private readonly ComentarioService _comentarioService;
         private readonly Foto_ComentarioService _fotoComentarioService;
         private readonly FirebaseStorageService _firebaseStorageService;
+        private readonly DataValidationService _dataValidationService;
+
 
         public ComentariosController()
         {
             _comentarioService = new ComentarioService(new ModeloSistema());
             _fotoComentarioService = new Foto_ComentarioService(new ModeloSistema());
             _firebaseStorageService = new FirebaseStorageService(); // solo si no requiere contexto
+            _dataValidationService = new DataValidationService();
         }
 
 
@@ -79,7 +82,7 @@ namespace ProyectoSistemaTurismo.Controllers
                     //string nombreArchivo = Path.GetFileName(archivoImagen.FileName);
                     //fotoComentario.url_foto = "https://firebasestorage.googleapis.com/v0/" + Uri.EscapeDataString(nombreArchivo);
 
-                    if ((TempData["Error"] = _firebaseStorageService.ValidarArchivoImagen(archivoImagen)) != null)
+                    if ((TempData["Error"] = _dataValidationService.ValidarArchivoImagen(archivoImagen)) != null)
                     {
                         return RedirectToAction("Detalles", "Comentarios", new { id = fotoComentario.id_comentario });
                     }
