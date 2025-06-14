@@ -25,17 +25,25 @@ namespace ProyectoSistemaTurismo.Service
         {
             //Env.Load();
             //Env.TraversePath().Load();
-            //Env.Load(@"C:\Users\OVALTECH\Downloads\envdata\.env");
-            Env.Load(@"C:\WorkSpace\proyecto-sistema-turismo\ProyectoSistemaTurismo\ProyectoSistemaTurismo\.env");
 
-            var cloudinaryUrl = Env.GetString("CLOUDINARY_URL");
-            var account = new Account(cloudinaryUrl);
-            Debug.WriteLine($"Cloudinary URL: {cloudinaryUrl}");
-            Debug.WriteLine($"Cloudinary URL: {cloudinaryUrl}");
-            Debug.WriteLine($"Cloudinary URL: {account}");
+            //Env.Load(@"C:\WorkSpace\proyecto-sistema-turismo\ProyectoSistemaTurismo\ProyectoSistemaTurismo\.env");
 
-            var texto1 = Env.GetString("MY_TEXT_VARIABLE");
-            Debug.WriteLine($"Texto: {texto1}");
+            // Obtén la ruta de la raíz de la solución
+            string solutionRoot = AppDomain.CurrentDomain.BaseDirectory;    // Raiz
+            string envFilePath = Path.Combine(solutionRoot, ".env");        // Archivo .env
+
+            // Carga el archivo .env
+            Env.Load(envFilePath);
+
+
+
+            //var cloudinaryUrl = Env.GetString("CLOUDINARY_URL");
+            //var account = new Account(cloudinaryUrl);
+
+            string cloudName = Env.GetString("CLOUD_NAME");
+            string apiKey = Env.GetString("API_KEY");
+            string apiSecret = Env.GetString("API_SECRET");
+            var account = new Account(cloudName, apiKey, apiSecret);
 
             _cloudinary = new Cloudinary(account);
         }
@@ -55,15 +63,12 @@ namespace ProyectoSistemaTurismo.Service
                     Folder = "turismo_images", // Directorio en Cloudinary
                 };
 
-                Debug.WriteLine($"Upload Params: Folder={uploadParams.Folder}, File={uploadParams.File.FileName}");//
-
-
                 // Subir el archivo a Cloudinary
-                //var uploadResult = await Task.Run(() => _cloudinary.Upload(uploadParams));
-                var uploadResult = _cloudinary.Upload(uploadParams);//////////
+                var uploadResult = await Task.Run(() => _cloudinary.Upload(uploadParams));
+                //var uploadResult = _cloudinary.Upload(uploadParams);//////////
 
                 //var uploadResult = await _cloudinary.Upload(uploadParams);/////////////////////
-
+                /*
                 if (uploadResult != null)
                 {
                     return uploadResult.SecureUrl.ToString();
@@ -72,14 +77,15 @@ namespace ProyectoSistemaTurismo.Service
                 {
                     throw new Exception("Upload failed. The result is null.");
                 }
-
+                */
                 // Retornar la URL segura del archivo subido
+
                 return uploadResult.SecureUrl.ToString();
+
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Debug.WriteLine($"Error during file upload: {ex.Message}");
-                Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
+                //Debug.WriteLine($"Error: {ex.Message}");
 
                 // Retornar una URL falsa (simulación)
                 string nombreArchivo = Path.GetFileName(archivo.FileName);
