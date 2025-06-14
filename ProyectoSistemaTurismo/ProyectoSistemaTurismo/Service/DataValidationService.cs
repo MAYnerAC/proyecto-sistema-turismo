@@ -15,7 +15,7 @@ namespace ProyectoSistemaTurismo.Service
         /// <returns>Mensaje de error si no es válido, o null si es válido</returns>
         public virtual string ValidarArchivoImagen(HttpPostedFileBase archivoImagen)
         {
-            string[] tiposPermitidos = { "image/jpeg", "image/png" };
+            string[] tiposPermitidos = { "image/jpeg", "image/png" };//, "image/gif", "image/webp"
             int tamañoMaximoMB = 5;  // Tamaño máximo 5MB // Es 4 por defecto en "<system.web>"
 
             // Tipo de archivo

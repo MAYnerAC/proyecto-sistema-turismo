@@ -23,23 +23,14 @@ namespace ProyectoSistemaTurismo.Service
         // Constructor del objeto Cloudinary con las credenciales
         public CloudinaryStorageService()
         {
-            //Env.Load();
-            //Env.TraversePath().Load();
-
-            //Env.Load(@"C:\WorkSpace\proyecto-sistema-turismo\ProyectoSistemaTurismo\ProyectoSistemaTurismo\.env");
-
-            // Obtén la ruta de la raíz de la solución
             string solutionRoot = AppDomain.CurrentDomain.BaseDirectory;    // Raiz
             string envFilePath = Path.Combine(solutionRoot, ".env");        // Archivo .env
 
-            // Carga el archivo .env
+            // Cargar el archivo .env
             Env.Load(envFilePath);
-
-
 
             //var cloudinaryUrl = Env.GetString("CLOUDINARY_URL");
             //var account = new Account(cloudinaryUrl);
-
             string cloudName = Env.GetString("CLOUD_NAME");
             string apiKey = Env.GetString("API_KEY");
             string apiSecret = Env.GetString("API_SECRET");
@@ -64,21 +55,8 @@ namespace ProyectoSistemaTurismo.Service
                 };
 
                 // Subir el archivo a Cloudinary
-                var uploadResult = await Task.Run(() => _cloudinary.Upload(uploadParams));
-                //var uploadResult = _cloudinary.Upload(uploadParams);//////////
-
-                //var uploadResult = await _cloudinary.Upload(uploadParams);/////////////////////
-                /*
-                if (uploadResult != null)
-                {
-                    return uploadResult.SecureUrl.ToString();
-                }
-                else
-                {
-                    throw new Exception("Upload failed. The result is null.");
-                }
-                */
-                // Retornar la URL segura del archivo subido
+                //var uploadResult = await Task.Run(() => _cloudinary.Upload(uploadParams));
+                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
 
                 return uploadResult.SecureUrl.ToString();
 
