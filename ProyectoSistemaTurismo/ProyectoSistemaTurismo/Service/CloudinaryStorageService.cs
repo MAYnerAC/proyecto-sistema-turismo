@@ -23,12 +23,6 @@ namespace ProyectoSistemaTurismo.Service
         // Constructor del objeto Cloudinary con las credenciales
         public CloudinaryStorageService()
         {
-            string solutionRoot = AppDomain.CurrentDomain.BaseDirectory;    // Raiz
-            string envFilePath = Path.Combine(solutionRoot, ".env");        // Archivo .env
-
-            // Cargar el archivo .env
-            Env.Load(envFilePath);
-
             //var cloudinaryUrl = Env.GetString("CLOUDINARY_URL");
             //var account = new Account(cloudinaryUrl);
             string cloudName = Env.GetString("CLOUD_NAME");
