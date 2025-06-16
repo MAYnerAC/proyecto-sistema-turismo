@@ -69,6 +69,8 @@ namespace ProyectoSistemaTurismo.Controllers
             ViewBag.Galeria = galeria;
             ViewBag.Etiquetas = etiquetas;
 
+            ViewBag.UsarMapbox = false;
+
             return View(oferta);
         }
 

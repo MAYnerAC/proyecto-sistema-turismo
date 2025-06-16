@@ -231,122 +231,98 @@
         <div class="row">
 
 
-            <div class="col-lg-6">
-                <div class="section-heading">
-                    <h2>Ubicacion</h2>
-                </div>
-                <p>Visualiza la ubicación de esta oferta en el mapa. Puedes hacer zoom o mover el mapa para explorar más detalles.</p>
-            </div>
-
 
             @if (Session["id_usuario"] != null)
             {
+                <div class="col-lg-12 mt-4">
+                    <h4>Ubicación en el mapa</h4>
+                    <p>Visualiza la ubicación de esta oferta en el mapa. Puedes hacer zoom o mover el mapa para explorar más detalles.</p>
 
-                <div id="map" style="height: 500px; width: 100%;"></div>
+                    <div id="map" style="height: 500px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);"></div>
 
+                </div>
 
-
-
-                <script>
-                function initMap() {
-                    // Obtener la ubicación del usuario
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function(position) {
-                            var latitudUsuario = position.coords.latitude;
-                            var longitudUsuario = position.coords.longitude;
-
-                            // Coordenadas de la oferta desde el modelo
-                            var latitudOferta = @Model.ubicacion_lat;
-                            var longitudOferta = @Model.ubicacion_lon;
-                            var nombreOferta = "@Model.nombre"; // Nombre de la oferta
-                            var direccionOferta = "@Model.direccion"; // Dirección de la oferta
-
-                            // Crear el mapa centrado en la ubicación del usuario
-                            var mapa = new google.maps.Map(document.getElementById("map"), {
-                                zoom: 14,
-                                center: { lat: latitudUsuario, lng: longitudUsuario }
-                            });
-
-                            // Crear un marcador para la ubicación del usuario
-                            var marcadorUsuario = new google.maps.Marker({
-                                position: { lat: latitudUsuario, lng: longitudUsuario },
-                                map: mapa,
-                                title: "Tu Ubicación"
-                            });
-
-                            // Crear un marcador para la oferta con nombre y dirección
-                            var marcadorOferta = new google.maps.Marker({
-                                position: { lat: latitudOferta, lng: longitudOferta },
-                                map: mapa,
-                                title: nombreOferta // Título más informativo
-                            });
-
-                            // Añadir un infoWindow con la dirección de la oferta
-                            var infowindow = new google.maps.InfoWindow({
-                                content: "<strong>" + nombreOferta + "</strong><br>" + direccionOferta
-                            });
-
-                            // Abrir el infoWindow cuando el marcador de la oferta es clickeado
-                            marcadorOferta.addListener("click", function() {
-                                infowindow.open(mapa, marcadorOferta);
-                            });
-
-                            // Calcular la ruta entre la ubicación del usuario y la oferta
-                            var directionsService = new google.maps.DirectionsService();
-                            var directionsRenderer = new google.maps.DirectionsRenderer();
-                            directionsRenderer.setMap(mapa);
-
-                            var request = {
-                                origin: { lat: latitudUsuario, lng: longitudUsuario },
-                                destination: { lat: latitudOferta, lng: longitudOferta },
-                                travelMode: google.maps.TravelMode.DRIVING
-                            };
-
-                            directionsService.route(request, function(result, status) {
-                                if (status === google.maps.DirectionsStatus.OK) {
-                                    directionsRenderer.setDirections(result);
-                                }
-                            });
-                        }, function() {
-                            // Si el usuario deniega el permiso de geolocalización o hay un error
-                            alert("No se puede obtener tu ubicación. Por favor, habilita la geolocalización.");
-                        });
-                    } else {
-                        alert("La geolocalización no está soportada por este navegador.");
-                    }
+                if (ViewBag.UsarMapbox == true)
+                {
+                    <!-- Code para Mapbox -->
                 }
-                </script>
+                else
+                {
+                    <!-- === LEAFLET + OPENSTREETMAP === -->
+                    <!--
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+                    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+                    -->
+
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+                    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var latOferta = @Model.ubicacion_lat;
+                            var lonOferta = @Model.ubicacion_lon;
+                            var nombre = "@Model.nombre";
+                            var direccion = "@Model.direccion";
+
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(function (position) {
+                                    var latUser = position.coords.latitude;
+                                    var lonUser = position.coords.longitude;
 
 
+                                    // Imprimir en consola
+                                    //console.log("Latitud del usuario:", latUser);
+                                    //console.log("Longitud del usuario:", lonUser);
 
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBf3-6IsVkMMm6G0L0XvV7NyH-Dcb2Kdio&callback=initMap&loading=async" async defer></script>
+                                    // También puedes mostrarlo en pantalla temporalmente:
+                                    //const debug = document.createElement('div');
+                                    //debug.style.marginTop = '1em';
+                                    //debug.innerHTML = `<strong>Tu ubicación detectada:</strong><br>
+                                    //                   Latitud: ${latUser} <br>
+                                    //                   Longitud: ${lonUser}`;
+                                    //document.body.appendChild(debug);
+                                    //
+
+                                    var map = L.map('map').setView([latUser, lonUser], 14);
+
+                                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                        attribution: '&copy; OpenStreetMap contributors'
+                                    }).addTo(map);
+
+                                    // Marcador: Usuario
+                                    L.marker([latUser, lonUser]).addTo(map)
+                                        .bindPopup("Tu ubicación").openPopup();
+
+                                    // Marcador: Oferta
+                                    L.marker([latOferta, lonOferta]).addTo(map)
+                                        .bindPopup("<b>" + nombre + "</b><br>" + direccion);
+
+                                    // Línea recta entre el usuario y la oferta
+                                    L.polyline([[latUser, lonUser], [latOferta, lonOferta]], {
+                                        color: 'blue',
+                                        weight: 4,
+                                        opacity: 0.7,
+                                        dashArray: '6, 6'
+                                    }).addTo(map);
 
 
+                                    //Agregar mas aqui?
+
+                                  }, function () { alert("No se pudo obtener tu ubicación."); });
 
 
+                            } else {
+                                alert("Tu navegador no soporta geolocalización.");
+                            }
+                        });
+                    </script>
+
+                }
             }
             else
             {
-
-
-                <div class="col-lg-12">
-                    @{
-                        var lat = Model.ubicacion_lat;
-                        var lon = Model.ubicacion_lon;
-                        var mapUrl = "https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3794.4338854214593!2d" + lon + "!3d" + lat + "!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1supt!5e0!3m2!1ses!2spe!4v1732965686197!5m2!1ses!2spe";
-                    }
-
-                    <iframe src="@mapUrl"
-                            width="100%"
-                            height="500px"
-                            frameborder="0"
-                            style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);"
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-
-
+                <div class="alert alert-warning mt-4">
+                    <strong>¡Atención!</strong> Para visualizar el mapa debes iniciar sesión.
                 </div>
             }
 
@@ -355,3 +331,118 @@
         </div>
     </div>
 </div>
+
+
+
+@*
+    @if (Session["id_usuario"] != null)
+    {
+
+        <div id="map" style="height: 500px; width: 100%;"></div>
+
+
+
+
+        <script>
+        function initMap() {
+            // Obtener la ubicación del usuario
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitudUsuario = position.coords.latitude;
+                    var longitudUsuario = position.coords.longitude;
+
+                    // Coordenadas de la oferta desde el modelo
+                    var latitudOferta = @Model.ubicacion_lat;
+                    var longitudOferta = @Model.ubicacion_lon;
+                    var nombreOferta = "@Model.nombre"; // Nombre de la oferta
+                    var direccionOferta = "@Model.direccion"; // Dirección de la oferta
+
+                    // Crear el mapa centrado en la ubicación del usuario
+                    var mapa = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 14,
+                        center: { lat: latitudUsuario, lng: longitudUsuario }
+                    });
+
+                    // Crear un marcador para la ubicación del usuario
+                    var marcadorUsuario = new google.maps.Marker({
+                        position: { lat: latitudUsuario, lng: longitudUsuario },
+                        map: mapa,
+                        title: "Tu Ubicación"
+                    });
+
+                    // Crear un marcador para la oferta con nombre y dirección
+                    var marcadorOferta = new google.maps.Marker({
+                        position: { lat: latitudOferta, lng: longitudOferta },
+                        map: mapa,
+                        title: nombreOferta // Título más informativo
+                    });
+
+                    // Añadir un infoWindow con la dirección de la oferta
+                    var infowindow = new google.maps.InfoWindow({
+                        content: "<strong>" + nombreOferta + "</strong><br>" + direccionOferta
+                    });
+
+                    // Abrir el infoWindow cuando el marcador de la oferta es clickeado
+                    marcadorOferta.addListener("click", function() {
+                        infowindow.open(mapa, marcadorOferta);
+                    });
+
+                    // Calcular la ruta entre la ubicación del usuario y la oferta
+                    var directionsService = new google.maps.DirectionsService();
+                    var directionsRenderer = new google.maps.DirectionsRenderer();
+                    directionsRenderer.setMap(mapa);
+
+                    var request = {
+                        origin: { lat: latitudUsuario, lng: longitudUsuario },
+                        destination: { lat: latitudOferta, lng: longitudOferta },
+                        travelMode: google.maps.TravelMode.DRIVING
+                    };
+
+                    directionsService.route(request, function(result, status) {
+                        if (status === google.maps.DirectionsStatus.OK) {
+                            directionsRenderer.setDirections(result);
+                        }
+                    });
+                }, function() {
+                    // Si el usuario deniega el permiso de geolocalización o hay un error
+                    alert("No se puede obtener tu ubicación. Por favor, habilita la geolocalización.");
+                });
+            } else {
+                alert("La geolocalización no está soportada por este navegador.");
+            }
+        }
+        </script>
+
+
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=MYAPIKEYSECRETA&callback=initMap&loading=async" async defer></script>
+
+
+
+
+    }
+    else
+    {
+
+
+        <div class="col-lg-12">
+            @{
+                var lat = Model.ubicacion_lat;
+                var lon = Model.ubicacion_lon;
+                var mapUrl = "https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3794.4338854214593!2d" + lon + "!3d" + lat + "!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1supt!5e0!3m2!1ses!2spe!4v1732965686197!5m2!1ses!2spe";
+            }
+
+            <iframe src="@mapUrl"
+                    width="100%"
+                    height="500px"
+                    frameborder="0"
+                    style="border:0; border-radius: 10px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+
+
+        </div>
+    }
+*@
