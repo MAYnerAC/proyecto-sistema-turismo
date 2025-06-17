@@ -236,7 +236,7 @@
             {
                 <div class="col-lg-12 mt-4">
                     <h4>Ubicación en el mapa</h4>
-                    <p>Visualiza la ubicación de esta oferta en el mapa. Puedes hacer zoom o mover el mapa para explorar más detalles.</p>
+                    <p id="textoUbicacion">Visualiza la ubicación de esta oferta en el mapa. Puedes hacer zoom o mover el mapa para explorar más detalles.</p>
 
                     <div id="map" style="height: 500px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);"></div>
 
@@ -253,6 +253,10 @@
                     <!-- Leaflet https://leafletjs.com/download.html-->
                     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
                     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+                    <!-- Leaflet Control Geocoder https://www.jsdelivr.com/package/npm/leaflet-control-geocoder -->
+                    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+                    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 
                     <script>
@@ -297,27 +301,44 @@
                                     attribution: '&copy; OpenStreetMap contributors'
                                 }).addTo(mapaSelector);
 
+                                // Añadir control de búsqueda (geocoder)
+                                L.Control.geocoder({
+                                    defaultMarkGeocode: false
+                                })
+                                    .on('markgeocode', function (e) {
+                                        var latlng = e.geocode.center;
+
+                                        // Centrar mapa y crear marcador
+                                        mapaSelector.setView(latlng, 15);
+                                        colocarMarcador(latlng);
+                                    })
+                                    .addTo(mapaSelector);
+
                                 var marcadorSeleccionado;
 
-                                mapaSelector.on('click', function (e) {
-                                    var latUser = e.latlng.lat;
-                                    var lonUser = e.latlng.lng;
+                                function colocarMarcador(latlng) {
+                                    var latUser = latlng.lat;
+                                    var lonUser = latlng.lng;
 
                                     if (marcadorSeleccionado) {
-                                        marcadorSeleccionado.setLatLng(e.latlng);
+                                        marcadorSeleccionado.setLatLng(latlng);
                                     } else {
-                                        marcadorSeleccionado = L.marker(e.latlng, { draggable: true }).addTo(mapaSelector);
+                                        marcadorSeleccionado = L.marker(latlng, { draggable: true }).addTo(mapaSelector);
                                     }
 
                                     marcadorSeleccionado.bindPopup("Has seleccionado esta ubicación").openPopup();
 
-                                    // Confirmar ubicación
                                     setTimeout(() => {
                                         if (confirm("¿Usar esta ubicación seleccionada?")) {
                                             mapDiv.innerHTML = '<div id="map" style="height: 500px;"></div>';
                                             inicializarMapa(latUser, lonUser);
                                         }
                                     }, 100);
+                                }
+
+                                // Selección por clic en el mapa
+                                mapaSelector.on('click', function (e) {
+                                    colocarMarcador(e.latlng);
                                 });
                             }
 
@@ -337,6 +358,14 @@
                                         }
                                     });
                             };
+
+                            // Cambiar el texto según el dispositivo
+                            const textoUbicacion = document.getElementById("textoUbicacion");
+                            if (esMovil()) {
+                                textoUbicacion.innerText = "MOVIL - Estamos usando tu ubicación actual para mostrar la ruta hacia la oferta.";
+                            } else {
+                                textoUbicacion.innerText = "WEB - Haz clic en el mapa para seleccionar tu ubicación actual y ver la ruta hacia la oferta.";
+                            }
 
                             // Decide automáticamente qué mostrar
                             if (esMovil() && navigator.geolocation) {
