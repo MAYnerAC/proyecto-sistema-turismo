@@ -236,9 +236,11 @@
             {
                 <div class="col-lg-12 mt-4">
                     <h4>Ubicación en el mapa</h4>
-                    <p id="textoUbicacion">Visualiza la ubicación de esta oferta en el mapa. Puedes hacer zoom o mover el mapa para explorar más detalles.</p>
+                    <p id="textoUbicacion" style="font-size: 1.1em; font-weight: 500; color: #333; margin-top: 10px;">
+                        Visualiza la ubicación de esta oferta en el mapa. Puedes hacer zoom o mover el mapa para explorar más detalles.
+                    </p>
 
-                    <div id="map" style="height: 500px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);"></div>
+                    <div id="map" style="height: 500px; margin-top: 0 !important; padding-top: 0 !important; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);"></div>
 
                 </div>
 
@@ -275,7 +277,15 @@
                             function inicializarMapa(latUser, lonUser) {
                                 mapDiv.innerHTML = ""; // limpiar si se cargó desde campo
 
-                                var map = L.map('map').setView([latUser, lonUser], 14);
+                                var map = L.map('map');
+
+                                // Ajustar zoom automático entre los dos puntos
+                                var bounds = L.latLngBounds([
+                                    [latUser, lonUser],
+                                    [latOferta, lonOferta]
+                                ]);
+                                map.fitBounds(bounds, { padding: [50, 50] });
+
 
                                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                                     attribution: '&copy; OpenStreetMap contributors'
@@ -330,8 +340,8 @@
                                         var latlng = e.geocode.center;
 
                                         // Centrar mapa y crear marcador
-                                        mapaSelector.setView(latlng, 15);
-                                        colocarMarcador(latlng); // Marcar automáticamente
+                                        mapaSelector.setView(latlng, 19);
+                                        //colocarMarcador(latlng); // Marcar automáticamente
                                     })
                                     .addTo(mapaSelector);
 
@@ -353,6 +363,11 @@
                                         if (confirm("¿Usar esta ubicación seleccionada?")) {
                                             mapDiv.innerHTML = '<div id="map" style="height: 500px;"></div>';
                                             inicializarMapa(latUser, lonUser);
+                                            // Cambiar estado del texto a correcto
+                                            textoUbicacion.innerHTML = `
+                                                <span style="background-color: #d4edda; padding: 8px; border-radius: 5px; display: inline-block;">
+                                                    <strong>Ubicación seleccionada.</strong> Mostramos la ruta desde la ubicación que seleccionaste hacia la oferta.
+                                                </span>`;
                                         }
                                     }, 100);
                                 }
@@ -383,9 +398,15 @@
                             // Cambiar el texto según el dispositivo
                             const textoUbicacion = document.getElementById("textoUbicacion");
                             if (esMovil()) {
-                                textoUbicacion.innerText = "MOVIL - Estamos usando tu ubicación actual para mostrar la ruta hacia la oferta.";
+                                textoUbicacion.innerHTML = `
+                                    <span style="background-color: #d4edda; padding: 8px; border-radius: 5px; display: inline-block;">
+                                        <strong>Ubicación detectada automáticamente.</strong> Mostramos la ruta desde tu ubicación actual hacia la oferta.
+                                    </span>`;
                             } else {
-                                textoUbicacion.innerText = "WEB - Haz clic en el mapa para seleccionar tu ubicación actual y ver la ruta hacia la oferta.";
+                                textoUbicacion.innerHTML = `
+                                    <span style="background-color: #fff3cd; padding: 8px; border-radius: 5px; display: inline-block;">
+                                        <strong>GPS no disponible en navegador web.</strong> Por favor, selecciona manualmente tu ubicación haciendo clic en el mapa.
+                                    </span>`;
                             }
 
                             // Decide automáticamente qué mostrar
