@@ -248,14 +248,12 @@
                 }
                 else
                 {
-                    <!-- === LEAFLET + OPENSTREETMAP === -->
-                    <!--
-                    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-                    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-                    -->
+                    <!-- LEAFLET + OPENSTREETMAP -->
 
+                    <!-- Leaflet https://leafletjs.com/download.html-->
                     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
                     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 
                     <script>
                         document.addEventListener("DOMContentLoaded", function () {
@@ -264,55 +262,91 @@
                             var nombre = "@Model.nombre";
                             var direccion = "@Model.direccion";
 
-                            if (navigator.geolocation) {
+                            const mapDiv = document.getElementById("map");
+
+                            function esMovil() {
+                                return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+                            }
+
+                            function inicializarMapa(latUser, lonUser) {
+                                mapDiv.innerHTML = ""; // limpiar si se cargó desde campo
+
+                                var map = L.map('map').setView([latUser, lonUser], 14);
+
+                                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                    attribution: '&copy; OpenStreetMap contributors'
+                                }).addTo(map);
+
+                                L.marker([latUser, lonUser]).addTo(map)
+                                    .bindPopup("Tu ubicación").openPopup();
+
+                                L.marker([latOferta, lonOferta]).addTo(map)
+                                    .bindPopup("<b>" + nombre + "</b><br>" + direccion);
+
+                                L.polyline([[latUser, lonUser], [latOferta, lonOferta]], {
+                                    color: 'blue', weight: 4, opacity: 0.7, dashArray: '6,6'
+                                }).addTo(map);
+                            }
+
+                            function mostrarFormularioManual() {
+                                mapDiv.innerHTML = '<div id="mapaSelector" style="height: 500px;"></div>';
+
+                                var mapaSelector = L.map('mapaSelector').setView([latOferta, lonOferta], 13);
+
+                                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                    attribution: '&copy; OpenStreetMap contributors'
+                                }).addTo(mapaSelector);
+
+                                var marcadorSeleccionado;
+
+                                mapaSelector.on('click', function (e) {
+                                    var latUser = e.latlng.lat;
+                                    var lonUser = e.latlng.lng;
+
+                                    if (marcadorSeleccionado) {
+                                        marcadorSeleccionado.setLatLng(e.latlng);
+                                    } else {
+                                        marcadorSeleccionado = L.marker(e.latlng, { draggable: true }).addTo(mapaSelector);
+                                    }
+
+                                    marcadorSeleccionado.bindPopup("Has seleccionado esta ubicación").openPopup();
+
+                                    // Confirmar ubicación
+                                    setTimeout(() => {
+                                        if (confirm("¿Usar esta ubicación seleccionada?")) {
+                                            mapDiv.innerHTML = '<div id="map" style="height: 500px;"></div>';
+                                            inicializarMapa(latUser, lonUser);
+                                        }
+                                    }, 100);
+                                });
+                            }
+
+                            window.buscarDireccion = function () {
+                                var direccion = document.getElementById("inputDireccion").value;
+
+                                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data && data.length > 0) {
+                                            var latUser = parseFloat(data[0].lat);
+                                            var lonUser = parseFloat(data[0].lon);
+                                            mapDiv.innerHTML = '<div id="map" style="height: 500px;"></div>';
+                                            inicializarMapa(latUser, lonUser);
+                                        } else {
+                                            alert("No se encontró la dirección.");
+                                        }
+                                    });
+                            };
+
+                            // Decide automáticamente qué mostrar
+                            if (esMovil() && navigator.geolocation) {
                                 navigator.geolocation.getCurrentPosition(function (position) {
-                                    var latUser = position.coords.latitude;
-                                    var lonUser = position.coords.longitude;
-
-
-                                    // Imprimir en consola
-                                    //console.log("Latitud del usuario:", latUser);
-                                    //console.log("Longitud del usuario:", lonUser);
-
-                                    // También puedes mostrarlo en pantalla temporalmente:
-                                    //const debug = document.createElement('div');
-                                    //debug.style.marginTop = '1em';
-                                    //debug.innerHTML = `<strong>Tu ubicación detectada:</strong><br>
-                                    //                   Latitud: ${latUser} <br>
-                                    //                   Longitud: ${lonUser}`;
-                                    //document.body.appendChild(debug);
-                                    //
-
-                                    var map = L.map('map').setView([latUser, lonUser], 14);
-
-                                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                                        attribution: '&copy; OpenStreetMap contributors'
-                                    }).addTo(map);
-
-                                    // Marcador: Usuario
-                                    L.marker([latUser, lonUser]).addTo(map)
-                                        .bindPopup("Tu ubicación").openPopup();
-
-                                    // Marcador: Oferta
-                                    L.marker([latOferta, lonOferta]).addTo(map)
-                                        .bindPopup("<b>" + nombre + "</b><br>" + direccion);
-
-                                    // Línea recta entre el usuario y la oferta
-                                    L.polyline([[latUser, lonUser], [latOferta, lonOferta]], {
-                                        color: 'blue',
-                                        weight: 4,
-                                        opacity: 0.7,
-                                        dashArray: '6, 6'
-                                    }).addTo(map);
-
-
-                                    //Agregar mas aqui?
-
-                                  }, function () { alert("No se pudo obtener tu ubicación."); });
-
-
+                                    inicializarMapa(position.coords.latitude, position.coords.longitude);
+                                }, function () {
+                                    mostrarFormularioManual();
+                                });
                             } else {
-                                alert("Tu navegador no soporta geolocalización.");
+                                mostrarFormularioManual();
                             }
                         });
                     </script>
