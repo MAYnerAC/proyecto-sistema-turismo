@@ -287,9 +287,30 @@
                                 L.marker([latOferta, lonOferta]).addTo(map)
                                     .bindPopup("<b>" + nombre + "</b><br>" + direccion);
 
-                                L.polyline([[latUser, lonUser], [latOferta, lonOferta]], {
-                                    color: 'blue', weight: 4, opacity: 0.7, dashArray: '6,6'
-                                }).addTo(map);
+
+                                // Obtener ruta real usando OSRM
+                                var urlRuta = `https://router.project-osrm.org/route/v1/driving/${lonUser},${latUser};${lonOferta},${latOferta}?overview=full&geometries=geojson`;
+
+                                fetch(urlRuta)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.routes && data.routes.length > 0) {
+                                            var coords = data.routes[0].geometry.coordinates;
+                                            var latlngs = coords.map(function (coord) {
+                                                return [coord[1], coord[0]]; // Invertir [lon, lat] → [lat, lon]
+                                            });
+
+                                            L.polyline(latlngs, {
+                                                color: 'blue',
+                                                weight: 4,
+                                                opacity: 0.7
+                                            }).addTo(map);
+                                        } else {
+                                            console.log("No se encontró una ruta.");
+                                        }
+                                    })
+                                    .catch(err => console.error("Error al obtener ruta:", err));
+
                             }
 
                             function mostrarFormularioManual() {
@@ -310,7 +331,7 @@
 
                                         // Centrar mapa y crear marcador
                                         mapaSelector.setView(latlng, 15);
-                                        colocarMarcador(latlng);
+                                        colocarMarcador(latlng); // Marcar automáticamente
                                     })
                                     .addTo(mapaSelector);
 
